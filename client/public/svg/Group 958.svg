@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="Group_958" data-name="Group 958" transform="translate(-1353.5 -143.5)">
+    <path id="Icon_material-play-arrow" data-name="Icon material-play-arrow" d="M12,7.5v6.938l5.452-3.469Z" transform="translate(1347 140.5)" fill="#378381"/>
+    <path id="Path_903" data-name="Path 903" d="M13.594,0H1.406A1.406,1.406,0,0,0,0,1.406V13.594A1.406,1.406,0,0,0,1.406,15H13.594A1.406,1.406,0,0,0,15,13.594V1.406A1.406,1.406,0,0,0,13.594,0Zm.469,13.594a.469.469,0,0,1-.469.469H1.406a.469.469,0,0,1-.469-.469V1.406A.469.469,0,0,1,1.406.938H13.594a.469.469,0,0,1,.469.469Z" transform="translate(1354 144)" fill="#378381" stroke="#378381" stroke-width="1"/>
+  </g>
+</svg>
