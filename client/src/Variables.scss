@@ -1,12 +1,56 @@
+//fonts
+$Rubik-regular: 'Rubik-Regular';
+$Rubik-extra-bold-800: 'Rubik-ExtraBold';
+$Rubik-semi-bold-600: 'Rubik-SemiBold';
+$Rubik-medium-500: 'Rubik-Medium';
+
+@font-face {
+    font-family: $Rubik-regular;
+    src: url('./assets/fonts/Rubik/static/Rubik-Regular.ttf') format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $Rubik-extra-bold-800;
+    src: url('./assets/fonts/Rubik/static/Rubik-ExtraBold.ttf') format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $Rubik-medium-500;
+    src: url('./assets/fonts/Rubik/static/Rubik-Medium.ttf') format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $Rubik-semi-bold-600;
+    src: url('./assets/fonts/Rubik/static/Rubik-SemiBold.ttf') format('truetype');
+    font-style: normal;
+}
+
+
+
+//colors
 $body-color: #E0F4F5;
 $header-background: #f2f2f2;
 $white: #FFFFFF;
-$button-dark-color: #0C3249;
-$color3: #0C32490A;
+$dark-color: #0C3249;
+$opacity-black: #0C32490A;
 $red: #EA383899;
-$button-color: #378381;
+$main-color: #378381;
 $black: #000000;
-$color7: #00000029;
-$color8: #0C32494D;
-$color9: #2CC5A699;
+$opacity-dark-blue: #0C32494D;
+$secondary-color: #2CC5A699;
 $rubik-font: 'Rubik', sans-serif;
+$gray: #00000029;
+$success: #80DCC9;
+$fail: #F28787;
+$input-background-color: #F4F6F7;
+$border-color: #0C32497A;
+
+@mixin main-content {
+    border: 4px solid $dark-color;
+    background-color: $white;
+    width: 68.75vw;
+    border-radius: 10px;
+}

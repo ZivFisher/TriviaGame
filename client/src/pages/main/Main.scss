@@ -1,22 +1,25 @@
-.main{
+.main {
     height: 100vh;
 
-    .left-leaf{
+    .left-leaf {
         position: absolute;
         top: -10px;
         left: -120px;
     }
-    .right-leaf{
+
+    .right-leaf {
         position: absolute;
         top: -10px;
         right: -120px;
     }
-    .content{
+
+    .content {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        align-items: center;
         height: 100%;
         width: 100%;
+        padding-top: 6.9vh;
         position: relative;
         top: 0;
     }
