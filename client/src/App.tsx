@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 import { CreateQuiz } from './pages/CreateQuiz';
+import './App.scss';
 
 
 function App() {
@@ -11,8 +10,8 @@ function App() {
       <Routes>
         {/* <Route path='/' element={< Main /> }> 
     
+        <Route path='/create-quiz' element={<CreateQuiz />}></Route>
     </Route> */}
-    <Route path='/create-quiz' element={<CreateQuiz />}></Route>
       </Routes>
     </div>
   );

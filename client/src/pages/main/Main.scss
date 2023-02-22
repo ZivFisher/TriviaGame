@@ -1,0 +1,23 @@
+.main{
+    height: 100vh;
+
+    .left-leaf{
+        position: absolute;
+        top: -10px;
+        left: -120px;
+    }
+    .right-leaf{
+        position: absolute;
+        top: -10px;
+        right: -120px;
+    }
+    .content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        position: relative;
+        top: 0;
+    }
+}
