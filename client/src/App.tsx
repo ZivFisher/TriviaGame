@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { Loading } from './pages/loading/Loading';
 import { NotFoundContent } from './pages/not-found/NotFound';
-import { CreateQuiz } from './pages/CreateQuiz';
+import { CreateQuiz } from './pages/create-quiz-page/CreateQuiz';
 import { HomePage } from './pages/home-page/HomePage';
 import { Main } from './pages/main/Main';
 import { Login } from './components/login/Login';

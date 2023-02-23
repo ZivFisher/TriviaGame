@@ -1,0 +1,65 @@
+@import "../../Variables.scss";
+
+.answer-container {
+    margin-right: 3vw;
+    margin-bottom: 2vh;
+
+    .answer-input {
+        border: none;
+        border-bottom: 1px solid $black;
+        width: 32.23vw;
+        height: 4.07vh;
+
+        &:hover {
+            background-color: $opacity-black;
+        }
+    }
+
+    .upload-image {
+        margin-left: 1.3vw;
+        margin-right: 1vw;
+    }
+
+    .bin-answer-photo {
+        width: 22.48px;
+        opacity: 0.125;
+    }
+
+    .answer-option-div {
+        display: inline-block;
+        margin-bottom: -20px;
+    }
+
+    .mobile-answer-container {
+        display: flex;
+    }
+
+    .mobile-answer-div {
+        display: flex;
+        border: 1px solid $gray;
+        width: fit-content;
+        border-radius: 5px;
+        height: 5vh;
+        background-color: $gray;
+    }
+
+    .mobile-answer-input {
+        border: none;
+        outline: none;
+        width: 30vw;
+        background-color: $gray;
+    }
+
+    .mobile-image-photo {
+        width: 30px;
+        height: 25px;
+        margin-left: 0.8vw;
+        margin-top: 1.1vh;
+    }
+
+    .mobile-bin-answer-photo {
+        width: 20px;
+        margin-right: 0.8vw;
+        opacity: 0.2;
+    }
+}

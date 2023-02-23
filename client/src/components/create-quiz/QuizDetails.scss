@@ -1,39 +1,42 @@
+@import "../../Variables.scss";
+
 .quiz-name-container {
     display: flex;
     justify-content: right;
     align-items: center;
     width: 68.75vw;
-    height: 18.8888888889;
+    height: 18.88vh;
     border-radius: 10px;
-    border: 4px solid #0C3249;
+    border: 4px solid $dark-color;
     margin: 0 auto;
     margin-top: 17px;
     padding: 0.7vw;
+    background-color: $white;
 
-    .quiz-details-input {
+    .details-input {
         display: block;
         margin: 2.77vh 0;
-        border: 1px solid white;
-        color: #0C3249;
+        border: 1px solid $white;
+        color: $dark-color;
         margin-right: 1.04vw;
 
         &:hover {
-            border: 1px solid #cdd0d2;
+            border: 1px solid #cdd0d2; //unique color
             border-radius: 5px;
         }
     }
 
-    .add-quiz-image {
+    .upload-image {
         width: 20.291vw;
         height: 17.81vh;
-        background-color: rgba(12, 50, 73, 0.047);
+        background-color: $opacity-dark-blue;
         display: flex;
         justify-content: center;
         align-items: center;
         margin-right: 1.5vw;
     }
 
-    #quiz-name-input {
+    .name-input {
         text-align: right;
         letter-spacing: 0;
         width: 18.6vw;
@@ -41,7 +44,7 @@
         font-size: 42px;
     }
 
-    #quiz-description-input {
+    .description-input {
         width: 43vw;
         height: 24px;
         font-size: 20px;
@@ -49,30 +52,30 @@
         margin-bottom: 30px;
     }
 
-    #quiz-name-input-phone {
+    .name-input-phone {
         display: block;
         width: 45vw;
         height: 3vh;
         margin: 1vh;
-        background-color: #EDF0F299;
-        border: 0.5px solid #0c324932;
+        background-color: $input-background-color;
+        border: 0.5px solid $dark-color;
     }
 
-    #quiz-description-input-phone {
+    .description-input-phone {
         height: 3vh;
         display: block;
         width: 45vw;
         margin: 1vh;
-        background-color: #EDF0F299;
-        border: 0.5px solid #0c324932;
+        background-color: $input-background-color;
+        border: 0.5px solid $dark-color;
     }
+
 }
-
 
 
 @media only screen and (max-width: 600px) {
     .quiz-name-container {
-        color: #0C3249;
+        color: $dark-color;
         flex-direction: column;
         border: none;
         height: 100vh;
@@ -80,17 +83,18 @@
         padding: 0;
         margin: 0;
 
-        .quiz-input-div {
+        .input-div {
             margin-top: 2vh;
         }
-
-        .add-quiz-image {
-            order: 3;
-            margin-top: 5vh;
-            flex-direction: column;
-            gap: 0.9vh;
-            width: 60vw;
-            color: #738793;
-        }
     }
+
+    .upload-image {
+        order: 3;
+        margin-top: 5vh;
+        flex-direction: column;
+        gap: 0.9vh;
+        width: 30vh;
+        color: #738793; //unique color
+    }
+
 }
