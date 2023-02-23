@@ -1,0 +1,29 @@
+@import '../../Variables.scss';
+
+.not-found-div{
+    margin: 0;
+    padding: 0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 27vh;
+    margin-top: 15vh;
+    gap: 2vw;
+    .number-par{
+        font-size: 11rem;
+        font-weight: 600;
+        color: $dark-color;
+        opacity: 0.6;
+    }
+    .think-monkey{
+        width: 9.7rem;
+    }
+}
+
+.text-par{
+    color: $dark-color;
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+

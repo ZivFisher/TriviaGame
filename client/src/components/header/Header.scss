@@ -1,6 +1,6 @@
 @import '../../Variables.scss';
 
-.header {
+.pc-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,5 +45,9 @@
         color: #5d635d;
       }
     }
+  }
+
+  .create-quiz-btn {
+    text-decoration: none;
   }
 }
