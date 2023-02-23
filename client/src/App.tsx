@@ -6,6 +6,9 @@ import { HomePage } from './pages/home-page/HomePage';
 import { Main } from './pages/main/Main';
 import { Login } from './components/login/Login';
 import './App.scss';
+import { QuizNickname } from './pages/quiz-nickname/QuizNickname';
+import { Main } from './pages/main/Main';
+
 
 
 function App() {
@@ -18,6 +21,7 @@ function App() {
           <Route path='/create-quiz' element={<CreateQuiz />}></Route>
           <Route path='home-page' element={<HomePage />}></Route>
           <Route path='login' element={<Login />}></Route>
+          <Route path='quiz-nickname' element={<QuizNickname />}></Route>
           <Route path='/*' element={<NotFoundContent />}></Route>
         </Route>
       </Routes>
