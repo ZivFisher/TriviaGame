@@ -3,12 +3,13 @@ import { Route, Routes } from 'react-router-dom';
 import { Loading } from './pages/loading/Loading';
 import { NotFoundContent } from './pages/not-found/NotFound';
 import { CreateQuiz } from './pages/CreateQuiz';
-import './App.scss';
 import { HomePage } from './pages/home-page/HomePage';
 import { Main } from './pages/main/Main';
+import './App.scss';
 
 
 function App() {
+
   return (
     <div className="App">
       <Routes>

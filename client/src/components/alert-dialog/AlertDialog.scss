@@ -1,0 +1,64 @@
+@import "../../Variables.scss";
+
+.dialog-box {
+    padding: 3vh 2vw;
+    height: 32vh;
+    width: 40vw;
+
+    .dialog-title {
+        font-weight: bold;
+    }
+
+    .dialog-actions {
+        padding-top: 5vh;
+
+        .cancel-btn {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .confirm-btn {
+            border-radius: 16px;
+            width: 8vw;
+            height: 5vh;
+            font-weight: bold;
+        }
+    }
+}
+
+
+//mobile devices
+@media screen and (max-width: 600px) {
+
+    .dialog-box {
+        padding: 6vh 3vw 3vh 3vw;
+        width: 46vw;
+    }
+
+    .dialog-title {
+        font-size: 1.6rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 0;
+        margin-bottom: 4vh;
+
+    }
+
+    .dialog-content {
+        text-align: center;
+        padding: 0;
+    }
+
+    .dialog-actions {
+        display: flex;
+        justify-content: center;
+
+        .cancel-btn {
+            width: 5vw;
+        }
+
+        .confirm-btn {
+            padding: 2vh 8vw;
+        }
+    }
+}
