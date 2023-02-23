@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { NotFoundContent } from './pages/not-found/NotFound';
 import { CreateQuiz } from './pages/CreateQuiz';
 import './App.scss';
 import { HomePage } from './pages/home-page/HomePage';
@@ -11,9 +12,9 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={< Main />}>
-
           <Route path='/create-quiz' element={<CreateQuiz />}></Route>
           <Route path='home-page' element={<HomePage />}></Route>
+          <Route path='/*' element={<NotFoundContent />}></Route>
         </Route>
       </Routes>
     </div>
