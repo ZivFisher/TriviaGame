@@ -1,11 +1,8 @@
 @import './Variables.scss';
 
-
-body * {
-  font-family: 'Rubik', sans-serif;
-}
-
 body {
+  background-color: $body-color;
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
   background-color: $body-color;
@@ -15,5 +12,9 @@ body {
 @media only screen and (max-width: 600px) {
   html {
     font-size: 10px;
+  }
+
+  body {
+    background-color: $white;
   }
 }

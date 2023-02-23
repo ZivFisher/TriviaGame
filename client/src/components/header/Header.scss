@@ -1,0 +1,49 @@
+@import '../../Variables.scss';
+
+.pc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vh 4vw;
+  background-color: $header-background;
+  position: relative;
+  z-index: 2;
+  border-bottom: 4px solid $button-dark-color;
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 4vh;
+      margin-right: 1vw;
+    }
+
+    .header-title {
+      margin: 0;
+      font-weight: bold;
+      color: $button-dark-color;
+    }
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+
+    .header-divider {
+      margin: 0 1vw;
+      color: $button-dark-color;
+    }
+
+    .header-link {
+      color: $button-dark-color;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: #5d635d;
+      }
+    }
+  }
+}
