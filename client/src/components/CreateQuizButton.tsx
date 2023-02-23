@@ -12,6 +12,7 @@ const CustomButton = styled(Button)({
     lineHeight: 1.5,
     backgroundColor: '#378381',
     fontWeight: 'bold',
+    textDecoration: 'none',
     '&:hover': {
         backgroundColor: '#0069d9',
         borderColor: '#0062cc',

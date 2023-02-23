@@ -1,4 +1,4 @@
-.main {
+.main-area {
   height: 100vh;
 
   .left-leaf {
@@ -16,8 +16,10 @@
     width: 130px;
   }
 
-  .content {
+  .main-content {
     position: relative;
     top: 0;
+    display: flex;
+    justify-content: center;
   }
 }
