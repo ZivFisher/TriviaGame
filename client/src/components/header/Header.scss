@@ -6,7 +6,8 @@
   align-items: center;
   padding: 2vh 4vw;
   background-color: $header-background;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 2;
   border-bottom: 4px solid $dark-color;
 
