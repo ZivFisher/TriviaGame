@@ -7,6 +7,8 @@ import { Main } from './pages/main/Main';
 import { Login } from './components/login/Login';
 import { QuizNickname } from './pages/quiz-nickname/QuizNickname';
 import './App.scss';
+import { ScorePage } from './pages/score-page/ScorePage';
+
 
 
 
@@ -23,6 +25,7 @@ function App() {
           <Route path='login' element={<Login />}></Route>
           <Route path='quiz-nickname' element={<QuizNickname />}></Route>
           <Route path='/*' element={<NotFoundContent />}></Route>
+          <Route path='score-board' element={<ScorePage />}></Route>
         </Route>
       </Routes>
     </div >

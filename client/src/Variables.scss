@@ -6,6 +6,7 @@ $Rubik-medium-500: 'Rubik-Medium';
 $Rubik-light-300: 'Rubik-Light';
 
 
+
 @font-face {
     font-family: $Rubik-regular;
     src: url('./assets/fonts/Rubik/static/Rubik-Regular.ttf') format('truetype');
@@ -55,9 +56,12 @@ $fail: #F28787;
 $input-background-color: #F4F6F7;
 $border-color: #0C32497A;
 
+
 @mixin main-content {
     border: 4px solid $dark-color;
     background-color: $white;
     width: 68.75vw;
     border-radius: 10px;
+    margin-right: auto;
+    margin-left: auto;
 }
