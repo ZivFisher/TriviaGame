@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             username: "root",
             password: "z10mz10m",
             type: "mysql",
-            database: "quiz_game_db",
+            database: "quiz_game",
             port: 3306,
             synchronize: true,
             logging: true,
