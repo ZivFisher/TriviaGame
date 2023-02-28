@@ -9,11 +9,7 @@ export const ComputerHeader: React.FC = () => {
       <nav className="header-nav">
         <Button
           variant="contained"
-          sx={{
-            width: 130,
-            height: 35,
-            fontWeight: "bold"
-          }}
+          className='create-quiz-btn'
         >
           יצירת חידון
         </Button>

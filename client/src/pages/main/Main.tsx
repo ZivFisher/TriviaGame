@@ -19,7 +19,6 @@ export const Main: React.FC = () => {
                 <img className='left-leaf' src='./svg/Group924.svg' alt='' />
                 <div className="main-content">
                     <Outlet />
-
                 </div>
             </>}
         </div>

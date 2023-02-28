@@ -1,0 +1,142 @@
+@import '../../Variables.scss';
+
+.full-size-container {
+    .register-login-container {
+        @include main-content;
+        position: relative;
+        height: 68vh;
+        display: flex;
+        flex-direction: row;
+        padding-top: 5vh;
+        margin-top: 6vh;
+
+        .right-leaf-img {
+            display: none;
+        }
+
+        .left-side {
+            flex: 4;
+            display: flex;
+            justify-content: right;
+
+            .register-login-img {
+                width: 20vw;
+            }
+        }
+
+        .right-side {
+            flex: 5;
+            padding-right: 6.04vw;
+
+            .register-login-titles {
+                margin-bottom: 5vh;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .full-size-container {
+        .register-login-container {
+            .right-side {
+                .register-login-titles {
+                    margin-bottom: 2.6vh;
+
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .full-size-container {
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+
+        .register-login-container {
+
+            position: relative;
+            flex-direction: column;
+            width: 95vw;
+            height: 95vh;
+            margin: 2.5vh 2.5vw;
+            box-sizing: border-box;
+            z-index: 1;
+            padding-top: 14vh;
+
+            .right-leaf-img {
+                display: block;
+                position: absolute;
+                z-index: 2;
+                top: -11vh;
+                right: -14vw;
+                width: 30vw;
+            }
+
+            .right-side {
+                padding-right: 0;
+            }
+
+            .left-side {
+                flex: 1;
+
+                .register-login-img {
+                    position: absolute;
+                    z-index: 2;
+                    bottom: -10vh;
+                    left: -13vw;
+                    width: 50vw;
+                    transform: rotate(10deg);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .full-size-container {
+
+        .register-login-container {
+            .right-leaf-img {
+                width: 50vw;
+                right: -21vw;
+                top: -14vh;
+            }
+
+            .left-side {
+
+                .register-login-img {
+                    width: 60vw;
+                    left: -15vw;
+                    bottom: -13vh;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .full-size-container {
+        .register-login-container {
+            padding-top: 10.5vh;
+
+            .right-leaf-img {
+                width: 44vw;
+                top: -11vh;
+                right: -19vw;
+            }
+
+            .left-side {
+
+                .register-login-img {
+                    width: 70vw;
+                    left: -18vw;
+                    bottom: -12vh;
+                }
+
+            }
+        }
+    }
+}

@@ -45,5 +45,11 @@
         color: #5d635d;
       }
     }
+
+    .MuiButton-root.create-quiz-btn {
+      background-color: $main-color;
+      font-weight: bold;
+      padding: 0.8vh 2.5vw;
+    }
   }
 }
