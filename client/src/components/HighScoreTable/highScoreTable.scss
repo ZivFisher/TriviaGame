@@ -1,0 +1,72 @@
+@import '../../Variables.scss';
+@import '../../Mixin.scss';
+
+.score-table {
+    color: $dark-color;
+
+    th,
+    td {
+        padding: 1rem;
+        text-align: right;
+        padding-left: 5rem;
+        width: fit-content;
+        font-size: 1.3rem;
+    }
+
+
+    .score-bold {
+        font-weight: bold;
+    }
+
+    .score-index {
+        padding-left: 1rem;
+    }
+
+    .score-date {
+        font-family: $Rubik-light-300;
+    }
+
+    .score-crown {
+        margin-right: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .score-table {
+        margin-top: 3rem;
+        margin-left: auto;
+        margin-right: auto;
+
+        th,
+        td {
+            font-size: 1.2rem;
+            padding-top: 1.75rem;
+        }
+
+
+        .score-date {
+            font-family: $Rubik-light-300;
+        }
+
+        .score-date-margin {
+            padding-right: 5rem;
+        }
+
+
+        .score-index {
+            padding-left: 0rem;
+        }
+
+        .score-name {
+            width: max-content;
+            display: flex;
+            align-items: center;
+        }
+
+        .score-crown {
+            margin-right: 1rem;
+            width: 1.75rem;
+        }
+    }
+}

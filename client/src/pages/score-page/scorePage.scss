@@ -1,0 +1,32 @@
+@import '../../Variables.scss';
+@import '../../Mixin.scss';
+
+
+.score-page-container {
+    @include main-content();
+    position: relative;
+    width: 68.75vw;
+    margin-top: 70px;
+    padding-right: 2.9rem;
+    height: 60vh;
+
+
+    .score-page-monkey {
+        position: absolute;
+        top: 35rem;
+        left: 79rem;
+        width: 7.5rem;
+        height: 5.5rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .score-page-container {
+        border: none;
+        padding-right: 1rem;
+        width: 100vw;
+        height: 100vh;
+        margin-top: 0;
+    }
+}

@@ -1,0 +1,19 @@
+@import '../../Variables.scss';
+@import '../../Mixin.scss';
+
+.score-title-container {
+
+    .score-board-title {
+        color: $dark-color;
+        font-size: 2rem;
+        font-family: $Rubik-medium-500;
+        margin-bottom: 0;
+    }
+
+    .score-board-quiz-name {
+        margin-top: 1rem;
+        color: $dark-color;
+        font-size: 1.33rem;
+        font-family: $Rubik-medium-500;
+    }
+}
