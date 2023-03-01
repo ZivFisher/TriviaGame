@@ -9,7 +9,7 @@ interface MyProps {
 export const MobileHeader: React.FC<MyProps> = ({ title, showLogo }) => {
     return (
         <header className='generic-mobile-header'>
-            <img src="./svg/back.svg" alt="" />
+            <img src="./svg/back.svg" alt="go back" />
             <h1>{title}</h1>
             {showLogo ?
                 <img
