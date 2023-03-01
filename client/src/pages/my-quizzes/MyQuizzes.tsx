@@ -4,6 +4,7 @@ import { QuizCard } from "../../components/quiz-card/QuizCard";
 import { QuizCardInterface } from "../../interfaces/myquizzesInterface";
 import { useMediaQuery } from "@mui/material";
 import './my-quizzes.scss';
+import { MobileHeader } from "../../components/mobile-header/MobileHeader";
 
 
 export const MyQuizzes: React.FC = () => {
@@ -22,11 +23,17 @@ export const MyQuizzes: React.FC = () => {
 
 
     return (
-        <div>
+        <div className="my-quizzes-div">
+            {!isBigScreen &&
+                <MobileHeader
+                    showLogo={false}
+                    title="החידונים שלי"
+                />
+            }
             <div className="my-quizzes-container">
                 {isBigScreen
                     ? <h1 className="my-quizzes-title">החידונים שלי:</h1>
-                    : <></>
+                    : null
                 }
                 <div className="cards-holder">
                     {cards.length === 0
@@ -38,7 +45,6 @@ export const MyQuizzes: React.FC = () => {
                                 title={card.title}
                                 description={card.description}
                             />))
-
                     }
                 </div>
             </div>

@@ -1,9 +1,15 @@
 @import '../../Variables.scss';
 
+.my-quizzes-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    height: 80vh;
+}
 
 .my-quizzes-container {
     @include main-content();
-    margin-top: 3vh;
 }
 
 .my-quizzes-title {
@@ -15,7 +21,7 @@
 }
 
 .cards-holder {
-    height: 75vh;
+    height: 65vh;
     overflow: auto;
 
     &::-webkit-scrollbar {

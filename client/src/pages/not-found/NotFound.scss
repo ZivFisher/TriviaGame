@@ -1,29 +1,35 @@
 @import '../../Variables.scss';
 
-.not-found-div{
-    margin: 0;
-    padding: 0;
-    display:flex;
+.not-found-container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 27vh;
-    margin-top: 15vh;
-    gap: 2vw;
-    .number-par{
-        font-size: 11rem;
-        font-weight: 600;
+    width: 100vw;
+    height: 80vh;
+
+    .not-found-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 27vh;
+        gap: 2vw;
+
+        .number-par {
+            font-size: 11rem;
+            font-weight: 600;
+            color: $dark-color;
+            opacity: 0.6;
+        }
+
+        .think-monkey {
+            width: 9.7rem;
+        }
+    }
+
+    .text-par {
         color: $dark-color;
-        opacity: 0.6;
-    }
-    .think-monkey{
-        width: 9.7rem;
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
     }
 }
-
-.text-par{
-    color: $dark-color;
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: 700;
-}
-

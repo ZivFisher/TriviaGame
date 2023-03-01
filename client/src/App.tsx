@@ -14,6 +14,7 @@ import { Login } from './pages/login-register/login/Login';
 import { PlayQuizProvider } from "./contexts/PlayQuizContext";
 import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import './App.scss';
+import { Loading } from './pages/loading/Loading';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                 <ScorePage />
               </ScoreBoardProvider>} />
             <Route path='my-quizzes' element={<MyQuizzes />}></Route>
+            <Route path='loading' element={<Loading />} />
             <Route path='/*' element={<NotFoundContent />} />
           </Route>
         </Routes>

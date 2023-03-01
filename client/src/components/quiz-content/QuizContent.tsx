@@ -117,7 +117,16 @@ export const QuizContent: React.FC = () => {
                                     alt="add question"
                                     className="add-question-btn"
                                 />הוספת שאלה</button>
-                            <button className='finish-edit'>סיום</button>
+                            <AlertDialog
+                                question="שים לב"
+                                description="אם תשמור את השינויים לוח התוצאות שלך יתאפס"
+                                onConfirm={handleShare}
+                                showCancelButton={false}
+                                triggerButton={(onClick: () => void) => <button
+                                    className='finish-edit'
+                                    onClick={onClick}
+                                >סיום</button>}
+                            />
                         </div>}
                 </div>
                 <div>

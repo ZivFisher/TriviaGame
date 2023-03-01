@@ -1,0 +1,17 @@
+@import "../../../Variables.scss";
+
+.progress-bar-div {
+    .MuiBox-root {
+        .MuiLinearProgress-root {
+            background-color: $white;
+            height: 1vh;
+            border-radius: 1.5px;
+
+            .MuiLinearProgress-bar {
+                background-color: $main-color;
+
+            }
+        }
+
+    }
+}
