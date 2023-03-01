@@ -1,0 +1,212 @@
+@import '../../Variables.scss';
+@import '../../pages/play-quiz-page/PlayQuizPage.scss';
+
+@mixin playAnswer($width, $height, $border-radius) {
+    width: $width;
+    height: $height;
+    background: $opacity-black 0% 0% no-repeat padding-box;
+    border-radius: $border-radius;
+    transition: 0.4s;
+
+    &:hover {
+        background: $gray;
+        cursor: default;
+    }
+}
+
+.question-indicator {
+    width: 90px;
+    height: 23px;
+    //Unique opacity - color given by stylist doesn't detail opacity(just pure black). Had to do it manually.
+    background: #00000058 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    color: $white;
+    font-size: 15px;
+    padding: 2px;
+    margin: 10px 0 0 10px;
+
+    .question-indicator-p {
+        margin: 2px 0 0 0;
+        text-align: center;
+    }
+}
+
+.quiz-play-board {
+    width: 70%;
+    color: $dark-color;
+    display: flex;
+    margin-left: 2vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-self: flex-end;
+
+    .question-img {
+        width: 14vw;
+        height: 11vh;
+    }
+
+    .question-title {
+        width: 70%;
+        height: 10%;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 2px solid $main-color;
+        font-size: 1.2rem;
+    }
+
+    .play-answer-container {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 30px;
+
+        .play-answer {
+            @include playAnswer(370px, 11%, 50px);
+
+            .play-answer-p {
+                width: 100%;
+                height: 100%;
+                border-radius: 50px;
+                padding: 0 10px 3px 0;
+                font-size: 1rem;
+                margin: 0px;
+                display: flex;
+                align-items: center;
+
+                span {
+                    height: fit-content;
+                }
+            }
+        }
+    }
+
+    .play-answer-container-img {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .play-answer-img {
+            @include playAnswer(16vw, 16vh, 30px);
+            display: flex;
+            flex-direction: column;
+
+            .play-answer-p {
+                position: relative;
+                top: 5px;
+                z-index: 2;
+                display: flex;
+                justify-content: center;
+                margin: 5px 0 0 0;
+                font-size: 1rem;
+
+                span {
+                    z-index: 2;
+                    border-radius: 5px;
+                    background-color: #ffffff58;
+                    padding: 2px;
+                }
+            }
+
+            img {
+                position: relative;
+                bottom: 10px;
+                z-index: 1;
+                box-sizing: border-box;
+                width: 85%;
+                height: 85%;
+                padding: 5px;
+                align-self: center;
+            }
+        }
+    }
+
+    .play-answer-container,
+    .play-answer-container-img {
+        .wrong-answer {
+            background-color: $fail;
+
+            &:hover {
+                background-color: $fail;
+            }
+        }
+
+        .correct-answer {
+            background-color: $success;
+
+            &:hover {
+                background-color: $success;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .question-indicator {
+        position: relative;
+        z-index: 2;
+        margin-right: 30px;
+    }
+
+    .quiz-play-board {
+        height: 70%;
+        width: 100%;
+        position: relative;
+        bottom: 20px;
+        z-index: 1;
+
+        .question-img {
+            width: 78%;
+            height: 20vh;
+            position: relative;
+            bottom: 10px;
+        }
+
+        .question-title {
+            width: 85%;
+            font-size: 1.6rem;
+        }
+
+        .play-answer-container {
+            .play-answer {
+                width: 85%;
+                height: 15%;
+
+                .play-answer-p{
+                    font-size: 1.4rem;
+                }
+            }
+        }
+
+        .play-answer-container-img {
+            column-gap: 7px;
+            row-gap: 15px;
+
+
+            .play-answer-img {
+                row-gap: 20px;
+                width: 40%;
+
+                .play-answer-p {
+                    font-size: 1.4rem;
+                    position: initial;
+                }
+
+                img {
+                    height: 65%;
+
+                }
+            }
+        }
+    }
+
+}

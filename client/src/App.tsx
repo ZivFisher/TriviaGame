@@ -4,11 +4,14 @@ import { NotFoundContent } from './pages/not-found/NotFound';
 import { CreateQuiz } from './pages/create-quiz-page/CreateQuiz';
 import { HomePage } from './pages/home-page/HomePage';
 import { Main } from './pages/main/Main';
-import { Login } from './pages/login-register/login/Login';
+import { PlayQuizPage } from './pages/play-quiz-page/PlayQuizPage';
 import { QuizNickname } from './pages/quiz-nickname/QuizNickname';
+import { Login } from './pages/login-register/login/Login';
 import { Register } from './pages/login-register/register/Register';
-import './App.scss';
+import { PlayQuizProvider } from "./contexts/PlayQuizContext";
 import { ScorePage } from './pages/score-page/ScorePage';
+
+import './App.scss';
 
 
 
@@ -26,6 +29,11 @@ function App() {
           <Route path='login' element={<Login />}></Route>
           <Route path='register' element={<Register />}></Route>
           <Route path='quiz-nickname' element={<QuizNickname />}></Route>
+          <Route path='play-quiz' element={
+            <PlayQuizProvider>
+              <PlayQuizPage />
+            </PlayQuizProvider>}
+          ></Route>
           <Route path='/*' element={<NotFoundContent />}></Route>
           <Route path='score-board' element={<ScorePage />}></Route>
         </Route>
