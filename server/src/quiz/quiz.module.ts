@@ -9,9 +9,7 @@ import { QuizService } from './quiz.service';
   providers: [QuizService],
   exports: [QuizService],
   imports: [
-    TypeOrmModule.forFeature([
-      Quiz
-    ])
+    TypeOrmModule.forFeature([Quiz]),
   ]
 })
 export class QuizModule { }
