@@ -4,18 +4,18 @@ import { useState } from "react";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";
 import { Answer } from "../answer-interface/AnswerType";
 import { QuizDetails } from "../create-quiz/QuizDetails";
-import './QuizContent.scss';
 import { QuizContentQuestions } from "./QuizContentQuestions";
 import { MobileHeader } from "../mobile-header/MobileHeader";
 import { AlertDialog } from "../alert-dialog/AlertDialog";
+import './QuizContent.scss';
 
 export const QuizContent: React.FC = () => {
     const isBigScreen = useMediaQuery('(min-width:600px)');
     const {
-        setQuizDetails,
         questions,
         setQuestions,
-        setActiveQuestion
+        setActiveQuestion,
+        handleSave
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [questionId, setQuestionId] = useState<number>(2);
@@ -69,12 +69,10 @@ export const QuizContent: React.FC = () => {
         setIsNextPage(true);
     }
 
-    const handleSave = () => {
 
-    }
 
     const handleShare = () => {
-
+        //todo
     }
 
     return (
@@ -85,7 +83,7 @@ export const QuizContent: React.FC = () => {
                     <div className="share-and-save">
                         <AlertDialog
                             question="הקישור הועתק"
-                            description="מצויין! עכשיו אתה יכול לשתף את החדידון שלך עם חברים"
+                            description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
                             onConfirm={handleShare}
                             showCancelButton={false}
                             triggerButton={(onClick: () => void) => <button className="share-quiz" onClick={onClick}><img src="/svg/share.svg" className="share-quiz-photo" alt="share quiz" /></button>}
@@ -120,8 +118,8 @@ export const QuizContent: React.FC = () => {
                             <AlertDialog
                                 question="שים לב"
                                 description="אם תשמור את השינויים לוח התוצאות שלך יתאפס"
-                                onConfirm={handleShare}
-                                showCancelButton={false}
+                                onConfirm={handleSave}
+                                showCancelButton={true}
                                 triggerButton={(onClick: () => void) => <button
                                     className='finish-edit'
                                     onClick={onClick}
@@ -130,7 +128,11 @@ export const QuizContent: React.FC = () => {
                         </div>}
                 </div>
                 <div>
-                    {isBigScreen && <img src="/svg/plus.svg" alt="add question" onClick={addQuestion} className='add-answer-photo' />}
+                    {isBigScreen &&
+                        <img src="/svg/plus.svg"
+                            alt="add question"
+                            onClick={addQuestion}
+                            className='add-answer-photo' />}
                 </div>
             </div>
         </div>

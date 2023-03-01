@@ -1,5 +1,4 @@
 import { useMediaQuery } from "@mui/material";
-
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";
 import { Answer } from "../../interfaces/quizDetailInterface";
@@ -21,7 +20,7 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
     } = useQuizDetails();
 
     const isBigScreen = useMediaQuery('(min-width:600px)');
-    // Function to update list on drop
+
     const handleDrop = (droppedItem: any) => {
         // Ignore drop outside droppable container
         if (!droppedItem.destination) return;
@@ -57,6 +56,7 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
                                         ref={provided.innerRef}
                                         {...provided.dragHandleProps}
                                         {...provided.draggableProps}
+                                        key={question.id}
                                     >
                                         {activeQuestion !== index && isBigScreen
                                             ? <SavedQuestion

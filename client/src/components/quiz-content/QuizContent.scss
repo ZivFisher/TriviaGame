@@ -17,6 +17,7 @@
     font-size: 9px;
     font-weight: 510;
     border-radius: 6px;
+    cursor: pointer;
 }
 
 .item-container {
@@ -30,6 +31,7 @@
     text-align: center;
     border-radius: 8px;
     border: none;
+    cursor: pointer;
 }
 
 .save-quiz {
@@ -41,6 +43,7 @@
     color: $white;
     margin-right: 1vw;
     border: none;
+    cursor: pointer;
 }
 
 .share-quiz-photo {

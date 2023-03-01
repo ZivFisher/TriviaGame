@@ -26,7 +26,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
         markedAsCorrect,
         changeAnswerContent,
     } = useQuizDetails();
-    const [answerId, setAnswersId] = useState<number>(3);
+    const [answerId, setAnswersId] = useState<number>(questions[index].answers.length + 1);
 
     const addAnswer = (questionIndex: number): void => {
         if (questions[questionIndex].answers.length === 4) return;

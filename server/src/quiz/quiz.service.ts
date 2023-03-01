@@ -39,7 +39,7 @@ export class QuizService {
     }
 
     create(quizData: Quiz) {
-
+        console.log(111111)
         if (!quizData?.title || !quizData?.description) {
             throw new BadRequestException('Title and description are required');
         }

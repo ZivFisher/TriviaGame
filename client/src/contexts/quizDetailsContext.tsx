@@ -1,4 +1,5 @@
-import { Preview } from "@mui/icons-material";
+
+import axios from "axios";
 import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
 import { Answer, Question, Quiz } from "../interfaces/quizDetailInterface"
 
@@ -14,6 +15,7 @@ interface QuizDetailInterface {
     deleteQuestion: (questionId: number) => void;
     activeQuestion: number;
     setActiveQuestion: React.Dispatch<React.SetStateAction<number>>;
+    handleSave: () => void;
 }
 
 const QuizDetailsContext = createContext<QuizDetailInterface | null>(null);
@@ -28,6 +30,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     const [quizDetails, setQuizDetails] = useState<Quiz>({
         title: '',
         description: '',
+        image: 'example.img'
     });
     const [questions, setQuestions] = useState<Question[]>([
         {
@@ -60,9 +63,18 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
 
     const deleteAnswer = (answerId: number, questionIndex: number): void => {
         if (questions[questionIndex].answers.length === 2) return;
-        const tempArr = [...questions];
-        tempArr[questionIndex].answers = tempArr[questionIndex].answers.filter(answer => answer.id !== answerId)
-        setQuestions(tempArr);
+        const answerToDelete = questions[questionIndex].answers.find((answer) => answer.id === answerId);
+        if (answerToDelete?.isCorrect) return;
+
+        setQuestions((prevQuestions) => {
+            const updatedQuestions = [...prevQuestions];
+            const question = updatedQuestions[questionIndex];
+            const updatedAnswers = question.answers.filter((answer) => answer.id !== answerId);
+            const updatedQuestion = { ...question, answers: updatedAnswers };
+            updatedQuestions[questionIndex] = updatedQuestion;
+
+            return updatedQuestions;
+        });
     }
 
     const markedAsCorrect = (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number): void => {
@@ -79,12 +91,6 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     }
 
     const changeAnswerContent = (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number): void => {
-        const tempAnswersArr = [...questions[questionIndex].answers];
-        tempAnswersArr.forEach((item) => {
-            if (item.id === answerId) {
-                item.content = event.target.value;
-            }
-        })
         setQuestions(prev => {
             prev[questionIndex].answers.forEach((item) => {
                 if (item.id === answerId) {
@@ -93,6 +99,20 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             })
             return [...prev];
         });
+    }
+
+    const handleSave = async () => {
+        try {
+            const { data } = await axios
+                .post<Quiz | null>(`http://localhost:8080/api/quiz`, {
+                    title: quizDetails.title,
+                    description: quizDetails.description,
+                    image: quizDetails.image,
+                    questions: questions
+                })
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -107,8 +127,8 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             markedAsCorrect,
             changeAnswerContent,
             activeQuestion,
-            setActiveQuestion
-
+            setActiveQuestion,
+            handleSave
         }}>
             {children}
         </QuizDetailsContext.Provider>
