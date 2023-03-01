@@ -6,6 +6,7 @@ import { HomePage } from './pages/home-page/HomePage';
 import { Main } from './pages/main/Main';
 import { PlayQuizPage } from './pages/play-quiz-page/PlayQuizPage';
 import { QuizNickname } from './pages/quiz-nickname/QuizNickname';
+import { MyQuizzes } from './pages/my-quizzes/MyQuizzes';
 import { QuizDetailsProvider } from './contexts/quizDetailsContext';
 import { Register } from './pages/login-register/register/Register';
 import { ScorePage } from './pages/score-page/ScorePage';
@@ -40,6 +41,7 @@ function App() {
             </PlayQuizProvider>}
           ></Route>
           <Route path='/*' element={<NotFoundContent />}></Route>
+          <Route path='my-quizzes' element={<MyQuizzes />}></Route>
           <Route path='score-board' element={<ScorePage />}></Route>
         </Route>
       </Routes>

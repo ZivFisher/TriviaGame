@@ -1,0 +1,59 @@
+@import '../../Variables';
+
+.no-quizzes-container {
+
+    margin: 5vw auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .no-quizzes-question {
+        font-family: $Rubik-medium-500;
+        color: $dark-color;
+        font-weight: normal;
+        opacity: 0.7;
+    }
+
+    .no-quizzes-button {
+        text-decoration: none;
+        width: 18vw;
+        height: 6vh;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-family: $Rubik-bold;
+        letter-spacing: 0;
+        color: $white;
+        background: $main-color;
+        border-bottom: 7px solid #216361;
+        margin-top: 2vh;
+        cursor: pointer;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .no-quizzes-container {
+
+        .no-quizzes-monkey {
+            width: 30vw;
+            margin-top: 5vh;
+        }
+
+        .no-quizzes-question {
+            font-family: $Rubik-regular;
+            font-size: 1.5rem;
+            margin-top: 5vh;
+        }
+
+        .no-quizzes-button {
+            width: 57vw;
+            font-size: 1.8rem;
+            margin-top: 5vh;
+        }
+    }
+}

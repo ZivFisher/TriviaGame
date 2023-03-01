@@ -1,0 +1,31 @@
+@import '../../Variables.scss';
+
+
+.my-quizzes-container {
+    @include main-content();
+    margin-top: 3vh;
+}
+
+.my-quizzes-title {
+    margin-right: 3vh;
+    font-family: $Rubik-medium-500;
+    color: $dark-color;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.cards-holder {
+    height: 75vh;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .my-quizzes-container {
+        border: none;
+    }
+
+}
