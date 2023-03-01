@@ -6,25 +6,30 @@ import { HomePage } from './pages/home-page/HomePage';
 import { Main } from './pages/main/Main';
 import { PlayQuizPage } from './pages/play-quiz-page/PlayQuizPage';
 import { QuizNickname } from './pages/quiz-nickname/QuizNickname';
-import { Login } from './pages/login-register/login/Login';
+import { QuizDetailsProvider } from './contexts/quizDetailsContext';
 import { Register } from './pages/login-register/register/Register';
-import { PlayQuizProvider } from "./contexts/PlayQuizContext";
 import { ScorePage } from './pages/score-page/ScorePage';
-
+import { Login } from './pages/login-register/login/Login';
+import { PlayQuizProvider } from "./contexts/PlayQuizContext";
 import './App.scss';
 
 
 
 
 
-function App() {
 
+
+function App() {
   return (
     <div className="App">
       <Routes>
         <Route path='/' element={< Main />}>
           <Route path='/loading' element={<Loading />}></Route>
-          <Route path='/create-quiz' element={<CreateQuiz />}></Route>
+          <Route path='/create-quiz' element={
+            <QuizDetailsProvider>
+              <CreateQuiz />
+            </QuizDetailsProvider>}
+          ></Route>
           <Route path='home-page' element={<HomePage />}></Route>
           <Route path='login' element={<Login />}></Route>
           <Route path='register' element={<Register />}></Route>

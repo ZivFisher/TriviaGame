@@ -1,7 +1,12 @@
 .generic-mobile-header {
     display: flex;
     justify-content: space-around;
-    padding: 2vh 5vw;
+    width: 100vw;
+    padding-bottom: 2vh;
+    position: sticky;
+    top: 0;
+    right: 0;
+    border-bottom: 3px solid rgb(247, 244, 244); //unique color
 
     .empty-div {
         width: 30px;

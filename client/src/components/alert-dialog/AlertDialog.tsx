@@ -37,7 +37,7 @@ export const AlertDialog: FC<AlertDialogProps> = ({
     };
 
     return (
-        <div>
+        <>
             {triggerButton(() => setOpen(true))}
 
             <Dialog
@@ -91,6 +91,6 @@ export const AlertDialog: FC<AlertDialogProps> = ({
                     </DialogActions>
                 </Box>
             </Dialog>
-        </div >
+        </ >
     );
 }
