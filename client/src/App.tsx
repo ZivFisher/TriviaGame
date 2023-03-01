@@ -12,6 +12,7 @@ import { Register } from './pages/login-register/register/Register';
 import { ScorePage } from './pages/score-page/ScorePage';
 import { Login } from './pages/login-register/login/Login';
 import { PlayQuizProvider } from "./contexts/PlayQuizContext";
+import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import './App.scss';
 
 
@@ -32,7 +33,10 @@ function App() {
             <Route path='quiz-nickname' element={<QuizNickname />} />
             <Route path='quiz-results' element={<QuizResults />} />
             <Route path='play-quiz' element={<PlayQuizPage />} />
-            <Route path='score-board' element={<ScorePage />} />
+            <Route path='score-board' element={
+              <ScoreBoardProvider>
+                <ScorePage />
+              </ScoreBoardProvider>} />
             <Route path='my-quizzes' element={<MyQuizzes />}></Route>
             <Route path='/*' element={<NotFoundContent />} />
           </Route>

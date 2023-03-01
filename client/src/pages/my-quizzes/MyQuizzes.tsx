@@ -9,6 +9,7 @@ import './my-quizzes.scss';
 export const MyQuizzes: React.FC = () => {
 
     const isBigScreen = useMediaQuery('(min-width: 600px)');
+
     const [cards, setCards] = React.useState<QuizCardInterface[]>([
         {
             id: 1,

@@ -110,7 +110,7 @@ export class QuizService {
 
 
     delete(id: string) {
-        return this.quizRepository.delete(id)
+        return this.quizRepository.delete(id);
     }
 
     async getQuizDetails(id: string) {
@@ -118,7 +118,7 @@ export class QuizService {
             {
                 where: { id },
                 relations: ['questions', 'questions.answers']
-            })
+            });
 
         if (quiz.length === 0) {
             throw new NotFoundException(`Quiz with ID ${id} not found`);
