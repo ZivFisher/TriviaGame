@@ -16,14 +16,11 @@ export const QuizContent: React.FC = () => {
         setQuestions,
         setActiveQuestion,
         handleSave,
-        getQuiz
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [questionId, setQuestionId] = useState<number>(2);
 
-    // useEffect(() => {
-    //     getQuiz('75902682-ea73-4db9-974f-4e8ba24db568')
-    // }, [])
+
 
     const addQuestion = (): void => {
         if (questions.length === 10) return;

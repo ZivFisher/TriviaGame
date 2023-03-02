@@ -1,8 +1,8 @@
 
 import axios from "axios";
 import { title } from "process";
-import React, { useState, createContext, useContext, FC, ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface"
 
 interface QuizDetailInterface {
@@ -45,7 +45,13 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     ])
     const [activeQuestion, setActiveQuestion] = useState<number>(questions.length - 1);
     const navigate = useNavigate();
+    const { state } = useLocation();
 
+    useEffect(() => {
+        if (state !== null) {
+            getQuiz('75902682-ea73-4db9-974f-4e8ba24db568');
+        }
+    }, [])
 
     const getQuiz = async (id: string) => {
         try {
@@ -129,13 +135,25 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         });
         if (answerCheck || questionCheck || quizCheck) return;
         try {
-            const { data } = await axios
-                .post<Quiz | null>(`http://localhost:8080/api/quiz`, {
-                    title: quizDetails.title,
-                    description: quizDetails.description,
-                    image: quizDetails.image,
-                    questions: questions
-                })
+            if (quizDetails.id) {
+                const { data } = await axios
+                    .post<Quiz | null>(`http://localhost:8080/api/quiz`, {
+                        title: quizDetails.title,
+                        description: quizDetails.description,
+                        image: quizDetails.image,
+                        questions: questions
+                    })
+            } else {
+                const { data } = await axios
+                    .post<Quiz | null>(`http://localhost:8080/api/quiz`, {
+                        id: quizDetails.id,
+                        title: quizDetails.title,
+                        description: quizDetails.description,
+                        image: quizDetails.image,
+                        questions: questions
+                    })
+            }
+
             navigate('/my-quizzes');
         } catch (error) {
             console.error(error);

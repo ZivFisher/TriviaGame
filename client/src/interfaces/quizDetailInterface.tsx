@@ -14,15 +14,16 @@ export interface Question {
 }
 
 export interface Quiz {
+    id?: string;
     title: string;
     description: string;
-    image?: string;
+    image: string;
 }
 
 export interface EditQuiz {
     id: string;
     title: string;
     description: string;
-    image?: string;
+    image: string;
     questions: Question[];
 }
