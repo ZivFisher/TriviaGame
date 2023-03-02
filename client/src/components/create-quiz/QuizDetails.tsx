@@ -11,13 +11,10 @@ interface QuizDetailsProps {
 
 export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
     const isBigScreen: boolean = useMediaQuery('(min-width:600px)');
-    const [quizDescription, setQuizDescription] = useState<string>('');
-    const [quizName, setQuizName] = useState<string>('');
-    const { setQuizDetails } = useQuizDetails();
+    const { quizDetails, setQuizDetails } = useQuizDetails();
 
 
     const onChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuizDescription(event.target.value);
         setQuizDetails((prevState) => ({
             ...prevState,
             description: event.target.value,
@@ -25,7 +22,6 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
     }
 
     const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuizName(event.target.value);
         setQuizDetails((prevState) => ({
             ...prevState,
             title: event.target.value,
@@ -59,9 +55,8 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
                             className='details-input name-input'
                             placeholder='חידון ללא כותרת'
                             type="text"
-                            onClick={() => setQuizName('')}
                             onChange={(event) => onChangeTitle(event)}
-                            value={quizName}
+                            value={quizDetails.title}
                         />
                     </BootstrapTooltip>
                     : <div className='input-div'>
@@ -72,8 +67,7 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
                                 className='phone-input'
                                 type="text"
                                 onChange={(event) => onChangeTitle(event)}
-                                onClick={() => setQuizName('')}
-                                value={quizName}
+                                value={quizDetails.title}
                             />
                         </label>
                     </div>
@@ -84,9 +78,8 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
                             type="text"
                             className='details-input description-input'
                             placeholder='תיאור החידון'
-                            onClick={() => setQuizDescription('')}
                             onChange={(event) => onChangeDescription(event)}
-                            value={quizDescription}
+                            value={quizDetails.description}
                         />
                     </BootstrapTooltip>
                     : <div className='input-div'>
@@ -96,8 +89,7 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
                             id='description-input-phone'
                             className='phone-input'
                             onChange={(event) => onChangeDescription(event)}
-                            onClick={() => setQuizDescription('')}
-                            value={quizDescription}
+                            value={quizDetails.description}
                         />
                     </div>
                 }

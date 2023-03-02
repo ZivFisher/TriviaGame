@@ -18,3 +18,11 @@ export interface Quiz {
     description: string;
     image?: string;
 }
+
+export interface EditQuiz {
+    id: string;
+    title: string;
+    description: string;
+    image?: string;
+    questions: Question[];
+}

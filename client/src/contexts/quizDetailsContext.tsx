@@ -1,7 +1,9 @@
 
 import axios from "axios";
-import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
-import { Answer, Question, Quiz } from "../interfaces/quizDetailInterface"
+import { title } from "process";
+import React, { useState, createContext, useContext, FC, ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
+import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface"
 
 interface QuizDetailInterface {
     quizDetails: Quiz;
@@ -15,7 +17,8 @@ interface QuizDetailInterface {
     deleteQuestion: (questionId: number) => void;
     activeQuestion: number;
     setActiveQuestion: React.Dispatch<React.SetStateAction<number>>;
-    handleSave: () => void;
+    handleSave: () => Promise<void>;
+    getQuiz: (id: string) => Promise<void>;
 }
 
 const QuizDetailsContext = createContext<QuizDetailInterface | null>(null);
@@ -27,7 +30,7 @@ export const useQuizDetails = () => {
 }
 
 export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [quizDetails, setQuizDetails] = useState<Quiz>({
+    const [quizDetails, setQuizDetails] = useState<Quiz | EditQuiz>({
         title: '',
         description: '',
         image: 'example.img'
@@ -40,8 +43,25 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             { id: 2, content: '', isCorrect: false }]
         }
     ])
-
     const [activeQuestion, setActiveQuestion] = useState<number>(questions.length - 1);
+    const navigate = useNavigate();
+
+
+    const getQuiz = async (id: string) => {
+        try {
+            const { data } = await axios
+                .get<EditQuiz[]>(`http://localhost:8080/api/quiz/${id}`)
+            setQuestions(data[0].questions);
+            setQuizDetails({
+                title: data[0].title,
+                image: data[0].image,
+                description: data[0].description,
+                id: data[0].id
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
 
     const onChangeQuestionTitle = (event: React.ChangeEvent<HTMLInputElement>, questionId: number): void => {
@@ -102,6 +122,12 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     }
 
     const handleSave = async () => {
+        const quizCheck: boolean = quizDetails.description === '' || quizDetails.title === '' || quizDetails.image === '';
+        const questionCheck: boolean = questions.some((item) => item.title === 'שאלה ללא כותרת' || item.title === '');
+        const answerCheck: boolean = questions.some((question) => {
+            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '')
+        });
+        if (answerCheck || questionCheck || quizCheck) return;
         try {
             const { data } = await axios
                 .post<Quiz | null>(`http://localhost:8080/api/quiz`, {
@@ -110,6 +136,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                     image: quizDetails.image,
                     questions: questions
                 })
+            navigate('/my-quizzes');
         } catch (error) {
             console.error(error);
         }
@@ -128,7 +155,8 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             changeAnswerContent,
             activeQuestion,
             setActiveQuestion,
-            handleSave
+            handleSave,
+            getQuiz
         }}>
             {children}
         </QuizDetailsContext.Provider>

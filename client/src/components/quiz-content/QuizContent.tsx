@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";
 import { Answer } from "../answer-interface/AnswerType";
 import { QuizDetails } from "../create-quiz/QuizDetails";
@@ -15,11 +15,15 @@ export const QuizContent: React.FC = () => {
         questions,
         setQuestions,
         setActiveQuestion,
-        handleSave
+        handleSave,
+        getQuiz
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [questionId, setQuestionId] = useState<number>(2);
 
+    // useEffect(() => {
+    //     getQuiz('75902682-ea73-4db9-974f-4e8ba24db568')
+    // }, [])
 
     const addQuestion = (): void => {
         if (questions.length === 10) return;
