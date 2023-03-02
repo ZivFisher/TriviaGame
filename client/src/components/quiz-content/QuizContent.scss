@@ -3,9 +3,19 @@
 .quiz-option-div {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 70vw;
-    margin: 2vh auto 2vh auto;
+    height: 7vh;
     cursor: auto;
+    position: fixed;
+    background-color: $body-color;
+    right: 16vw;
+    top: 9.5vh;
+    padding: 0 1vw;
+}
+
+.create-quiz-main-content {
+    margin-top: 8vh;
 }
 
 .show-quiz {
@@ -17,6 +27,7 @@
     font-size: 9px;
     font-weight: 510;
     border-radius: 6px;
+    height: 4vh;
     cursor: pointer;
 }
 
@@ -54,13 +65,21 @@
 .add-answer-photo {
     width: 4vw;
     margin: 0 50vw;
+    cursor: pointer;
 }
 
 
 
 @media only screen and (max-width: 600px) {
+
+    .create-quiz-div {
+        height: 100vh;
+        position: relative;
+    }
+
     .create-quiz-main-content {
         display: flex;
+        margin: 0;
     }
 
 
