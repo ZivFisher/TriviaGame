@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { title } from "process";
+
 import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface"
@@ -19,6 +19,7 @@ interface QuizDetailInterface {
     setActiveQuestion: React.Dispatch<React.SetStateAction<number>>;
     handleSave: () => Promise<void>;
     getQuiz: (id: string) => Promise<void>;
+    deleteImg: (questionId?: number) => void;
 }
 
 const QuizDetailsContext = createContext<QuizDetailInterface | null>(null);
@@ -33,7 +34,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     const [quizDetails, setQuizDetails] = useState<Quiz | EditQuiz>({
         title: '',
         description: '',
-        image: 'example.img'
+        image: ''
     });
     const [questions, setQuestions] = useState<Question[]>([
         {
@@ -49,9 +50,11 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
 
     useEffect(() => {
         if (state !== null) {
-            getQuiz('75902682-ea73-4db9-974f-4e8ba24db568');
+            getQuiz(state.id);
         }
-    }, [])
+        console.log(questions);
+        console.log(activeQuestion);
+    }, [questions, activeQuestion]);
 
     const getQuiz = async (id: string) => {
         try {
@@ -85,6 +88,9 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             prev.filter(question =>
                 question.id !== questionId
             ))
+        if (activeQuestion === questions.length - 1) {
+            setActiveQuestion(prev => prev - 1);
+        }
     }
 
     const deleteAnswer = (answerId: number, questionIndex: number): void => {
@@ -145,7 +151,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                     })
             } else {
                 const { data } = await axios
-                    .post<Quiz | null>(`http://localhost:8080/api/quiz`, {
+                    .put<Quiz | null>(`http://localhost:8080/api/quiz`, {
                         id: quizDetails.id,
                         title: quizDetails.title,
                         description: quizDetails.description,
@@ -158,6 +164,17 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         } catch (error) {
             console.error(error);
         }
+    }
+
+    const deleteImg = (questionId?: number) => {
+        setQuestions(prev =>
+            [...prev.map(question => {
+                if (question.id === questionId) {
+                    delete question.image;
+                }
+                return question;
+            })]
+        );
     }
 
     return (
@@ -174,7 +191,8 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             activeQuestion,
             setActiveQuestion,
             handleSave,
-            getQuiz
+            getQuiz,
+            deleteImg
         }}>
             {children}
         </QuizDetailsContext.Provider>

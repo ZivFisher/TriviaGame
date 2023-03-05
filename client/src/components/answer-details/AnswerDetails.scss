@@ -55,10 +55,15 @@
     .mobile-answer-div {
         display: flex;
         border: 1px solid $opacity-black;
-        width: fit-content;
         border-radius: 5px;
-        height: 5vh;
         background-color: $input-background-color;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .mobile-answer-content {
+            display: flex;
+        }
     }
 
     .mobile-answer-input {

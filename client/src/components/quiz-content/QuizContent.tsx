@@ -24,25 +24,27 @@ export const QuizContent: React.FC = () => {
 
     const addQuestion = (): void => {
         if (questions.length === 10) return;
-        setQuestions((prev) => [
-            ...prev.map(question => ({
-                ...question,
-                title: question.title || 'שאלה ללא כותרת',
-                answers: question.answers.map(answer => ({
-                    ...answer,
-                    content: answer.content || 'תשובה ללא תוכן'
-                }))
-            })),
-            {
-                id: questionId,
-                title: '',
-                answers: [
-                    { id: 1, content: '', isCorrect: true },
-                    { id: 2, content: '', isCorrect: false }
-                ]
-            }]);
+        setQuestions((prev) => {
+            return [
+                ...prev.map(question => ({
+                    ...question,
+                    title: question.title || 'שאלה ללא כותרת',
+                    answers: question.answers.map(answer => ({
+                        ...answer,
+                        content: answer.content || 'תשובה ללא תוכן'
+                    }))
+                })),
+                {
+                    id: questionId,
+                    title: '',
+                    answers: [
+                        { id: 1, content: '', isCorrect: true },
+                        { id: 2, content: '', isCorrect: false }
+                    ]
+                }]
+        });
         setQuestionId((prev) => prev + 1);
-        setActiveQuestion(prev => prev + 1);
+        setActiveQuestion(questions.length);
     }
 
     const copyQuestion = (copyQuestionIndex: number, answers: Answer[]): void => {

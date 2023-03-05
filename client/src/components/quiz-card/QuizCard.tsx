@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { QuizCardMobileMenu } from "./QuizCardMobileMenu";
 import { useMediaQuery } from "@mui/material";
-import './quiz-card.scss';
 import { AlertDialog } from "../alert-dialog/AlertDialog";
+import './quiz-card.scss';
 
 
 

@@ -1,0 +1,35 @@
+.uploaded-image-div {
+    position: relative;
+
+    .uploaded-image {
+        width: 10vw;
+        display: inline-block;
+        margin-top: 2vh;
+        border-radius: 5px;
+    }
+
+    .delete-image {
+        position: absolute;
+        bottom: 1.5vh;
+        left: 0.7vw;
+        padding: 0.8vh;
+        background-color: rgba(240, 248, 255, 0.702);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .delete-image-icon {
+        width: 2.3vh;
+        height: 2.3vh;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .uploaded-image-div {
+        .uploaded-image {
+            width: 30vw;
+        }
+    }
+}

@@ -4,6 +4,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
 import './QuizDetails.scss';
+import { UploadImage } from '../upload-image/UploadImage';
+import { FileInput, useFiles } from '@hilma/fileshandler-client';
 
 interface QuizDetailsProps {
     onContinue: () => void;
@@ -12,6 +14,7 @@ interface QuizDetailsProps {
 export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
     const isBigScreen: boolean = useMediaQuery('(min-width:600px)');
     const { quizDetails, setQuizDetails } = useQuizDetails();
+    const filesUploader = useFiles();
 
 
     const onChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,23 +31,50 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
         }));
     }
 
+    const handleImageChange = (value: { link: string }): void => {
+        setQuizDetails((prevState) => ({
+            ...prevState,
+            image: value.link
+        }));
+    }
+
+    const deleteImg = () => {
+        setQuizDetails((prevState) => ({
+            ...prevState,
+            image: ''
+        }));
+    }
+
     return (
         <div className='quiz-name-container'>
             {isBigScreen
-                ? <div className="upload-image">
-                    <BootstrapTooltip title='הוספת תמונה לחידון'>
-                        <img src="/svg/image.svg" alt="upload image" />
-                    </BootstrapTooltip>
-                </div>
+                ? quizDetails.image
+                    ? <UploadImage imageSrc={quizDetails.image} deleteImg={deleteImg} className='quiz-details-img' />
+                    : <label>
+                        <div className="upload-image">
+                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />
+                            <BootstrapTooltip title='הוספת תמונה לחידון'>
+                                <img src="/svg/image.svg" alt="upload image" />
+                            </BootstrapTooltip>
+                        </div>
+                    </label>
+
                 : <>
                     <div className='next-page-div'>
                         <button className='continue-edit-question' onClick={onContinue}>המשך</button>
                     </div>
                     <div className='add-photo-continue'>
-                        <div className="upload-image">
-                            <img src="/svg/image.svg" alt="upload image" />
-                            העלאת תמונה
-                        </div>
+                        {quizDetails.image
+                            ? <UploadImage imageSrc={quizDetails.image} deleteImg={deleteImg} className='quiz-details-img' />
+                            :
+                            <label>
+                                <div className="upload-image">
+                                    <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />
+                                    <img src="/svg/image.svg" alt="upload image" />
+                                    העלאת תמונה
+                                </div>
+                            </label>
+                        }
                     </div>
                 </>
             }
