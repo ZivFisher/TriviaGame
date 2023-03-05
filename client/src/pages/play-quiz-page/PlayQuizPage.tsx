@@ -21,7 +21,7 @@ export function PlayQuizPage() {
                     <PlayAnswerContainer />
                 </div>
                 <QuestionIndicator />
-                {!isBigScreen && <img className='leaves-bottom-left' src='svg/leaves-bottom-left.svg' />}
+                {!isBigScreen && <img className='leaves-bottom-left' src='svg/leaves-bottom-left.svg' alt='A batch of leaves' />}
             </div>
         </div>
     );

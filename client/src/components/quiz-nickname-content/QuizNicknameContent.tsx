@@ -32,13 +32,13 @@ export function QuizNicknameContent() {
                 />
                 <Button
                     className='quiz-nickname-button'
-                    onClick={()=>navigate('/play-quiz')}
+                    onClick={() => navigate('/play-quiz')}
                     variant='contained'>
                     <span>יאללה בואו נתחיל!</span>
-                    <img src='svg/IconAwesome-play.svg' />
+                    <img src='svg/IconAwesome-play.svg' alt='Play button' />
                 </Button>
             </div>
-            {phoneMedia && <img className='photo-bottom-left' src='svg/Group565bottom-left.svg' />}
+            {phoneMedia && <img className='photo-bottom-left' src='svg/Group565bottom-left.svg' alt='A batch of leaves' />}
         </div>
     );
 }

@@ -25,7 +25,6 @@ export const PlayAnswerContainer: React.FC = () => {
                     <PlayAnswer
                         key={answer.id}
                         answer={answer}
-                        answerStyle={answer.isCorrect ? 'correct-answer' : 'wrong-answer'}
                         haveImages={haveImages}
                         highlightCorrect={highlightCorrect}
                         setHighlightCorrect={setHighlightCorrect}

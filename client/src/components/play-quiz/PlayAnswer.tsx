@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 interface PlayAnswerProps {
     answer: Answer;
     haveImages: boolean;
-    answerStyle: string;
     setHighlightCorrect: Dispatch<SetStateAction<boolean>>;
     highlightCorrect: boolean;
     toggleClick: boolean;
     setToggleClick: Dispatch<SetStateAction<boolean>>;
 }
 
-export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, answerStyle, highlightCorrect, setHighlightCorrect, toggleClick, setToggleClick }) => {
+export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, highlightCorrect, setHighlightCorrect, toggleClick, setToggleClick }) => {
     const navigator = useNavigate();
     const { quiz, setScore, setCorrectAnswers, currentQuestion, setCurrentQuestion } = usePlayQuiz();
 
@@ -21,7 +20,8 @@ export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, answ
 
     const answers: Answer[] = currentQuestion.answers;
     const correctAnswer = answers.find(answer => answer.isCorrect);
-    const questionIndex: number = quiz.questions.indexOf(currentQuestion);
+    const questionIndex = quiz.questions.indexOf(currentQuestion);
+    const answerStyle = answer.isCorrect ? 'correct-answer' : 'wrong-answer';
 
     useEffect(() => {
         setIsClicked(false)

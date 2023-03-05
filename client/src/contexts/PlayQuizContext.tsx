@@ -32,18 +32,18 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode }> = ({ children }
     const [nickname, setNickname] = useState<string>('');
 
     useEffect(() => {
-        const fetchQuiz = async () => {
-            let { data } = await axios.get('http://localhost:8080/api/quiz/7518d9ee-6977-4d90-bf2f-2b7ff56f798d');
-            setQuiz(data[0]);
-            setCurrentQuestion(data[0].questions[0]);
-        }
-
         try {
             fetchQuiz();
         } catch (error) {
             console.log(error)
         }
     }, [])
+
+    const fetchQuiz = async () => {
+        let { data } = await axios.get('http://localhost:8080/api/quiz/7518d9ee-6977-4d90-bf2f-2b7ff56f798d');
+        setQuiz(data[0]);
+        setCurrentQuestion(data[0].questions[0]);
+    }
 
     return (
         <PlayQuizContext.Provider value={{
