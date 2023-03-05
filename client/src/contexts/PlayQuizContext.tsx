@@ -3,6 +3,7 @@ import { Quiz } from "../interfaces/PlayQuizInterfaces";
 import { testQuiz } from "../components/play-quiz/developmentData";
 import { Question } from "../interfaces/PlayQuizInterfaces";
 import axios from 'axios';
+import { useLocation } from "react-router-dom";
 
 export interface PlayQuizContextType {
     quiz: Quiz;
@@ -30,6 +31,9 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode }> = ({ children }
     const [currentQuestion, setCurrentQuestion] = useState<Question>(testQuiz.questions[0]);
     const [quiz, setQuiz] = useState<Quiz>(testQuiz);
     const [nickname, setNickname] = useState<string>('');
+    const { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+    const id = searchParams.get('id');
 
     useEffect(() => {
         try {
@@ -40,7 +44,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode }> = ({ children }
     }, [])
 
     const fetchQuiz = async () => {
-        let { data } = await axios.get('http://localhost:8080/api/quiz/7518d9ee-6977-4d90-bf2f-2b7ff56f798d');
+        let { data } = await axios.get(`http://localhost:8080/api/quiz/${id}`);
         setQuiz(data[0]);
         setCurrentQuestion(data[0].questions[0]);
     }
