@@ -1,14 +1,18 @@
 @import '../../Variables.scss';
 
 .quiz-results-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 
     .confetti-animation {
         position: absolute;
         z-index: 2;
-        top: -50vh;
-        left: -10vw;
-        width: 120vw;
-        height: 220vh;
+        top: -40vh;
+        left: 0;
+        width: 110vw;
+        height: 180vh;
     }
 }
 
@@ -26,7 +30,7 @@
             position: absolute;
             z-index: 3;
             width: 100px;
-            top: -14vh;
+            top: -10vh;
         }
     }
 
@@ -71,20 +75,27 @@
 }
 
 
-
-
-@media screen and (min-width: 401px) {
+@media screen and (min-width: 601px) {
     .quiz-results-container {
         @include main-content;
         position: relative;
         top: 8vh;
         height: 68vh;
-        padding-top: 5vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         color: $dark-color;
-        overflow: hidden;
+
+
+        .MuiLinearProgress-root {
+            position: absolute;
+            z-index: 4;
+            width: 100%;
+
+            .MuiLinearProgress-bar {
+                background-color: $main-color;
+            }
+        }
 
         .confetti-animation {
             position: absolute;
@@ -96,6 +107,7 @@
 
         .content {
             position: relative;
+            padding-top: 3vh;
             z-index: 3;
             top: 8vh;
             display: flex;
