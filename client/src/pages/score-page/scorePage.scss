@@ -9,14 +9,14 @@
     margin-top: 70px;
     padding-right: 2.9rem;
     height: 60vh;
+    padding-bottom: 8vh;
 
 
     .score-page-monkey {
         position: absolute;
-        top: 35rem;
-        left: 79rem;
-        width: 7.5rem;
-        height: 5.5rem;
+        bottom: -7vh;
+        right: -12vw;
+        width: 7vw;
     }
 }
 
@@ -26,7 +26,6 @@
         border: none;
         padding-right: 1rem;
         width: 100vw;
-        height: 100vh;
         margin-top: 0;
     }
 }

@@ -15,15 +15,32 @@
         }
     }
 
-    .upload-image {
+    .answer-input-option {
+        display: flex;
+        align-items: center;
+    }
+
+    img {
+        cursor: pointer;
+    }
+
+
+    .image-photo {
+        width: 22px;
         margin-left: 1.3vw;
-        margin-right: 1vw;
+        margin-right: 2vw;
+    }
+
+    .bin-answer-photo-opacity {
+        width: 20px;
+        opacity: 0.125;
     }
 
     .bin-answer-photo {
-        width: 22.48px;
-        opacity: 0.125;
+        width: 20px;
+        opacity: 0.8;
     }
+
 
     .answer-option-div {
         display: inline-block;
@@ -32,34 +49,41 @@
 
     .mobile-answer-container {
         display: flex;
+        margin-right: -2.3vw;
     }
 
     .mobile-answer-div {
         display: flex;
-        border: 1px solid $gray;
+        border: 1px solid $opacity-black;
         width: fit-content;
         border-radius: 5px;
         height: 5vh;
-        background-color: $gray;
+        background-color: $input-background-color;
     }
 
     .mobile-answer-input {
         border: none;
         outline: none;
-        width: 30vw;
-        background-color: $gray;
+        width: 60vw;
+        background-color: $input-background-color;
     }
 
     .mobile-image-photo {
         width: 30px;
         height: 25px;
         margin-left: 0.8vw;
-        margin-top: 1.1vh;
+        margin-top: 1vh;
+    }
+
+    .mobile-bin-answer-photo-opacity {
+        width: 20px;
+        margin-right: 5vw;
+        opacity: 0.2;
     }
 
     .mobile-bin-answer-photo {
         width: 20px;
-        margin-right: 0.8vw;
-        opacity: 0.2;
+        margin-right: 5vw;
+        opacity: 0.9;
     }
 }

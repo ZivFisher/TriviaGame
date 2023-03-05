@@ -2,26 +2,29 @@
 
 .dialog-box {
     padding: 3vh 2vw;
-    height: 32vh;
-    width: 40vw;
+    height: 27vh;
+    width: 35vw;
 
     .dialog-title {
         font-weight: bold;
     }
 
     .dialog-actions {
-        padding-top: 5vh;
+        margin-top: 8vh;
 
         .cancel-btn {
             text-decoration: underline;
             font-weight: bold;
+            color: $main-color;
+
         }
 
         .confirm-btn {
-            border-radius: 16px;
+            border-radius: 22px;
             width: 8vw;
             height: 5vh;
             font-weight: bold;
+            background-color: $main-color;
         }
     }
 }
@@ -32,11 +35,14 @@
 
     .dialog-box {
         padding: 6vh 3vw 3vh 3vw;
-        width: 46vw;
+        width: 70vw;
+        height: 30vh;
+
     }
 
-    .dialog-title {
-        font-size: 1.6rem;
+    .dialog-title.MuiDialogTitle-root {
+        font-family: $Rubik-extra-bold-800;
+        font-size: 2.4rem;
         font-weight: bold;
         text-align: center;
         padding: 0;
@@ -44,9 +50,10 @@
 
     }
 
-    .dialog-content {
+    #alert-dialog-description {
         text-align: center;
         padding: 0;
+        font-size: 1.4rem;
     }
 
     .dialog-actions {

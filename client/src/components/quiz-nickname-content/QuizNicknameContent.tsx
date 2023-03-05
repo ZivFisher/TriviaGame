@@ -1,6 +1,7 @@
 import '../../pages/quiz-nickname/QuizNickname.scss';
 import { Button, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
+import { MobileHeader } from '../mobile-header/MobileHeader';
 
 export function QuizNicknameContent() {
     const phoneMedia: boolean = useMediaQuery('(max-width:600px)');
@@ -12,23 +13,26 @@ export function QuizNicknameContent() {
     }
 
     return (
-        <div id='QuizNicknameContainer'>
-            {!phoneMedia&&<h1 id='quizNicknameHeader'>איטליה מה אתם יודעים?</h1>}
-            <div>
-                <label id='nicknameLabel'>איך קוראים לכם?</label>
+        <div className='quiz-nickname-container'>
+            {!phoneMedia
+                ? <h1 className='quiz-nickname-header'>איטליה מה אתם יודעים?</h1>
+                : <MobileHeader title='איטליה מה אתם יודעים?' showLogo={false} />
+            }
+            <div className='quiz-nickname-content'>
+                <label className='nickname-label'>איך קוראים לכם?</label>
                 <input
-                    id='nicknameInput'
+                    className='nickname-input'
                     placeholder='נא להזין שם'
                     name='nickname'
                     onChange={onChange}
                 />
-                <Button id='quizNicknameButton' variant='contained'>
+                <Button className='quiz-nickname-button' variant='contained'>
                     <span>יאללה בואו נתחיל!</span>
-                    <img src='IconAwesome-play.svg' />
+                    <img src='svg/IconAwesome-play.svg' />
                 </Button>
             </div>
-            {phoneMedia&&<img id='group565bottom-left' src='svg/Group565bottom-left.svg'/>}
-        </div >
+            {phoneMedia && <img className='photo-bottom-left' src='svg/Group565bottom-left.svg' />}
+        </div>
     );
 }
 

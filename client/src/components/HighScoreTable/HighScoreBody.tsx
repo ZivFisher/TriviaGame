@@ -1,31 +1,9 @@
+import { useScoreBoardContext } from "../../contexts/ScorePageContext";
+import { convertDate } from "../../consts/genericFunctions";
+
 export const HighScoreBody: React.FC = () => {
-    const scores = [
-        {
-            name: 'אחותךך',
-            grade: '100',
-            date: '21/03/21'
-        },
-        {
-            name: 'צבי כהן',
-            grade: '90',
-            date: '21/05/21'
-        },
-        {
-            name: 'אנונימי',
-            grade: '80',
-            date: '21/07/21'
-        },
-        {
-            name: 'ילד פלא',
-            grade: '60',
-            date: '21/03/21'
-        },
-        {
-            name: 'נעמה יצחק',
-            grade: '50',
-            date: '21/09/21'
-        }
-    ];
+
+    const { scores } = useScoreBoardContext();
 
     const rankCheck = (index: number) => {
         switch (index) {
@@ -40,24 +18,23 @@ export const HighScoreBody: React.FC = () => {
                     src='./svg/bronze-crown.svg' alt='bronze crown' />;
         }
     };
+
     return (
         <tbody>
-            {scores.map((score, index) => {
-                return <tr>
+            {scores?.map((score, index) => {
+                return <tr key={index}>
                     <td className="score-index score-bold">
-
                         {index + 1}
                     </td>
-
-                    <td className="score-name">{score.name}
+                    <td className="score-name">{score.nickname}
                         {rankCheck(index)}
                     </td>
-                    <td className="score-bold">{score.grade}</td>
-                    <td className='score-date score-date-margin'>{score.date}
+                    <td className="score-bold">{score.score}</td>
+                    <td className='score-date score-date-margin'>
+                        {convertDate(score.date)}
                     </td>
                 </tr>;
             })}
-
         </tbody>
     );
 }

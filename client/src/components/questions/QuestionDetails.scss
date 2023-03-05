@@ -1,109 +1,130 @@
 @import '../../Variables.scss';
 
 .question-container-div {
-    border: 4px solid #0C3249;
-    width: 68.75vw;
-    height: 50.64vh;
+    margin: 2vh auto 2vh auto;
+    border: 4px solid $dark-color;
+    width: 70.3vw;
     border-radius: 10px;
-    margin-right: 100px;
     position: relative;
     background-color: $white;
+    padding-bottom: 10vh;
+    cursor: auto;
 
     .question-content {
         margin: 2.77vh 0;
-        border: 1px solid white;
-        color: #0C3249;
+        border: 1px solid $white;
+        color: $dark-color;
         margin-left: 1.04vw;
         width: 12.5vw;
         font-size: 26px;
 
         &:hover {
-            border: 1px solid #cdd0d2;
+            border: 1px solid #cdd0d2; // unique color
             border-radius: 5px;
         }
     }
 
-    .question-main-content {
-        margin-right: 30px;
+    .question-details {
+        display: flex;
+        align-items: center;
+        margin-right: 3.5vw;
+    }
 
+    .drag-and-drop {
+        width: 2vw;
+        position: absolute;
+        right: 34vw;
+        top: 0.3vh;
+        opacity: 0.4;
+        cursor: grab;
+    }
+
+    .question-main-content {
         .question-title {
             margin-top: 1vh;
             font-weight: 900;
             display: flex;
+            font-size: 16px;
             justify-content: space-between;
+            margin-right: 3vw;
         }
+    }
+
+    .pointer-img {
+        cursor: pointer;
     }
 
     .mobile-title-div {
         display: flex;
-        border: 1px solid $gray;
+        border: 1px solid $opacity-black;
         width: fit-content;
         border-radius: 5px;
         height: 5vh;
         margin-bottom: 3vh;
         margin-top: 1vh;
         margin-right: 3vw;
-        background-color: $gray;
+        background-color: $input-background-color;
     }
 
     .mobile-question-content {
-        background-color: $gray;
+        background-color: $input-background-color;
         border: none;
         outline: none;
-        width: 50vw;
+        width: 78vw;
     }
 
-    .image-photo {
+    .image-photo-details {
         width: 30px;
     }
 
     .plus-photo {
-        width: 9px;
+        width: 13px;
         display: inline-block;
+
     }
 
     .answer-option {
         width: fit-content;
         cursor: pointer;
+        display: flex;
+        gap: 1vw;
+        margin-right: 3.5vw;
     }
 
     .question-option {
         text-align: left;
-        left: 1vw;
-        bottom: 1vh;
+        left: 2vw;
+        bottom: 2vh;
         position: absolute;
     }
 
     .add-answer {
-        margin-top: 5vh;
         display: inline-block;
         border-bottom: 1px solid #8eafc3;
-        margin-bottom: 0.5vh;
+        color: $dark-color;
+        font-size: 14px;
     }
 
     .line {
         height: 1px;
-        width: 68.75vw;
-        margin-right: -30px;
+        width: 100%;
         background-color: #0c32491f;
-    }
-
-    .gray-line {
-        width: 1.2vw;
-        height: 51.25vh;
-        top: -2.3vh;
-        background-color: #0c32491d;
-        position: absolute;
+        margin-top: -1.2vh;
     }
 
     .copy {
-        margin-left: 1vw;
+        margin-left: 1.5vw;
     }
 
-    .monkey {
+    .delete {
+        opacity: 0.6;
+    }
+
+    .monkey-computer {
         position: fixed;
         right: 4vw;
         bottom: 4vh;
+        width: 7vw;
     }
 
 }
@@ -113,9 +134,49 @@
 
     .question-container-div {
         border: none;
+        width: 100vw;
+
+        .image-photo {
+            width: 25px;
+            margin-left: 2vw;
+        }
+
+        .mobile-question-option {
+            margin-left: 5vw;
+        }
+
+        .mobile-copy {
+            margin-left: 3vw;
+        }
+
+        .mobile-bin {
+            margin-left: 3vw;
+            opacity: 0.6;
+        }
+
+        .plus-photo {
+            width: 17px;
+        }
+
+        .border-question {
+            width: 80vw;
+            height: 0.1vh;
+            margin: 3vh auto;
+            background-color: $dark-color;
+            border-radius: 3px;
+            opacity: 0.7;
+        }
+
+        label {
+            font-size: 16px;
+            margin-right: 3vw;
+        }
+
+
+        .answer-option {
+            margin-right: 2.7vw;
+        }
     }
 
-    .gray-line {
-        display: none;
-    }
+
 }

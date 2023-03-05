@@ -17,9 +17,9 @@ export class Quiz {
     @Column()
     image: string;
 
-    @OneToMany(() => Score, score => score.quiz)
+    @OneToMany(() => Score, score => score.quiz, { cascade: true })
     scores: Score[];
 
-    @OneToMany(() => Question, question => question.quiz)
+    @OneToMany(() => Question, question => question.quiz, { cascade: true })
     questions: Question[];
 }

@@ -2,8 +2,6 @@ import { HighScoreBody } from './HighScoreBody';
 import './highScoreTable.scss';
 
 export const HighScoreTable: React.FC = () => {
-
-
     return (
         <div>
             <table className="score-table">

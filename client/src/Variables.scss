@@ -1,9 +1,11 @@
 //fonts
 $Rubik-regular: 'Rubik-Regular';
 $Rubik-extra-bold-800: 'Rubik-ExtraBold';
+$Rubik-bold: 'Rubik-Bold';
 $Rubik-semi-bold-600: 'Rubik-SemiBold';
 $Rubik-medium-500: 'Rubik-Medium';
 $Rubik-light-300: 'Rubik-Light';
+$Rubik-bold-700: 'Rubik-Bold';
 
 
 
@@ -37,6 +39,12 @@ $Rubik-light-300: 'Rubik-Light';
     font-style: normal;
 }
 
+@font-face {
+    font-family: $Rubik-bold-700;
+    src: url('./assets/fonts/Rubik/static/Rubik-Bold.ttf') format('truetype');
+    font-style: normal;
+}
+
 
 //colors
 $body-color: #E0F4F5;
@@ -55,6 +63,7 @@ $success: #80DCC9;
 $fail: #F28787;
 $input-background-color: #F4F6F7;
 $border-color: #0C32497A;
+$browner-red: #BE7F6B;
 $darker-green: #216361;
 
 

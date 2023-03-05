@@ -1,0 +1,134 @@
+@import '../../Variables.scss';
+
+.quiz-results-container {
+
+    .confetti-animation {
+        position: absolute;
+        z-index: 2;
+        top: -50vh;
+        left: -10vw;
+        width: 120vw;
+        height: 220vh;
+    }
+}
+
+.quiz-results-dialog {
+    .MuiDialog-paper {
+        position: relative;
+        padding: 5vh 10vw;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        overflow: visible;
+
+
+        .dancing-monkey {
+            position: absolute;
+            z-index: 3;
+            width: 100px;
+            top: -14vh;
+        }
+    }
+
+    .MuiDialogTitle-root {
+        font-family: $Rubik-extra-bold-800;
+        font-size: 2.5rem;
+        padding-bottom: 1vh;
+    }
+
+    .MuiDialogContent-root {
+        font-family: $Rubik-bold-700;
+        font-size: 2rem;
+        text-align: center;
+        padding-bottom: 5vh;
+    }
+
+    .MuiDialogActions-root {
+        display: flex;
+        justify-content: center;
+        gap: 1vw;
+
+        .home-btn.MuiButton-root,
+        .share-btn.MuiButton-root {
+            background-color: $main-color;
+            margin-left: 0;
+            font-size: 1rem;
+            font-family: $Rubik-extra-bold-800;
+            width: fit-content;
+            padding: 0.8vh 1.4vw;
+            border-radius: 6px;
+
+            .share-logo {
+                width: 1rem;
+                padding-left: 1vw;
+            }
+        }
+
+        .home-btn.MuiButton-root {
+            background-color: $browner-red;
+        }
+    }
+}
+
+
+
+
+@media screen and (min-width: 401px) {
+    .quiz-results-container {
+        @include main-content;
+        position: relative;
+        top: 8vh;
+        height: 68vh;
+        padding-top: 5vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: $dark-color;
+        overflow: hidden;
+
+        .confetti-animation {
+            position: absolute;
+            z-index: 2;
+            top: -65vh;
+            left: 0vw;
+            width: 80vw;
+        }
+
+        .content {
+            position: relative;
+            z-index: 3;
+            top: 8vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: $white;
+
+            .dancing-monkey-img {
+                width: 8vw;
+                margin-bottom: 3vh;
+            }
+
+            h1 {
+                font-family: $Rubik-semi-bold-600;
+                font-size: 2rem;
+            }
+
+            .share-description-par {
+                font-family: Rubik-light-300;
+                margin-bottom: 5vh;
+            }
+
+            .share-btn.MuiButton-root {
+                font-weight: bold;
+                background-color: $main-color;
+                padding: 1vh 2vw;
+
+                .share-logo {
+                    width: 1rem;
+                    padding-left: 0.8vw;
+                }
+            }
+        }
+
+    }
+}

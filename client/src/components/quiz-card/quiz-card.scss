@@ -1,0 +1,153 @@
+@import '../../Variables.scss';
+
+
+.quiz-card {
+    background: $white;
+    box-shadow: 0 3px 6px $gray;
+    display: flex;
+    color: $dark-color;
+    margin: 3.5vh auto;
+    width: 95%;
+    height: 13vh;
+    position: relative;
+    padding-bottom: 1vh;
+
+    .quiz-card-image {
+        width: 25%;
+        margin-left: 3vw;
+    }
+
+    .quiz-card-content {
+        display: flex;
+        flex-direction: column;
+
+        .quiz-card-title {
+            font-family: $Rubik-semi-bold-600;
+            font-size: 1.2rem;
+            margin-bottom: -1vh;
+        }
+
+        .quiz-card-description {
+            font-family: $Rubik-light-300;
+        }
+
+        .quiz-card-scoreBoard-btn {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 7.5rem;
+            height: 1.75rem;
+            background: $main-color;
+            color: $white;
+            border-radius: 50px;
+            font-family: $Rubik-medium-500;
+            letter-spacing: 0;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #216361; //unique color
+            }
+        }
+    }
+
+    .quiz-cards-links {
+        display: flex;
+        gap: 1rem;
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+
+        .quiz-cards-single-link-cover {
+            box-shadow: 0 3px 6px $gray;
+            width: 4.5vh;
+            height: 4.5vh;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+
+
+    .quiz-card {
+        display: flex;
+        flex-direction: column;
+        width: 70vw;
+        height: 16vh;
+        padding-bottom: 3vh;
+
+
+        .quiz-card-image {
+            width: 100%;
+            height: 70%;
+        }
+
+        .quiz-card-content {
+            display: flex;
+            align-items: center;
+            padding-top: 2vh;
+            position: relative;
+
+            .quiz-card-title {
+                font-size: 1.5rem;
+            }
+
+            .quiz-card-description {
+                display: none;
+            }
+
+            .quiz-card-phoneMenu-btn {
+                width: 2vw;
+                cursor: pointer;
+                position: absolute;
+                right: 2vw;
+
+                .quiz-card-phoneMenu-btn-img {
+                    width: 1.5vw;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 2vw;
+                    bottom: 0.1vh;
+                }
+            }
+        }
+
+        .quiz-cards-links {
+            .quiz-cards-single-link-cover {
+                display: none;
+            }
+        }
+    }
+
+    #basic-menu {
+        left: -20vw;
+        top: -2vh;
+        padding: 0;
+
+        .menu-item {
+            min-height: 3vh;
+            width: 50vw;
+            font-size: 1.25rem;
+            border-bottom: 1px solid #0000000c; //unique color
+
+            .menu-icon {
+                width: 4vw;
+            }
+        }
+
+        .menu-item.no-border {
+            border-bottom: none;
+        }
+
+        .MuiList-root {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+}
