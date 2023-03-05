@@ -5,7 +5,7 @@ import './PlayQuizComponents.scss';
 export const QuestionIndicator: React.FC = () => {
     const { quiz, currentQuestion } = usePlayQuiz();
 
-    let questionIndex = quiz.questions.findIndex(question => question.questionId === currentQuestion.questionId)
+    let questionIndex = quiz.questions.findIndex(question => question.id === currentQuestion.id)
 
     return (
         <div className='question-indicator'>

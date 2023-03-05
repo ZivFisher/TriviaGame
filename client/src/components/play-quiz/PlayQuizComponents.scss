@@ -1,16 +1,16 @@
 @import '../../Variables.scss';
-@import '../../pages/play-quiz-page/PlayQuizPage.scss';
+// @import '../../pages/play-quiz-page/PlayQuizPage.scss';
 
 @mixin playAnswer($width, $height, $border-radius) {
     width: $width;
     height: $height;
     background: $opacity-black 0% 0% no-repeat padding-box;
     border-radius: $border-radius;
-    transition: 0.4s;
-
+    
     &:hover {
         background: $gray;
         cursor: default;
+        transition:  0.4s;
     }
 }
 
