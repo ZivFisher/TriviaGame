@@ -1,0 +1,106 @@
+@import '../../Variables.scss';
+
+
+
+.start-game-container {
+    @include main-content();
+    margin-top: 7vh;
+    text-align: center;
+    position: relative;
+
+    .header-logo {
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 10px;
+        margin-bottom: 8vh;
+        border-bottom: 3px solid rgb(249, 246, 246); //unique color
+
+
+        img {
+            height: 4vh;
+            margin-right: 1vw;
+        }
+
+        .header-title {
+            margin: 0;
+            color: $dark-color;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+    }
+
+    .start-game-btn {
+        display: flex;
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        gap: 1vw;
+        outline: 2px solid $white;
+        font-size: 1.2rem;
+        font-weight: 600;
+        width: 13vw;
+        height: 8vh;
+        border: none;
+        border-radius: 10px;
+        background-color: $main-color;
+        border-bottom: 7px solid $darker-green;
+        color: $white;
+        z-index: 100;
+        position: absolute;
+        top: 35vh;
+        right: 27.5vw;
+    }
+
+    .quiz-image {
+        width: 90%;
+        height: 55vh;
+        margin-bottom: 5vh;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .start-game-page-div {
+        overflow: hidden;
+        position: relative;
+        height: 100vh;
+
+        .banana-leaf-left {
+            position: absolute;
+            width: 42vw;
+            bottom: -6vh;
+            left: -14vw;
+            z-index: 100;
+        }
+    }
+
+    .start-game-container {
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 2vh;
+        position: relative;
+        width: 100vw;
+
+
+        .start-game-btn {
+            position: static;
+            width: 80vw;
+            margin-top: 6vh;
+            z-index: 1;
+            height: 8vh;
+        }
+
+        .quiz-image {
+            width: 90vw;
+            height: 20vh;
+            margin-top: 6vh;
+        }
+    }
+
+
+}
