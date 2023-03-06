@@ -1,81 +1,92 @@
+import { FC, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useIsBigScreen } from '../../consts/consts';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import LinearProgress from '@mui/material/LinearProgress';
-import { usePlayQuiz } from '../../contexts/PlayQuizContext';
-import { FC, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useIsBigScreen } from '../../consts/consts';
-import axios from 'axios';
 import './QuizResults.scss';
 
-export const QuizResults: FC = () => {
+
+interface ScorePackage {
+    id: number;
+    nickname: string;
+    score: number;
+    date: Date;
+    quiz: {
+        id: string;
+        title: string;
+        description: string;
+        image: string;
+    };
+}
+
+export const ShareQuizResult: FC = () => {
+    const { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+    const scoreId = searchParams.get('scoreId');
     const navigate = useNavigate();
     const isBigScreen = useIsBigScreen();
-    const [scoreId, setScoreId] = useState('');
-    const { quiz, score, correctAnswers, nickname } = usePlayQuiz();
-    const { questions, id } = quiz;
+    const [scorePackage, setScorePackage] = useState<ScorePackage>();
+    const nickname = scorePackage?.nickname;
+    const score = scorePackage?.score;
+    const quiz = scorePackage?.quiz;
+    const quizId = quiz?.id;
+    const quizTitle = quiz?.title;
 
     useEffect(() => {
-        sendScoreToServer();
+        getScoreFromServer();
     }, []);
 
-    async function sendScoreToServer() {
-        const API_ENDPOINT = 'http://localhost:8080/api/score';
-
-        const requestBody = {
-            nickname,
-            quizId: id,
-            score
-        };
-
+    async function getScoreFromServer() {
         try {
-            const { data } = await axios.post(API_ENDPOINT, requestBody);
-            setScoreId(data.id);
+            const { data } = await axios.get(`http://localhost:8080/api/score/${scoreId}`);
+            setScorePackage(data);
         } catch (e) {
             console.log(e);
         }
     }
 
-    const handleShare = () => {
-        navigator.clipboard.writeText(`http://localhost:3000/quiz-shared-result?scoreId=${scoreId}`);
+    const playQuiz = () => {
+        navigate(`/start-game?id=${quizId}`);
     };
 
     const navigateToHome = () => {
-        navigate('/home-page');
+        navigate('/login');
     };
 
     return (
         <div className='quiz-results-container'>
+
             <img
                 className='confetti-animation'
                 src="./animation/confetti.gif"
                 alt="confetti animatios" />
             {isBigScreen ?
                 <>
-                    <LinearProgress variant='determinate' value={100} />
+                    <LinearProgress
+                        variant='determinate'
+                        value={100} />
                     <div className="content">
                         <img
                             className='dancing-monkey-img'
                             src="./svg/Group878.svg"
                             alt="dancing monkey"
                         />
-                        <h1>ענית נכון על {correctAnswers} שאלות. ציונך: {score}</h1>
-                        <p className='share-description-par'>
-                            שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!
-                        </p>
+                        <h1>{nickname} קיבל {score} בחידון {quizTitle}</h1>
+
                         <Button
                             className='share-btn'
                             variant="contained"
-                            onClick={handleShare}
+                            onClick={playQuiz}
                         >
                             <img
                                 className='share-logo'
                                 src="./svg/Icon-awesome-share.svg"
                                 alt="share button"
-                            />שתף תוצאה
+                            />שחק בחידון זה בעצמך!
                         </Button>
                     </div></>
                 :
@@ -88,23 +99,21 @@ export const QuizResults: FC = () => {
                             className='dancing-monkey'
                             src="./svg/Group597.svg"
                             alt="dancing monkey" />
-                        <DialogTitle>הצלחת {correctAnswers} מתוך {questions.length}</DialogTitle>
                         <DialogContent>
-                            ציונך: {score}
+                            {nickname} קיבל {score} בחידון {quizTitle}
                         </DialogContent>
                         <DialogActions>
-
                             <Button
                                 className='share-btn'
                                 variant="contained"
-                                onClick={handleShare}
+                                onClick={playQuiz}
                             >
                                 <img
                                     className='share-logo'
-                                    src="./svg/Icon-awesome-share.svg"
+                                    src="./svg/IconAwesome-play.svg"
                                     alt="share button"
                                 />
-                                שתף תוצאה
+                                שחק בעצמך!
                             </Button>
 
                             <Button

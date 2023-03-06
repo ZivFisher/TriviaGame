@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Quiz } from 'src/quiz/quiz.entity';
 import { Repository } from 'typeorm';
@@ -16,7 +16,7 @@ export class ScoreService {
         const score = this.scoreRepository.create({
             ...scoreData,
             quiz: { id: scoreData.quizId } as Quiz
-        })
+        });
         return this.scoreRepository.save(score);
     }
 
@@ -27,6 +27,15 @@ export class ScoreService {
                     id: id
                 }
             }
-        })
+        });
+    }
+
+    async getScoreById(id: number) {
+        return this.scoreRepository.findOne({
+            where: {
+                id
+            },
+            relations: ['quiz']
+        });
     }
 }
