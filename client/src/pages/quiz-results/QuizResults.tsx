@@ -44,7 +44,7 @@ export const QuizResults: FC = () => {
     };
 
     const navigateToHome = () => {
-        navigate('/home-page');
+        navigate('/login');
     };
 
     return (
