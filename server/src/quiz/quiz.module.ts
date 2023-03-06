@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScoreModule } from 'src/score/score.module';
 import { QuizController } from './quiz.controller';
 import { Quiz } from './quiz.entity';
 import { QuizService } from './quiz.service';
@@ -10,6 +11,7 @@ import { QuizService } from './quiz.service';
   exports: [QuizService],
   imports: [
     TypeOrmModule.forFeature([Quiz]),
+    ScoreModule
   ]
 })
 export class QuizModule { }
