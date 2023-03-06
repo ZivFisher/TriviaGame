@@ -1,39 +1,84 @@
 import { FilesType, UseFilesHandler } from '@hilma/fileshandler-server';
-import { Body, Controller, Delete, Get, Param, Post, UploadedFiles } from '@nestjs/common';
-import { Quiz } from './quiz.entity';
+import { Body, Controller, Delete, Get, Param, Post, Put, BadRequestException, NotFoundException, Inject, forwardRef, UploadedFiles } from '@nestjs/common';
+import { ScoreService } from 'src/score/score.service';
+import { CreateQuizDto } from './quiz.dto';
 import { QuizService } from './quiz.service';
 
 @Controller('/api/quiz')
 export class QuizController {
     constructor(
-        private readonly quizService: QuizService
+        @Inject(forwardRef(() => ScoreService))
+        private readonly scoreService: ScoreService,
+        private readonly quizService: QuizService,
     ) { }
 
     @Get('/')
     getAll() {
-        return this.quizService.getAll();
+        try {
+            return this.quizService.getAll();
+        } catch (e) {
+            console.log(e + e.message);
+            throw new BadRequestException()
+        }
     }
 
     @Get('/:id')
     getById(@Param('id') id: string) {
-        return this.quizService.getQuizDetails(id);
+        try {
+            return this.quizService.getQuizDetails(id);
+        } catch (e) {
+            console.log(e)
+            if (e instanceof NotFoundException) {
+                throw e;
+            } else throw new BadRequestException()
+        }
     }
 
     @Get('/:id/scores')
     getQuizScores(@Param('id') id: string) {
-        return this.quizService.getQuizScores(id);
+        try {
+            return this.scoreService.getScoresByQuizId(id);
+        } catch (e) {
+            console.log(e)
+            if (e instanceof NotFoundException) {
+                throw e;
+            } else throw new BadRequestException()
+        }
     }
-
     @UseFilesHandler(100)
     @Post('/')
-    create(@Body() quiz: any, @UploadedFiles() files: FilesType) {
-        console.log('quiz: ', quiz)
-        console.log('files!!!!!!!!!!:', files)
-        return this.quizService.create(quiz, files);
+    create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType) {
+        try {
+            return this.quizService.create(createdQuiz, files);
+        } catch (e) {
+            console.log(e)
+            if (e instanceof NotFoundException) {
+                throw e;
+            } else throw new BadRequestException()
+        }
     }
 
-    @Delete('/')
-    delete(@Param() id: string) {
-        return this.quizService.delete(id);
+    @Delete('/:id')
+    delete(@Param('id') id: string) {
+        try {
+            return this.quizService.delete(id);
+        } catch (e) {
+            console.log(e)
+            if (e instanceof NotFoundException) {
+                throw e;
+            } else throw new BadRequestException()
+        }
+    }
+
+    @Put('/:id')
+    update(@Param('id') id: string, @Body() updatedQuiz: CreateQuizDto) {
+        try {
+            return this.quizService.update(id, updatedQuiz);
+        } catch (e) {
+            console.log(e)
+            if (e instanceof NotFoundException) {
+                throw e;
+            } else throw new BadRequestException()
+        }
     }
 }
