@@ -1,25 +1,19 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { QuizCardProps } from "./QuizCardProps";
 import { QuizCardMobileMenu } from "./QuizCardMobileMenu";
-import { useMediaQuery } from "@mui/material";
-import './quiz-card.scss';
 import { AlertDialog } from "../alert-dialog/AlertDialog";
+import { useMyQuizzesContext } from "../../contexts/MyQuizzesContext";
+import { useIsBigScreen } from "../../consts/consts";
+import MenuItem from "@mui/material/MenuItem";
+import './quiz-card.scss';
 
-
-
-export interface QuizCardProps {
-    id: number;
-    image: string;
-    title: string;
-    description: string;
-}
-
-export const QuizCard: React.FC<QuizCardProps> = ({ id, image, title, description }) => {
-
-    const isBigScreen = useMediaQuery('(min-width: 600px)');
+export const QuizCard: React.FC<QuizCardProps> = ({ id, image, title, description, responseCount }) => {
+    const { deleteQuizFromDB } = useMyQuizzesContext();
+    const isBigScreen = useIsBigScreen();
 
     const shareQuiz = (onClick: () => void) => {
-        return <div
+        navigator.clipboard.writeText(`http://localhost:3000/start-game?id=${id}`);
+        return <MenuItem
             className="quiz-cards-single-link-cover"
             onClick={onClick}
         >
@@ -27,11 +21,11 @@ export const QuizCard: React.FC<QuizCardProps> = ({ id, image, title, descriptio
                 className="quiz-cards-single-link"
                 src="./svg/link-share.svg"
                 alt="link share" />
-        </div>
-    }
+        </MenuItem>;
+    };
 
-    const deleteQuiz = (onClick: () => void) => {
-        return <div
+    const deleteQuizButton = (onClick: () => void) => {
+        return <MenuItem
             className="quiz-cards-single-link-cover"
             onClick={onClick}
         >
@@ -39,11 +33,13 @@ export const QuizCard: React.FC<QuizCardProps> = ({ id, image, title, descriptio
                 className="quiz-cards-single-link"
                 src="./svg/trash.svg"
                 alt="trash" />
-        </div>
-    }
+        </MenuItem>;
+    };
+
 
     return (
         <div className="quiz-card">
+            <p className="response-count">אנשים שענו: {responseCount}</p>
             <img
                 className="quiz-card-image"
                 src={image}
@@ -54,38 +50,40 @@ export const QuizCard: React.FC<QuizCardProps> = ({ id, image, title, descriptio
                 {isBigScreen
                     ?
                     <Link
-                        to='/score-board'
+                        to={encodeURI(`/score-board?id=${id}&title=${title}`)}
                         className="quiz-card-scoreBoard-btn">לוח תוצאות</Link>
                     :
                     <div>
-                        <QuizCardMobileMenu />
+                        <QuizCardMobileMenu
+                            id={id}
+                            image={image}
+                            title={title}
+                            description={description}
+                            responseCount={responseCount} />
                     </div>}
             </div>
             <div className="quiz-cards-links">
                 <AlertDialog
                     question="הקישור הועתק"
                     description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
-                    onConfirm={() => {
-                        //todo
-                    }}
                     showCancelButton={false}
                     triggerButton={shareQuiz}
                 />
 
-                <div className="quiz-cards-single-link-cover">
+                <Link
+                    to={encodeURI(`/create-quiz?id=${id}`)}
+                    className="quiz-cards-single-link-cover">
                     <img
                         className="quiz-cards-single-link"
                         src="./svg/edit-link.svg"
                         alt="edit link" />
-                </div>
+                </Link>
                 <AlertDialog
                     question="האם אתה בטוח?"
                     description="אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים ששמרת ימחקו"
-                    onConfirm={() => {
-                        //todo
-                    }}
+                    onConfirm={() => deleteQuizFromDB(id)}
                     showCancelButton={true}
-                    triggerButton={deleteQuiz}
+                    triggerButton={deleteQuizButton}
                 />
             </div>
         </div>

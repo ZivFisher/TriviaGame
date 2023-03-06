@@ -4,27 +4,26 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import LinearProgress from '@mui/material/LinearProgress';
-import { usePlayQuiz } from '../../contexts/PlayQuizContext'
+import { usePlayQuiz } from '../../contexts/PlayQuizContext';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIsBigScreen } from '../../consts/consts';
-import axios from 'axios'
+import axios from 'axios';
 import './QuizResults.scss';
 
 export const QuizResults: FC = () => {
-    const navigate = useNavigate()
-    const isBigScreen: boolean = useIsBigScreen()
+    const navigate = useNavigate();
+    const isBigScreen: boolean = useIsBigScreen();
     const [isOpen, setOpen] = useState(true);
-
     const { quiz, score, correctAnswers, nickname } = usePlayQuiz();
     const { questions, id } = quiz;
 
     useEffect(() => {
-        sendScoreToServer()
-    }, [])
+        sendScoreToServer();
+    }, []);
 
     async function sendScoreToServer() {
-        const API_ENDPOINT = 'http://localhost:8080/api/quiz';
+        const API_ENDPOINT = 'http://localhost:8080/api/score';
 
         const requestBody = {
             nickname,
@@ -44,7 +43,7 @@ export const QuizResults: FC = () => {
     };
 
     const navigateToHome = () => {
-        navigate('/home-page')
+        navigate('/home-page');
     };
 
     return (
