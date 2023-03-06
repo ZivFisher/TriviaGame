@@ -28,7 +28,7 @@ export const QuizResults: FC = () => {
 
         const requestBody = {
             nickname,
-            id,
+            quizId: id,
             score
         };
 
