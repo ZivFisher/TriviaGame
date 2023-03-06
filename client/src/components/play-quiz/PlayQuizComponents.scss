@@ -1,16 +1,16 @@
 @import '../../Variables.scss';
-@import '../../pages/play-quiz-page/PlayQuizPage.scss';
 
 @mixin playAnswer($width, $height, $border-radius) {
     width: $width;
     height: $height;
-    background: $opacity-black 0% 0% no-repeat padding-box;
+    background-color: $opacity-black;
     border-radius: $border-radius;
-    transition: 0.4s;
+    transition: background 0.5s ease;
 
     &:hover {
-        background: $gray;
+        background-color: $gray;
         cursor: default;
+        transition: 0.4s;
     }
 }
 
@@ -18,7 +18,7 @@
     width: 90px;
     height: 23px;
     //Unique opacity - color given by stylist doesn't detail opacity(just pure black). Had to do it manually.
-    background: #00000058 0% 0% no-repeat padding-box;
+    background-color: #00000058;
     border-radius: 4px;
     color: $white;
     font-size: 15px;
@@ -181,7 +181,7 @@
                 width: 85%;
                 height: 15%;
 
-                .play-answer-p{
+                .play-answer-p {
                     font-size: 1.4rem;
                 }
             }

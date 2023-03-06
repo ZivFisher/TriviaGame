@@ -16,6 +16,7 @@ export const QuizContent: React.FC = () => {
         setQuestions,
         setActiveQuestion,
         handleSave,
+        preView
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [questionId, setQuestionId] = useState<number>(2);
@@ -73,30 +74,24 @@ export const QuizContent: React.FC = () => {
     }
 
 
-
-    const handleShare = () => {
-        //todo
-    }
-
     return (
         <div className="create-quiz-div">
             {isBigScreen
                 ? <div className="quiz-option-div">
-                    <button className="show-quiz">צפייה בחידון</button>
+                    <button
+                        className="show-quiz"
+                        onClick={preView}
+                    ><img src="/svg/preview.svg" alt="" />צפייה בחידון</button>
                     <div className="share-and-save">
-                        <AlertDialog
-                            question="הקישור הועתק"
-                            description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
-                            onConfirm={handleShare}
-                            showCancelButton={false}
-                            triggerButton={(onClick: () => void) => <button className="share-quiz" onClick={onClick}><img src="/svg/share.svg" className="share-quiz-photo" alt="share quiz" /></button>}
-                        />
                         <AlertDialog
                             question="שים לב"
                             description="אם תשמור את השינויים לוח התוצאות שלך יתאפס"
                             onConfirm={handleSave}
                             showCancelButton={true}
-                            triggerButton={(onClick: () => void) => <button className="save-quiz" onClick={onClick}>שמירה<img src="" alt="" /></button>}
+                            triggerButton={(onClick: () => void) => <button
+                                className="save-quiz"
+                                onClick={onClick}><img src="/svg/save.svg" alt="" />שמירה
+                            </button>}
                         />
                     </div>
                 </div>

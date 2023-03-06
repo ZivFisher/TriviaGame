@@ -1,3 +1,4 @@
+import { FilesType, ImageService } from '@hilma/fileshandler-server';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Answer } from 'src/answer/answer.entity';
@@ -10,6 +11,7 @@ export class QuizService {
     constructor(
         @InjectRepository(Quiz)
         private readonly quizRepository: Repository<Quiz>,
+        private readonly imageService: ImageService
     ) { }
 
     async getQuizScores(id: string) {
@@ -38,8 +40,13 @@ export class QuizService {
         return this.quizRepository.find({ relations: ['questions', 'questions.answers'] });
     }
 
-    create(quizData: Quiz) {
-        console.log(111111)
+    async create(quizData: Quiz & { imageId?: number }, files?: FilesType) {
+        if (String(quizData.imageId)) {
+            const imageFile = files.find(file => file.originalname === String(quizData.imageId))
+            console.log('imageFile:', imageFile)
+            quizData.image = await this.imageService.saveSingleFile([imageFile])
+        }
+
         if (!quizData?.title || !quizData?.description) {
             throw new BadRequestException('Title and description are required');
         }

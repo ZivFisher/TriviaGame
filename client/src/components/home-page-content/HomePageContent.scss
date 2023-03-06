@@ -4,14 +4,14 @@
 @mixin homePageButton($color, $border-bottom) {
     height: 7vh;
     width: 15vw;
-    background: $color 0% 0% no-repeat padding-box;
+    background-color: $color;
     border-radius: 8px;
     font-weight: 800;
     border-bottom: 5px solid $border-bottom;
     opacity: 1;
 }
 
-#homePageInterface {
+.home-page-interface {
     height: 70%;
     display: flex;
     flex-direction: column;
@@ -19,23 +19,27 @@
     justify-content: space-evenly;
 }
 
-#homePageHeader {
+.home-page-header {
     width: 26.14vw;
     height: 7.68vh;
     font-family: 'Rubik', sans-serif;
     color: #0C3249;
 }
 
-#homePageButtons {
+.home-page-buttons {
     width: 33vw;
     height: 8vh;
     display: flex;
     justify-content: space-between;
 
-    #createButton {
+    .create-button {
         display: flex;
         gap: 5px;
-        @include homePageButton(#378381, #216361);
+        @include homePageButton($main-color, $darker-green);
+
+        &:hover {
+            background-color: $main-color;
+        }
 
         img {
             width: 1vw;
@@ -43,22 +47,26 @@
         }
     }
 
-    #myQuizesButton {
-        @include homePageButton(#BE7F6B, #985E4B)
+    .my-quizzes-button {
+        @include homePageButton(#BE7F6B, #985E4B); //unique colors
+
+        &:hover {
+            background-color: #BE7F6B;
+        }
     }
 }
 
-#greeting {
+.greeting {
     font-weight: 900;
 }
 
-#banana-monkey {
+.banana-monkey {
     width: 19vw;
     height: 32vh;
     align-self: center;
 }
 
-#logout {
+.logout {
     height: 3vh;
     width: fit-content;
     font-weight: 900;
@@ -66,72 +74,85 @@
     justify-content: space-around;
     align-self: flex-end;
     margin-bottom: 10px;
-    
+    text-decoration: none;
 
     img {
         width: 40%;
     }
 
     span {
-        color: #216361;
+        color: $darker-green;
         width: 40%;
     }
 }
 
 @media screen and (max-width: 600px) {
-    #homePageInterface{
-        height:100%;
-        width:100%;
-        justify-content: center;
+    .home-page-interface {
+        margin-top: 15vh;
+        height: 100%;
+        width: 100%;
         align-items: center;
-        gap:1vh;
-    }
+        justify-content: flex-start;
+        gap: 1vh;
+        margin-left: 10vw;
 
-    #homePageHeader{
-        text-align:center;
-        line-height: 1.8;
-        height:fit-content;
-    }
+        .home-page-header {
+            text-align: center;
+            width: 40vw;
+            font-size: 6rem;
+            height: 12vh;
+        }
 
 
-    #homePageButtons{
-        width:55vw;
-        height:25vh;
-        flex-direction: column;
-        justify-content: space-evenly;
+        .home-page-buttons {
+            width: 55vw;
+            height: 25vh;
+            flex-direction: column;
+            justify-content: space-evenly;
 
-        #createButton{
-            width:100%;
-            height:40%;
+            .create-button {
+                width: 100%;
+                height: 40%;
+                font-size: 16px;
 
-            img {
-                width: 6vw;
-                height: 8vh;
-                margin:5px;
+                img {
+                    width: 6vw;
+                    height: 8vh;
+                    margin: 5px;
+                }
+            }
+
+            .my-quizzes-button {
+                width: 100%;
+                height: 40%;
+                font-size: 16px;
             }
         }
-
-        #myQuizesButton{
-            width:100%;
-            height:40%;
-        }
     }
 
-    #banana-monkey {
+    .logout {
+        font-size: 16px;
+    }
+
+    .greeting {
+        font-size: 30px;
+    }
+
+    .banana-monkey {
         width: 80vw;
         height: 32vh;
         z-index: 2;
-        position:fixed;
-        bottom:-55px;
-        left:-25vw;
+        position: fixed;
+        bottom: -55px;
+        left: -25vw;
     }
 
-    #leaves-top-right {
+    .leaves-top-right {
         width: 80vw;
         height: 32vh;
         z-index: 2;
-        position:fixed;
-        top:-70px;
-        right:-34vw;
+        position: fixed;
+        top: -70px;
+        right: -34vw;
     }
-  }
+}

@@ -1,30 +1,59 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery } from '@mui/material';
-import { FC, useState } from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import LinearProgress from '@mui/material/LinearProgress';
+import { usePlayQuiz } from '../../contexts/PlayQuizContext'
+import { FC, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useIsBigScreen } from '../../consts/consts';
+import axios from 'axios'
 import './QuizResults.scss';
 
 export const QuizResults: FC = () => {
-    const isBigScreen: boolean = useMediaQuery('(min-width:401px)');
-    const [open, setOpen] = useState(true);
+    const navigate = useNavigate()
+    const isBigScreen: boolean = useIsBigScreen()
+    const [isOpen, setOpen] = useState(true);
 
-    //This is only temporary variables until we can use context provider.
-    const score: number = 50;
-    const correctAnswers: number = 2;
-    const questions: number = 4;
+    const { quiz, score, correctAnswers, nickname } = usePlayQuiz();
+    const { questions, id } = quiz;
 
-    //This will be required when we develop the logic.
-    const handleClickOpen = () => {
-        setOpen(true);
+    useEffect(() => {
+        sendScoreToServer()
+    }, [])
+
+    async function sendScoreToServer() {
+        const API_ENDPOINT = 'http://localhost:8080/api/quiz';
+
+        const requestBody = {
+            nickname,
+            id,
+            score
+        };
+
+        try {
+            await axios.post(API_ENDPOINT, requestBody);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleShare = () => {
+
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const navigateToHome = () => {
+        navigate('/home-page')
     };
 
     return (
         <div className='quiz-results-container'>
+
             <img className='confetti-animation' src="./animation/confetti.gif" alt="confetti animatios" />
             {isBigScreen ?
                 <>
+                    <LinearProgress variant='determinate' value={100} />
                     <div className="content">
                         <img
                             className='dancing-monkey-img'
@@ -43,7 +72,7 @@ export const QuizResults: FC = () => {
                             <img
                                 className='share-logo'
                                 src="./svg/Icon-awesome-share.svg"
-                                alt=""
+                                alt="share button"
                             />שתף תוצאה
                         </Button>
                     </div></>
@@ -51,11 +80,10 @@ export const QuizResults: FC = () => {
                 <>
                     <Dialog
                         className='quiz-results-dialog'
-                        open={open && !isBigScreen}
-                        onClose={handleClose}
+                        open={isOpen && !isBigScreen}
                     >
                         <img className='dancing-monkey' src="./svg/Group597.svg" alt="dancing monkey" />
-                        <DialogTitle>הצלחת {correctAnswers} מתוך {questions}</DialogTitle>
+                        <DialogTitle>הצלחת {correctAnswers} מתוך {questions.length}</DialogTitle>
                         <DialogContent>
                             ציונך: {score}
                         </DialogContent>
@@ -64,12 +92,12 @@ export const QuizResults: FC = () => {
                             <Button
                                 className='share-btn'
                                 variant="contained"
-                                onClick={handleClose}
+                                onClick={handleShare}
                             >
                                 <img
                                     className='share-logo'
                                     src="./svg/Icon-awesome-share.svg"
-                                    alt=""
+                                    alt="share button"
                                 />
                                 שתף תוצאה
                             </Button>
@@ -77,7 +105,7 @@ export const QuizResults: FC = () => {
                             <Button
                                 className='home-btn'
                                 variant="contained"
-                                onClick={handleClose}
+                                onClick={navigateToHome}
                             >
                                 <img
                                     className='share-logo'

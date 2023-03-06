@@ -7,16 +7,13 @@ const CustomButton = styled(Button)({
     textTransform: 'none',
     fontSize: 16,
     padding: '1vh 4vh',
-    border: '1px solid',
     borderRadius: '8px',
     lineHeight: 1.5,
     backgroundColor: '#378381',
     fontWeight: 'bold',
     textDecoration: 'none',
     '&:hover': {
-        backgroundColor: '#0069d9',
-        borderColor: '#0062cc',
-        boxShadow: 'none',
+        backgroundColor: '#378381',
     },
 });
 

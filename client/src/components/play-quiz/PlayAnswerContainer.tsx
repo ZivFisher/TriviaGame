@@ -8,6 +8,7 @@ export const PlayAnswerContainer: React.FC = () => {
 
     const [highlightCorrect, setHighlightCorrect] = useState<boolean>(false);
     const [haveImages, setHaveImages] = useState<boolean>(false);
+    const [toggleClick, setToggleClick] = useState<boolean>(false);
 
 
     const { answers } = currentQuestion;
@@ -22,12 +23,13 @@ export const PlayAnswerContainer: React.FC = () => {
             {answers.map(answer => {
                 return (
                     <PlayAnswer
-                        key={answer.answerId}
+                        key={answer.id}
                         answer={answer}
-                        answerStyle={answer.isCorrect ? 'correct-answer' : 'wrong-answer'}
                         haveImages={haveImages}
                         highlightCorrect={highlightCorrect}
                         setHighlightCorrect={setHighlightCorrect}
+                        toggleClick={toggleClick}
+                        setToggleClick={setToggleClick}
                     />
                 )
             })}

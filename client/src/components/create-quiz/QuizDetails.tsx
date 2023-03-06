@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
-import './QuizDetails.scss';
 import { UploadImage } from '../upload-image/UploadImage';
 import { FileInput, useFiles } from '@hilma/fileshandler-client';
+import './QuizDetails.scss';
 
 interface QuizDetailsProps {
     onContinue: () => void;
@@ -13,8 +13,8 @@ interface QuizDetailsProps {
 
 export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
     const isBigScreen: boolean = useMediaQuery('(min-width:600px)');
-    const { quizDetails, setQuizDetails } = useQuizDetails();
-    const filesUploader = useFiles();
+    const { quizDetails, setQuizDetails, filesUploader } = useQuizDetails();
+
 
 
     const onChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,10 +31,12 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
         }));
     }
 
-    const handleImageChange = (value: { link: string }): void => {
+    const handleImageChange = ({ link, id }: { link: string, id: number }): void => {
         setQuizDetails((prevState) => ({
             ...prevState,
-            image: value.link
+            image: link,
+            imageId: id
+
         }));
     }
 

@@ -5,7 +5,7 @@ import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Answer } from '../../interfaces/quizDetailInterface';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
-import { FileInput, useFiles } from '@hilma/fileshandler-client'
+import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client'
 import './QuestionDetails.scss';
 import { UploadImage } from '../upload-image/UploadImage';
 
@@ -21,14 +21,14 @@ interface QuestionProps {
 
 export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionTitle, index, onChangeQuestionTitle, deleteQuestion, copyQuestion }) => {
     const isBigScreen = useMediaQuery('(min-width:600px)');
-    const filesUploader = useFiles();
     const {
         questions,
         setQuestions,
         deleteAnswer,
         markedAsCorrect,
         changeAnswerContent,
-        deleteImg
+        deleteImg,
+        filesUploader
     } = useQuizDetails();
     const [answerId, setAnswersId] = useState<number>(questions[index].answers.length + 1);
 
@@ -41,11 +41,12 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
         setAnswersId(prev => prev + 1);
     }
 
-    const handleImageChange = (value: { link: string }): void => {
+    const handleImageChange = ({ id, link }: UploadedFile): void => {
         setQuestions(prev =>
             [...prev.map(question => {
                 if (question.id === questionId) {
-                    question.image = value.link;
+                    question.image = link;
+                    question.imageId = id;
                 }
                 return question;
             })]

@@ -1,9 +1,11 @@
 
+import { FilesUploader, useFiles } from "@hilma/fileshandler-client";
 import axios from "axios";
 
 import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface"
+import { usePlayQuiz } from "./PlayQuizContext";
 
 interface QuizDetailInterface {
     quizDetails: Quiz;
@@ -20,6 +22,8 @@ interface QuizDetailInterface {
     handleSave: () => Promise<void>;
     getQuiz: (id: string) => Promise<void>;
     deleteImg: (questionId?: number) => void;
+    preView: () => void;
+    filesUploader: FilesUploader;
 }
 
 const QuizDetailsContext = createContext<QuizDetailInterface | null>(null);
@@ -31,6 +35,7 @@ export const useQuizDetails = () => {
 }
 
 export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) => {
+    const { setQuiz, setCurrentQuestion } = usePlayQuiz();
     const [quizDetails, setQuizDetails] = useState<Quiz | EditQuiz>({
         title: '',
         description: '',
@@ -47,6 +52,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     const [activeQuestion, setActiveQuestion] = useState<number>(questions.length - 1);
     const navigate = useNavigate();
     const { state } = useLocation();
+    const filesUploader = useFiles();
 
     useEffect(() => {
         if (state !== null) {
@@ -141,18 +147,17 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         });
         if (answerCheck || questionCheck || quizCheck) return;
         try {
-            if (quizDetails.id) {
-                const { data } = await axios
-                    .post<Quiz | null>(`http://localhost:8080/api/quiz`, {
-                        title: quizDetails.title,
-                        description: quizDetails.description,
-                        image: quizDetails.image,
-                        questions: questions
-                    })
+            if (!quizDetails.id) {
+                const { data } = await filesUploader.post<Quiz | null>(`http://localhost:8080/api/quiz`, {
+                    title: quizDetails.title,
+                    description: quizDetails.description,
+                    image: quizDetails.image,
+                    imageId: quizDetails.imageId,
+                    questions: questions
+                })
             } else {
                 const { data } = await axios
-                    .put<Quiz | null>(`http://localhost:8080/api/quiz`, {
-                        id: quizDetails.id,
+                    .put<Quiz | null>(`http://localhost:8080/api/quiz/${quizDetails.id}`, {
                         title: quizDetails.title,
                         description: quizDetails.description,
                         image: quizDetails.image,
@@ -177,6 +182,19 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         );
     }
 
+    const preView = () => {
+        setQuiz({
+            id: '1',
+            title: quizDetails.title,
+            description: quizDetails.description,
+            image: quizDetails.image,
+            questions: questions
+        })
+
+        setCurrentQuestion(questions[0])
+        navigate('/start-game');
+    }
+
     return (
         <QuizDetailsContext.Provider value={{
             quizDetails,
@@ -192,7 +210,9 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             setActiveQuestion,
             handleSave,
             getQuiz,
-            deleteImg
+            deleteImg,
+            preView,
+            filesUploader
         }}>
             {children}
         </QuizDetailsContext.Provider>

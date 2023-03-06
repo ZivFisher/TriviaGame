@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Header } from '../../components/header/Header'
+import { ComputerHeader } from '../../components/computer-header/ComputerHeader'
 import './Main.scss'
 
 export const Main: React.FC = () => {
@@ -14,7 +14,7 @@ export const Main: React.FC = () => {
                     <Outlet />
                 </div>
             </> : <>
-                <Header />
+                <ComputerHeader />
                 <img className='right-leaf' src='./svg/Group565.svg' alt='' />
                 <img className='left-leaf' src='./svg/Group924.svg' alt='' />
                 <div className="main-content">

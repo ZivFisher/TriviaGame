@@ -13,9 +13,10 @@ import { ScorePage } from './pages/score-page/ScorePage';
 import { Login } from './pages/login-register/login/Login';
 import { PlayQuizProvider } from "./contexts/PlayQuizContext";
 import { ScoreBoardProvider } from './contexts/ScorePageContext';
-import './App.scss';
 import { Loading } from './pages/loading/Loading';
+import { StartGamePage } from './pages/start-game-page/StartGamePage';
 
+import './App.scss';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path='quiz-nickname' element={<QuizNickname />} />
             <Route path='quiz-results' element={<QuizResults />} />
             <Route path='play-quiz' element={<PlayQuizPage />} />
+            <Route path='start-game' element={<StartGamePage />} />
             <Route path='score-board' element={
               <ScoreBoardProvider>
                 <ScorePage />

@@ -1,22 +1,22 @@
 import { Dispatch, SetStateAction } from "react"
 
 export interface Quiz {
-    quizId: number;
+    id: string;
     title: string;
     description: string;
     image?: string;
-    questions: Question[]
+    questions: Question[];
 }
 
 export interface Question {
-    questionId: number;
+    id: number;
     title: string;
     image?: string;
-    answers: Answer[]
+    answers: Answer[];
 }
 
 export interface Answer {
-    answerId: number;
+    id: number;
     isCorrect: boolean;
     content: string;
     image?: string
