@@ -1,4 +1,4 @@
-import '../../pages/quiz-nickname/QuizNickname.scss';
+
 import { Button, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import { MobileHeader } from '../mobile-header/MobileHeader';
