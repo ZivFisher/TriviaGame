@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Answer } from 'src/answer/answer.entity';
-import { Question } from 'src/question/question.entity';
+import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
+import { CreateQuizDto } from './quiz.dto';
 import { Quiz } from './quiz.entity';
 
 @Injectable()
@@ -12,105 +12,24 @@ export class QuizService {
         private readonly quizRepository: Repository<Quiz>,
     ) { }
 
-    async getQuizScores(id: string) {
-        const quiz = await this.quizRepository.findOne(
-            {
-                where: { id },
-                relations: { scores: true },
-                order: {
-                    scores: {
-                        score: "DESC"
-                    }
-                }
-            }
-        );
-
-        if (!quiz) {
-            throw new NotFoundException(`Quiz with ID ${id} not found`);
-        }
-
-        const first5Scores = quiz.scores.slice(0, 5);
-
-        return first5Scores;
-    }
-
     getAll() {
         return this.quizRepository.find({ relations: ['questions', 'questions.answers'] });
     }
 
-    create(quizData: Quiz) {
+    async create(quizData: CreateQuizDto) {
+        const errors = await validate(quizData);
 
-        if (!quizData?.title || !quizData?.description) {
-            throw new BadRequestException('Title and description are required');
+        if (errors.length > 0) {
+            throw new BadRequestException(errors.toString());
         }
 
-        if (!quizData?.image) {
-            throw new BadRequestException('Quiz image is required');
-        }
-
-        if (!quizData?.questions || !(quizData?.questions?.length > 0)) {
-            throw new BadRequestException('Quiz questions is required');
-        }
-
-        const quiz = new Quiz();
-        quiz.title = quizData.title;
-        quiz.description = quizData.description;
-        quiz.image = quizData.image;
-
-        const questions = [];
-        quizData.questions.forEach((questionData) => {
-
-            if (!questionData?.title) {
-                throw new BadRequestException('Questions must have a title');
-            }
-
-            if (!questionData?.answers || !(questionData?.answers?.length > 0)) {
-                throw new BadRequestException('Question must have at least one answer');
-            }
-
-            const answers = [];
-            let hasCorrectAnswer = false;
-
-            questionData.answers.forEach((answerData) => {
-                if (!answerData?.content) {
-                    throw new BadRequestException('Answers must have a content');
-                }
-
-                const answer = new Answer();
-                answer.content = answerData?.content;
-                answer.isCorrect = answerData?.isCorrect;
-                answer.image = answerData?.image;
-
-                if (answer.isCorrect) {
-                    hasCorrectAnswer = true;
-                }
-
-                answers.push(answer);
-            });
-
-            if (!hasCorrectAnswer) {
-                throw new BadRequestException('Question must have at least one correct answer');
-            }
-
-            const question = new Question();
-            question.title = questionData?.title;
-            question.image = questionData?.image;
-            question.answers = answers;
-            questions.push(question);
-        });
-
-        if (questions.length === 0) {
-            throw new Error('Quiz must have at least one question');
-        }
-
-        quiz.questions = questions;
+        const quiz = this.quizRepository.create(quizData);
 
         return this.quizRepository.save(quiz);
     }
 
-
-    delete(id: string) {
-        return this.quizRepository.delete(id);
+    createMyquiz(quiz: Partial<Quiz>) {
+        return this.quizRepository.create(quiz);
     }
 
     async getQuizDetails(id: string) {
@@ -120,12 +39,30 @@ export class QuizService {
                 relations: ['questions', 'questions.answers']
             });
 
-        if (quiz.length === 0) {
-            throw new NotFoundException(`Quiz with ID ${id} not found`);
-
-        }
+        if (quiz.length === 0) throw new NotFoundException();
 
         return quiz;
     }
 
+    async getQuizById(id: string) {
+        const quiz = await this.quizRepository.findOne({ where: { id } })
+
+        if (!quiz) throw new NotFoundException();
+
+        return quiz;
+    }
+
+    async update(id: string, quizData: CreateQuizDto) {
+        const existQuiz = await this.getQuizById(id)
+
+        const updatedQuiz = this.quizRepository.create(quizData);
+
+        updatedQuiz.scores = [];
+        updatedQuiz.id = existQuiz.id;
+        return this.quizRepository.save(updatedQuiz)
+    }
+
+    delete(id: string) {
+        return this.quizRepository.delete(id);
+    }
 }
