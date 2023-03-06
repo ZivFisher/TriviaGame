@@ -15,37 +15,40 @@ import { PlayQuizProvider } from "./contexts/PlayQuizContext";
 import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import { Loading } from './pages/loading/Loading';
 import { StartGamePage } from './pages/start-game-page/StartGamePage';
+import { AuthProvider } from '@hilma/auth';
 
 import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <PlayQuizProvider>
-        <Routes>
-          <Route path='/' element={< Main />}>
-            <Route path='/create-quiz' element={
-              <QuizDetailsProvider>
-                <CreateQuiz />
-              </QuizDetailsProvider>}
-            ></Route>
-            <Route path='home-page' element={<HomePage />} />
-            <Route path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
-            <Route path='quiz-nickname' element={<QuizNickname />} />
-            <Route path='quiz-results' element={<QuizResults />} />
-            <Route path='play-quiz' element={<PlayQuizPage />} />
-            <Route path='start-game' element={<StartGamePage />} />
-            <Route path='score-board' element={
-              <ScoreBoardProvider>
-                <ScorePage />
-              </ScoreBoardProvider>} />
-            <Route path='my-quizzes' element={<MyQuizzes />}></Route>
-            <Route path='loading' element={<Loading />} />
-            <Route path='/*' element={<NotFoundContent />} />
-          </Route>
-        </Routes>
-      </PlayQuizProvider>
+      <AuthProvider accessTokenCookie={process.env.AT_COOKIE}>
+        <PlayQuizProvider>
+          <Routes>
+            <Route path='/' element={< Main />}>
+              <Route path='/create-quiz' element={
+                <QuizDetailsProvider>
+                  <CreateQuiz />
+                </QuizDetailsProvider>}
+              ></Route>
+              <Route path='home-page' element={<HomePage />} />
+              <Route path='login' element={<Login />} />
+              <Route path='register' element={<Register />} />
+              <Route path='quiz-nickname' element={<QuizNickname />} />
+              <Route path='quiz-results' element={<QuizResults />} />
+              <Route path='play-quiz' element={<PlayQuizPage />} />
+              <Route path='start-game' element={<StartGamePage />} />
+              <Route path='score-board' element={
+                <ScoreBoardProvider>
+                  <ScorePage />
+                </ScoreBoardProvider>} />
+              <Route path='my-quizzes' element={<MyQuizzes />}></Route>
+              <Route path='loading' element={<Loading />} />
+              <Route path='/*' element={<NotFoundContent />} />
+            </Route>
+          </Routes>
+        </PlayQuizProvider>
+      </AuthProvider>
     </div >
   );
 }

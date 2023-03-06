@@ -3,6 +3,7 @@ import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } f
 
 @Entity()
 export class Score {
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -15,6 +16,6 @@ export class Score {
     @CreateDateColumn()
     date: Date;
 
-    @ManyToOne(() => Quiz, quiz => quiz.scores)
+    @ManyToOne(() => Quiz, quiz => quiz.scores, { onDelete: 'CASCADE' })
     quiz: Quiz;
 }

@@ -10,7 +10,7 @@ export class AuthController {
     @Post('/login')
     async login(@RequestUser() userInfo: RequestUserType, @Res() res: Response) {
         let body = this.userService.login(userInfo, res);
-        res.send(body);
+        return res.send(body);
     }
 
     @Post('/register')

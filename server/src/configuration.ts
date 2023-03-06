@@ -7,13 +7,13 @@ export default (): AuthConfig => ({
             tries: 5
         },
 
-        accessToken_cookie: "m4StEr_1T4r4T0r",
+        accessToken_cookie: process.env.AT_COOKIE,
         secretOrKey: process.env.JWT_SECRET,
     },
 
     roleAccess: {
         Editor: {
-            components: [],
+            components: ['Editor'],
             defaultHomePage: 'home-page'
         }
     }

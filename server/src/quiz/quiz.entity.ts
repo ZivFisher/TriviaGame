@@ -5,6 +5,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Quiz {
+
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -16,6 +17,8 @@ export class Quiz {
 
     @Column()
     image: string;
+
+    //TODO: Add userId field and his relation to User entity.
 
     @OneToMany(() => Score, score => score.quiz, { cascade: true })
     scores: Score[];
