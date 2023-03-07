@@ -7,6 +7,7 @@ import { Quiz } from './quiz.entity';
 
 @Injectable()
 export class QuizService {
+
     constructor(
         @InjectRepository(Quiz)
         private readonly quizRepository: Repository<Quiz>,
