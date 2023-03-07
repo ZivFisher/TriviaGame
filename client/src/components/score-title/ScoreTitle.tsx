@@ -1,13 +1,14 @@
-import { useMediaQuery } from '@mui/material';
+import { useScoreBoardContext } from '../../contexts/ScorePageContext';
+import { useIsBigScreen } from '../../consts/consts';
 import './scoreTitle.scss';
 
 export const ScoreTitle: React.FC = () => {
-
-    const isBigScreen = useMediaQuery('(min-width:600px)');
+    const { quizTitle } = useScoreBoardContext();
+    const isBigScreen = useIsBigScreen();
     return (
         <div className='score-title-container'>
             <p className="score-board-title">לוח תוצאות:</p>
-            {isBigScreen && <p className="score-board-quiz-name">מה אתם יודעים על גיאורגיה?</p>}
+            {isBigScreen && <p className="score-board-quiz-name">{quizTitle}</p>}
         </div>
     );
 };

@@ -18,7 +18,7 @@ export class QuizController {
             return this.quizService.getAll();
         } catch (e) {
             console.log(e + e.message);
-            throw new BadRequestException()
+            throw new BadRequestException();
         }
     }
 
@@ -27,11 +27,16 @@ export class QuizController {
         try {
             return this.quizService.getQuizDetails(id);
         } catch (e) {
-            console.log(e)
+            console.log(e);
             if (e instanceof NotFoundException) {
                 throw e;
-            } else throw new BadRequestException()
+            } else throw new BadRequestException();
         }
+    }
+
+    @Get('/:userId/user-quizzes')
+    getUserQuizzes(@Param('userId') userId: string) {
+        return this.quizService.getUserQuizzes(userId);
     }
 
     @Get('/:id/scores')
@@ -39,10 +44,10 @@ export class QuizController {
         try {
             return this.scoreService.getScoresByQuizId(id);
         } catch (e) {
-            console.log(e)
+            console.log(e);
             if (e instanceof NotFoundException) {
                 throw e;
-            } else throw new BadRequestException()
+            } else throw new BadRequestException();
         }
     }
 
@@ -53,10 +58,10 @@ export class QuizController {
         try {
             return this.quizService.create(createdQuiz, files);
         } catch (e) {
-            console.log(e)
+            console.log(e);
             if (e instanceof NotFoundException) {
                 throw e;
-            } else throw new BadRequestException()
+            } else throw new BadRequestException();
         }
     }
 
@@ -65,10 +70,10 @@ export class QuizController {
         try {
             return this.quizService.delete(id);
         } catch (e) {
-            console.log(e)
+            console.log(e);
             if (e instanceof NotFoundException) {
                 throw e;
-            } else throw new BadRequestException()
+            } else throw new BadRequestException();
         }
     }
 
@@ -77,10 +82,10 @@ export class QuizController {
         try {
             return this.quizService.update(id, updatedQuiz);
         } catch (e) {
-            console.log(e)
+            console.log(e);
             if (e instanceof NotFoundException) {
                 throw e;
-            } else throw new BadRequestException()
+            } else throw new BadRequestException();
         }
     }
 }

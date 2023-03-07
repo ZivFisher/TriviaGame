@@ -4,19 +4,20 @@ import { HighScoreTable } from '../../components/HighScoreTable/HighScoreTable';
 import { MobileHeader } from '../../components/mobile-header/MobileHeader';
 import { ScoreTitle } from '../../components/score-title/ScoreTitle';
 import { Loading } from '../loading/Loading';
-import { useMediaQuery } from '@mui/material';
-import './scorePage.scss';
 import { useIsBigScreen } from '../../consts/consts';
+
+import './scorePage.scss';
 
 export const ScorePage: React.FC = () => {
 
-    const { isLoadingScores, getScores } = useScoreBoardContext();
+    const { isLoadingScores, getScores, scores } = useScoreBoardContext();
+    const isBigScreen = useIsBigScreen();
 
     useEffect(() => {
         getScores();
+
     }, []);
 
-    const isBigScreen = useIsBigScreen();
 
     return (
         <>
@@ -24,17 +25,24 @@ export const ScorePage: React.FC = () => {
                 ? <Loading />
                 :
                 <div className='score-page-container'>
-                    {!isBigScreen &&
+                    {!isBigScreen
+                        ?
                         <MobileHeader title='החידונים שלי' showLogo={false} />
-                    }
+                        : null}
                     <ScoreTitle />
-                    <HighScoreTable />
-
-                    {isBigScreen &&
+                    {!scores?.length
+                        ?
+                        <h2>לא נמצאו תוצאות למבחן זה</h2>
+                        :
+                        <HighScoreTable />}
+                    {isBigScreen
+                        ?
                         <img className='score-page-monkey'
                             src="../svg/winnerMonkey.svg"
-                            alt="winner monkey" />}
+                            alt="winner monkey" />
+                        : null}
                 </div>
+
             }
         </>
     );
