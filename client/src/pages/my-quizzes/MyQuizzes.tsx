@@ -15,7 +15,7 @@ export const MyQuizzes: React.FC = () => {
 
     useEffect(() => {
         getCards(userId);
-    }, [cards]);
+    }, []);
 
     return (
         <div className="my-quizzes-div">

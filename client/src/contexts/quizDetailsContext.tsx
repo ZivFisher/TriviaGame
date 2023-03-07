@@ -148,13 +148,6 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         if (answerCheck || questionCheck || quizCheck) return;
         try {
             if (!quizDetails.id) {
-                console.log({
-                    title: quizDetails.title,
-                    description: quizDetails.description,
-                    image: quizDetails.image,
-                    imageId: quizDetails.imageId,
-                    questions: questions
-                })
                 const { data } = await filesUploader.post<Quiz | null>(`http://localhost:8080/api/quiz`, {
                     title: quizDetails.title,
                     description: quizDetails.description,

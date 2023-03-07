@@ -18,13 +18,13 @@ export class Quiz {
     @Column()
     image: string;
 
+    @Column({ name: 'user_id', default: '685edf2e-7625-4bab-9e7e-d9cb5cc03dca' })
+    userId: string;
+
     @OneToMany(() => Score, score => score.quiz, { cascade: true, onDelete: 'CASCADE' })
     scores: Score[];
 
     @OneToMany(() => Question, question => question.quiz, { cascade: true, onDelete: 'CASCADE' })
     questions: Question[];
 
-    //TODO: Add userId field and his relation to User entity.
-    @Column({ name: 'user_id' })
-    userId: string;
 }
