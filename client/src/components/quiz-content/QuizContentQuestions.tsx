@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";
 import { Answer } from "../../interfaces/quizDetailInterface";

@@ -6,8 +6,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Answer } from '../../interfaces/quizDetailInterface';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client'
-import './QuestionDetails.scss';
 import { UploadImage } from '../upload-image/UploadImage';
+import './QuestionDetails.scss';
 
 
 interface QuestionProps {

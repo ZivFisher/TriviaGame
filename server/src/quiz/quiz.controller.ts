@@ -45,9 +45,11 @@ export class QuizController {
             } else throw new BadRequestException()
         }
     }
+
     @UseFilesHandler(100)
     @Post('/')
     create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType) {
+        console.log(222222222)
         try {
             return this.quizService.create(createdQuiz, files);
         } catch (e) {

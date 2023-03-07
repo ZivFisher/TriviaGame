@@ -1,5 +1,4 @@
 
-import { useEffect, useState } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
@@ -14,8 +13,6 @@ interface QuizDetailsProps {
 export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
     const isBigScreen: boolean = useMediaQuery('(min-width:600px)');
     const { quizDetails, setQuizDetails, filesUploader } = useQuizDetails();
-
-
 
     const onChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuizDetails((prevState) => ({
@@ -36,7 +33,6 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
             ...prevState,
             image: link,
             imageId: id
-
         }));
     }
 
@@ -54,7 +50,10 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
                     ? <UploadImage imageSrc={quizDetails.image} deleteImg={deleteImg} className='quiz-details-img' />
                     : <label>
                         <div className="upload-image">
-                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />
+                            <FileInput type="image"
+                                filesUploader={filesUploader}
+                                onChange={handleImageChange}
+                                className='upload-image-input' />
                             <BootstrapTooltip title='הוספת תמונה לחידון'>
                                 <img src="/svg/image.svg" alt="upload image" />
                             </BootstrapTooltip>

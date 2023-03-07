@@ -23,7 +23,27 @@ export class QuizService {
             const imageFile = files.find(file => file.originalname === String(quizData.imageId))
             console.log('imageFile:', imageFile)
             quizData.image = await this.imageService.saveSingleFile([imageFile])
+            delete quizData.imageId
         }
+
+        for (let i = 0; i < quizData.questions.length; i++) {
+            const question = quizData.questions[i];
+            if (String(question.imageId)) {
+                const imageFile = files.find(file => file.originalname === String(question.imageId))
+                question.image = await this.imageService.saveSingleFile([imageFile])
+                delete question.imageId
+            }
+            for (let j = 0; j < question.answers.length; j++) {
+                const answer = question.answers[j];
+                if (String(answer.imageId)) {
+                    const imageFile = files.find(file => file.originalname === String(answer.imageId))
+                    if (!imageFile) return;
+                    answer.image = await this.imageService.saveSingleFile([imageFile])
+                    delete answer.imageId
+                }
+            }
+        }
+
         const errors = await validate(quizData);
 
         if (errors.length > 0) {

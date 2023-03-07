@@ -1,4 +1,3 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useEffect, useState } from "react";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";

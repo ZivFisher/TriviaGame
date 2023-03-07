@@ -3,10 +3,10 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import './AnswerDetails.scss';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
 import { FileInput, useFiles } from '@hilma/fileshandler-client';
 import { UploadImage } from '../upload-image/UploadImage';
+import './AnswerDetails.scss';
 
 interface AnswerProps {
   answerNum: number;
@@ -33,14 +33,14 @@ export const AnswerDetails: React.FC<AnswerProps> = ({
   questionId,
   answerIndex
 }) => {
-  const { setQuestions } = useQuizDetails()
+  const { setQuestions, filesUploader } = useQuizDetails()
   const isBigScreen = useMediaQuery('(min-width:600px)');
   const { questions } = useQuizDetails();
-  const filesUploader = useFiles();
 
-  const handleImageChange = (value: { link: string }): void => {
+  const handleImageChange = (value: { link: string, id: number }): void => {
     setQuestions(prev => {
       prev[questionIndex].answers[answerIndex].image = value.link;
+      prev[questionIndex].answers[answerIndex].imageId = value.id;
       return [...prev];
     }
     );
