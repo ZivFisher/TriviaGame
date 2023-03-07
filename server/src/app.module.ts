@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from './database.module';
 import { QuizModule } from './quiz/quiz.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import configuration from './config';
 import { ScoreModule } from './score/score.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from './config';
