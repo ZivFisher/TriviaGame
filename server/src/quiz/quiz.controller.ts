@@ -19,8 +19,9 @@ export class QuizController {
         return this.quizService.getQuizByUserId(user.id)
     }
 
-    @UseFilesHandler(100)
+
     @UseJwtAuth()
+    @UseFilesHandler(100)
     @Post('/')
     create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType, @RequestUser() user: RequestUserType) {
         try {

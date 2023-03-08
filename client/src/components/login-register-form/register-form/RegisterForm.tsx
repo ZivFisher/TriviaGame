@@ -16,34 +16,30 @@ export const RegisterForm: FC = () => {
     const [validatePassword, setValidatePassword] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // if (e.target.name === "validate-password") {
-        //     setValidatePassword(e.target.value);
-        // }
-        // else {
         setRegisterForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-        // }
+    }
+
+    const handleChangeValidatePassword = (content: string) => {
+        setValidatePassword(content);
     }
 
     const passwordValidated = () => validatePassword === registerForm.password;
 
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
         e.preventDefault();
-
-        // if (passwordValidated()) {
+        if (!passwordValidated()) return;
         try {
             const { data } = await axios.post("/auth/register", registerForm);
-            alert("You are registered, " + JSON.stringify(data, null, 2));
+
         } catch (error) {
             alert(JSON.stringify(error, null, 2));
         }
-        // } else {
-        // console.log("passwords are diffrent")
-        // }
+
     }
 
     return (
-        <form className='login-register-form' onSubmit={(e) => { handleSubmit(e) }}>
+        <form className='login-register-form'>
             <label className='label' htmlFor="username">שם משתמש</label>
             <input
                 className='input'
@@ -70,7 +66,7 @@ export const RegisterForm: FC = () => {
                 type="password"
                 id="validate-password"
                 name="validate-password"
-                onChange={handleChange}
+                onChange={(e) => handleChangeValidatePassword(e.target.value)}
                 value={validatePassword}
             />
 
@@ -78,6 +74,7 @@ export const RegisterForm: FC = () => {
                 className='login-register-button'
                 variant="contained"
                 type='submit'
+                onClick={(e) => handleSubmit(e)}
             >
                 הרשמה
             </Button>

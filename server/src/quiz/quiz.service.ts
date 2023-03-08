@@ -27,7 +27,7 @@ export class QuizService {
         })
     }
 
-    async create(quizData: CreateQuizDto, files?: FilesType, id: string) {
+    async create(quizData: CreateQuizDto, files: FilesType, id: string) {
         const imageFile = files.find(file => file.originalname === String(quizData.imageId))
         quizData.image = await this.imageService.saveSingleFile([imageFile])
 

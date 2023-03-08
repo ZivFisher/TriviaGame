@@ -19,17 +19,6 @@ export class Quiz {
     @Column()
     image: string;
 
-<<<<<<< HEAD
-    @Column({ name: 'user_id' })
-    userId: string;
-
-    @OneToMany(() => Score, score => score.quiz, { cascade: true })
-    scores: Score[];
-
-    @OneToMany(() => Question, question => question.quiz, { cascade: true })
-    questions: Question[];
-
-=======
     @OneToMany(() => Score, score => score.quiz, { cascade: true, onDelete: 'CASCADE' })
     scores: Score[];
 
@@ -39,5 +28,4 @@ export class Quiz {
 
     @ManyToOne(() => MyUser, user => user.quizzes, { onDelete: 'CASCADE' })
     user: MyUser;
->>>>>>> e75df88280caba74ad6afddefdace9c5487a31a0
 }
