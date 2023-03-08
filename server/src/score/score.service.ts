@@ -16,17 +16,27 @@ export class ScoreService {
         const score = this.scoreRepository.create({
             ...scoreData,
             quiz: { id: scoreData.quizId } as Quiz
-        })
+        });
         return this.scoreRepository.save(score);
     }
 
     async getScoresByQuizId(id: string) {
-        return this.scoreRepository.find({
-            where: {
-                quiz: {
-                    id: id
-                }
-            }
-        })
+        try {
+            const scores = await this.scoreRepository.find({
+                where: {
+                    quiz: {
+                        id: id
+                    }
+                },
+                order: {
+                    score: "DESC"
+                },
+                take: 5
+            });
+            return scores;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
     }
 }

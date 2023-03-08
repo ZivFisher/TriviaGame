@@ -1,6 +1,7 @@
 import { Question } from "src/question/question.entity";
 import { Score } from "src/score/score.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { MyUser } from '../auth/user.entity';
 
 
 @Entity()
@@ -18,11 +19,13 @@ export class Quiz {
     @Column()
     image: string;
 
-    //TODO: Add userId field and his relation to User entity.
-
-    @OneToMany(() => Score, score => score.quiz, { cascade: true })
+    @OneToMany(() => Score, score => score.quiz, { cascade: true, onDelete: 'CASCADE' })
     scores: Score[];
 
-    @OneToMany(() => Question, question => question.quiz, { cascade: true })
+    @OneToMany(() => Question, question => question.quiz, { cascade: true, onDelete: 'CASCADE' })
     questions: Question[];
+
+
+    @ManyToOne(() => MyUser, user => user.quizzes, { onDelete: 'CASCADE' })
+    userId: string;
 }

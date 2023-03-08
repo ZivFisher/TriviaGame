@@ -4,6 +4,7 @@ import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
 import { CreateQuizDto } from './quiz.dto';
 import { Quiz } from './quiz.entity';
+import { Score } from '../score/score.entity';
 
 @Injectable()
 export class QuizService {
@@ -19,13 +20,10 @@ export class QuizService {
 
     async create(quizData: CreateQuizDto) {
         const errors = await validate(quizData);
-
         if (errors.length > 0) {
             throw new BadRequestException(errors.toString());
         }
-
         const quiz = this.quizRepository.create(quizData);
-
         return this.quizRepository.save(quiz);
     }
 
@@ -39,28 +37,41 @@ export class QuizService {
                 where: { id },
                 relations: ['questions', 'questions.answers']
             });
-
         if (quiz.length === 0) throw new NotFoundException();
-
         return quiz;
     }
 
+    async getUserQuizzes(userId: string,) {
+        const quizzes = await this.quizRepository.createQueryBuilder('quiz')
+            .select([
+                'quiz.id id', 'title', 'description', 'image'
+            ])
+            .addSelect((sq) => sq
+                .select('COUNT(score.id)', 'responseCount')
+                .from(Score, 'score')
+                .where('score.quizId = quiz.id'),
+                'responseCount'
+            )
+            .where(`quiz.userId = :userId`, { userId })
+            .getRawMany();
+        if (quizzes.length === 0) {
+            return [];
+        }
+        return quizzes;
+    }
+
     async getQuizById(id: string) {
-        const quiz = await this.quizRepository.findOne({ where: { id } })
-
+        const quiz = await this.quizRepository.findOne({ where: { id } });
         if (!quiz) throw new NotFoundException();
-
         return quiz;
     }
 
     async update(id: string, quizData: CreateQuizDto) {
-        const existQuiz = await this.getQuizById(id)
-
+        const existQuiz = await this.getQuizById(id);
         const updatedQuiz = this.quizRepository.create(quizData);
-
         updatedQuiz.scores = [];
         updatedQuiz.id = existQuiz.id;
-        return this.quizRepository.save(updatedQuiz)
+        return this.quizRepository.save(updatedQuiz);
     }
 
     delete(id: string) {

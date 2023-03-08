@@ -2,11 +2,13 @@ import { Button } from '@mui/material'
 import { FC, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@hilma/auth';
+import { useUser } from '../../../contexts/UserContext';
 import '../LoginRegisterForm.scss';
 
 export const LoginForm: FC = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
+    const { setUser } = useUser();
 
     const [loginForm, setLoginForm] = useState<{ username: string, password: string }>({ username: '', password: '' })
 
@@ -19,7 +21,13 @@ export const LoginForm: FC = () => {
         try {
             const { success, msg, user } = await login('/auth/login', loginForm);
             if (success) {
-                // console.log("You are logged in, " + JSON.stringify(user, null, 2));
+                setUser({
+                    id: user.id,
+                    username: user.username,
+                    type: user.type,
+                    roles: user.roles,
+                    roleKeys: user.roleKeys
+                })
                 navigate('/home-page');
             } else {
                 console.log("Invalid user information! Please try again ", msg);

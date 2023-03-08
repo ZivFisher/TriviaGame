@@ -7,7 +7,7 @@ export default (): AuthConfig => ({
             User: 1000 * 60 * 60 * 3, // 3 hours
         },
 
-        accessToken_cookie: "miSTA4",
+        accessToken_cookie: process.env.AT_COOKIE,
         secretOrKey: process.env.JWT_SECRET,
     },
     roleAccess: {

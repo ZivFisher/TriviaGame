@@ -42,7 +42,6 @@
             .right-side {
                 .register-login-titles {
                     margin-bottom: 2.6vh;
-
                 }
             }
         }
@@ -52,6 +51,7 @@
 
 @media screen and (max-width: 600px) {
     .full-size-container {
+        margin-top: 0;
         overflow: hidden;
         width: 100vw;
         height: 100vh;

@@ -16,23 +16,30 @@ import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import { Loading } from './pages/loading/Loading';
 import { StartGamePage } from './pages/start-game-page/StartGamePage';
 import { AuthProvider, PrivateRoute } from '@hilma/auth';
-
+import { MyQuizzesProvider } from './contexts/MyQuizzesContext';
 import './App.scss';
+
 
 function App() {
   return (
     <div className="App">
-      <AuthProvider accessTokenCookie={process.env.AT_COOKIE}>
+      <AuthProvider accessTokenCookie={process.env.REACT_APP_AT_COOKIE}>
         <PlayQuizProvider>
           <Routes>
             <Route path='/' element={< Main />}>
-              <Route path='/create-quiz' element={
-                <QuizDetailsProvider>
-                  <CreateQuiz />
-                </QuizDetailsProvider>}
-              ></Route>
+              <Route
+                path='/create-quiz'
+                element=
+                {<PrivateRoute
+                  componentName="User"
+                  component={
+                    <QuizDetailsProvider>
+                      <CreateQuiz />
+                    </QuizDetailsProvider>}
+                  redirectPath="/login" />}
+              />
               {/* <Route path='home-page' element={<HomePage />} /> */}
-              <Route path="/home-page" element={<PrivateRoute componentName="User" component={<HomePage />} redirectPath="/" />} />
+              <Route path="/home-page" element={<PrivateRoute componentName="User" component={<HomePage />} redirectPath="/login" />} />
               <Route path='login' element={<Login />} />
               <Route path='register' element={<Register />} />
               <Route path='quiz-nickname' element={<QuizNickname />} />
@@ -43,7 +50,7 @@ function App() {
                 <ScoreBoardProvider>
                   <ScorePage />
                 </ScoreBoardProvider>} />
-              <Route path='my-quizzes' element={<MyQuizzes />}></Route>
+              <Route path='my-quizzes' element={<PrivateRoute componentName="User" component={<MyQuizzesProvider><MyQuizzes /></MyQuizzesProvider>} redirectPath="/login" />} />
               <Route path='loading' element={<Loading />} />
               <Route path='/*' element={<NotFoundContent />} />
             </Route>
