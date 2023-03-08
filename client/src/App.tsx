@@ -16,8 +16,9 @@ import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import { Loading } from './pages/loading/Loading';
 import { StartGamePage } from './pages/start-game-page/StartGamePage';
 import { AuthProvider, PrivateRoute } from '@hilma/auth';
-
+import { MyQuizzesProvider } from './contexts/MyQuizzesContext';
 import './App.scss';
+
 
 function App() {
   return (
@@ -49,7 +50,7 @@ function App() {
                 <ScoreBoardProvider>
                   <ScorePage />
                 </ScoreBoardProvider>} />
-              <Route path='my-quizzes' element={<PrivateRoute componentName="User" component={<MyQuizzes />} redirectPath="/login" />} />
+              <Route path='my-quizzes' element={<PrivateRoute componentName="User" component={<MyQuizzesProvider><MyQuizzes /></MyQuizzesProvider>} redirectPath="/login" />} />
               <Route path='loading' element={<Loading />} />
               <Route path='/*' element={<NotFoundContent />} />
             </Route>

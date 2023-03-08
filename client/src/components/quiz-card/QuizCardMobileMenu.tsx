@@ -1,13 +1,18 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { QuizCardProps } from './QuizCardProps';
+import { AlertDialog } from '../alert-dialog/AlertDialog';
+import { useMyQuizzesContext } from '../../contexts/MyQuizzesContext';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import './quiz-card.scss';
-import { AlertDialog } from '../alert-dialog/AlertDialog';
 
-export function QuizCardMobileMenu() {
+export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const { deleteQuizFromDB } = useMyQuizzesContext();
     const open = Boolean(anchorEl);
+    const navigate = useNavigate();
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -16,24 +21,28 @@ export function QuizCardMobileMenu() {
     };
 
     const shareQuiz = (onClick: () => void) => {
+        navigator.clipboard.writeText(`http://localhost:3000/start-game?id=${id}`);
         return <MenuItem
             className='menu-item'
-            onClick={onClick}>
+            onClick={onClick}
+        >
             <img className='menu-icon'
                 src="/svg/link-share.svg"
                 alt="link for the game" />
-            &nbsp;&nbsp;שליחת קישור למשחק</MenuItem>
-    }
+            &nbsp;&nbsp;שליחת קישור למשחק
+        </MenuItem>;
+    };
 
-    const deleteQuiz = (onClick: () => void) => {
+    const deleteQuizButton = (onClick: () => void) => {
         return <MenuItem
             className='menu-item no-border'
             onClick={onClick}>
             <img className='menu-icon'
                 src="/svg/trash.svg"
-                alt="delete game"
-            /> &nbsp;&nbsp;מחיקת משחק</MenuItem>
-    }
+                alt="delete game" />
+            &nbsp;&nbsp;מחיקת משחק
+        </MenuItem>;
+    };
 
     return (
         <div>
@@ -58,28 +67,44 @@ export function QuizCardMobileMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem className='menu-item' onClick={handleClose}><img className='menu-icon' src="/svg/score-link.svg" alt="score board" /> &nbsp;&nbsp;לוח תוצאות</MenuItem>
+                <MenuItem
+                    className='menu-item'
+                    onClick={() => {
+                        navigate(encodeURI(`/score-board?id=${id}&title=${title}`));
+                        handleClose();
+                    }}>
+                    <img
+                        className='menu-icon'
+                        src="/svg/score-link.svg"
+                        alt="score board" /> &nbsp;&nbsp;לוח תוצאות
+                </MenuItem>
                 <AlertDialog
                     question="הקישור הועתק"
                     description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
                     onConfirm={() => {
-                        //todo
                     }}
                     showCancelButton={false}
                     triggerButton={shareQuiz}
                 />
-
-                <MenuItem className='menu-item' onClick={handleClose}><img className='menu-icon' src="/svg/edit-link.svg" alt="edit game" /> &nbsp;&nbsp;עריכת משחק</MenuItem>
+                <MenuItem
+                    className='menu-item'
+                    onClick={() => {
+                        handleClose();
+                        navigate(encodeURI(`/create-quiz?quizId=${id}`));
+                    }}>
+                    <img
+                        className='menu-icon'
+                        src="/svg/edit-link.svg"
+                        alt="edit game" /> &nbsp;&nbsp;עריכת משחק
+                </MenuItem>
                 <AlertDialog
                     question="האם אתה בטוח?"
                     description="אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים ששמרת ימחקו"
-                    onConfirm={() => {
-                        //todo
-                    }}
+                    onConfirm={() => deleteQuizFromDB(id)}
                     showCancelButton={true}
-                    triggerButton={deleteQuiz}
+                    triggerButton={deleteQuizButton}
                 />
             </Menu>
         </div>
     );
-}
+};

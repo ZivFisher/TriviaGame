@@ -39,7 +39,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode }> = ({ children }
         try {
             fetchQuiz();
         } catch (error) {
-            console.log(error)
+            throw error;
         }
     }, [])
 
