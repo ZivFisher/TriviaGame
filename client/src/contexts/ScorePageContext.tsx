@@ -1,8 +1,8 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { Scores } from "../pages/score-page-interfaces/ScoresInterface";
 
-const quizId = '685edf2e-7625-4bab-9e7e-d9cb5cc03dca'; //simulate the quizId that we will get from another context
 
 interface ScoreBoardContextType {
     getScores: () => Promise<void>;
@@ -10,6 +10,8 @@ interface ScoreBoardContextType {
     setScores: Dispatch<SetStateAction<Scores[] | null | undefined>>;
     isLoadingScores: boolean;
     setIsLoadingScores: Dispatch<SetStateAction<boolean>>;
+    quizTitle: string | null | undefined;
+    setQuizTitle: Dispatch<SetStateAction<string | null>>;
 }
 
 export const ScoreBoardContext = createContext<ScoreBoardContextType | null>(null);
@@ -22,10 +24,15 @@ export const useScoreBoardContext = () => {
 
 
 export const ScoreBoardProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
+
     const [scores, setScores] = useState<Scores[] | null>();
-    const [isLoadingScores, setIsLoadingScores] = useState<boolean>(false);
+    const [isLoadingScores, setIsLoadingScores] = useState<boolean>(true);
+    const [searchParams] = useSearchParams();
+    const quizId = searchParams.get('id');
+    const title = searchParams.get('title');
+    const [quizTitle, setQuizTitle] = useState<string | null>(title || null);
+
     const getScores = async () => {
-        setIsLoadingScores(true);
         try {
             const { data } = await axios
                 .get<Scores[] | null>(`http://localhost:8080/api/quiz/${quizId}/scores`);
@@ -44,7 +51,9 @@ export const ScoreBoardProvider: React.FC<{ children: ReactNode; }> = ({ childre
             scores,
             setScores,
             isLoadingScores,
-            setIsLoadingScores
+            setIsLoadingScores,
+            quizTitle,
+            setQuizTitle
         }}>
             {children}
         </ScoreBoardContext.Provider>

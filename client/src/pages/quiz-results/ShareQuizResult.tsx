@@ -1,7 +1,8 @@
 import { FC, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useIsBigScreen } from '../../consts/consts';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { ScorePackageInterface } from './ScorePackageInterface';
+import { useIsBigScreen } from '../../consts/consts';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,27 +10,13 @@ import DialogContent from '@mui/material/DialogContent';
 import LinearProgress from '@mui/material/LinearProgress';
 import './QuizResults.scss';
 
-
-interface ScorePackage {
-    id: number;
-    nickname: string;
-    score: number;
-    date: Date;
-    quiz: {
-        id: string;
-        title: string;
-        description: string;
-        image: string;
-    };
-}
-
 export const ShareQuizResult: FC = () => {
-    const { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
+
+    const [searchParams] = useSearchParams();
     const scoreId = searchParams.get('scoreId');
     const navigate = useNavigate();
     const isBigScreen = useIsBigScreen();
-    const [scorePackage, setScorePackage] = useState<ScorePackage>();
+    const [scorePackage, setScorePackage] = useState<ScorePackageInterface>();
     const nickname = scorePackage?.nickname;
     const score = scorePackage?.score;
     const quiz = scorePackage?.quiz;
@@ -42,7 +29,7 @@ export const ShareQuizResult: FC = () => {
 
     async function getScoreFromServer() {
         try {
-            const { data } = await axios.get(`http://localhost:8080/api/score/${scoreId}`);
+            const { data } = await axios.get(`http://localhost:8080/api/score/getById/${scoreId}`);
             setScorePackage(data);
         } catch (e) {
             console.log(e);
@@ -59,7 +46,6 @@ export const ShareQuizResult: FC = () => {
 
     return (
         <div className='quiz-results-container'>
-
             <img
                 className='confetti-animation'
                 src="./animation/confetti.gif"
@@ -76,16 +62,15 @@ export const ShareQuizResult: FC = () => {
                             alt="dancing monkey"
                         />
                         <h1>{nickname} קיבל {score} בחידון {quizTitle}</h1>
-
                         <Button
-                            className='share-btn'
+                            className='play-btn'
                             variant="contained"
                             onClick={playQuiz}
                         >
                             <img
-                                className='share-logo'
-                                src="./svg/Icon-awesome-share.svg"
-                                alt="share button"
+                                className='logo'
+                                src="./svg/IconAwesome-play.svg"
+                                alt="play button"
                             />שחק בחידון זה בעצמך!
                         </Button>
                     </div></>
@@ -104,14 +89,14 @@ export const ShareQuizResult: FC = () => {
                         </DialogContent>
                         <DialogActions>
                             <Button
-                                className='share-btn'
+                                className='play-btn'
                                 variant="contained"
                                 onClick={playQuiz}
                             >
                                 <img
-                                    className='share-logo'
+                                    className='logo'
                                     src="./svg/IconAwesome-play.svg"
-                                    alt="share button"
+                                    alt="play button"
                                 />
                                 שחק בעצמך!
                             </Button>
@@ -122,9 +107,9 @@ export const ShareQuizResult: FC = () => {
                                 onClick={navigateToHome}
                             >
                                 <img
-                                    className='share-logo'
+                                    className='logo'
                                     src="./svg/home.svg"
-                                    alt=""
+                                    alt="Home"
                                 />
                                 עמוד הבית
                             </Button>

@@ -7,7 +7,6 @@ export class ScoreController {
     constructor(
         private readonly scoreService: ScoreService
     ) { }
-
     @Post('/')
     create(@Body() score: CreateScoreDto) {
         try {
@@ -18,7 +17,19 @@ export class ScoreController {
         }
     }
     @Get('/:id')
-    getScore(@Param('id') id: number) {
+    getScoreByQuizId(@Param('id') id: string) {
+        try {
+            return this.scoreService.getScoresByQuizId(id);
+        }
+        catch (e) {
+            console.log(e);
+            if (e instanceof NotFoundException) throw e;
+            else throw new BadRequestException();
+        }
+    }
+
+    @Get('/getById/:id')
+    getScoreById(@Param('id') id: number) {
         try {
             return this.scoreService.getScoreById(id);
         }

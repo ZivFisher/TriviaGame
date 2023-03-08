@@ -9,13 +9,17 @@ export const QuestionTitle: React.FC = () => {
 
     return (
         <>
-            {currentQuestion.image ?
-                <img className='question-img' src={currentQuestion.image} alt={`Image of ${currentQuestion.title}`} />
-                :
-                null}
+            {currentQuestion?.image
+                ? <img
+                    className='question-img'
+                    src={currentQuestion?.image}
+                    alt={`${currentQuestion.title}`}
+                />
+                : null
+            }
             <div className='question-title'>
-                <p>{currentQuestion.title}</p>
+                <p>{currentQuestion?.title}</p>
             </div>
         </>
     );
-}
+};

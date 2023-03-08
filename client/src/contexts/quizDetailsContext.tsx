@@ -1,6 +1,5 @@
-import { Preview } from "@mui/icons-material";
-import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
-import { Answer, Question, Quiz } from "../interfaces/quizDetailInterface"
+import React, { useState, createContext, useContext, FC, ReactNode } from "react";
+import { Question, Quiz } from "../interfaces/quizDetailInterface";
 
 interface QuizDetailInterface {
     quizDetails: Quiz;
@@ -22,9 +21,10 @@ export const useQuizDetails = () => {
     const result = useContext(QuizDetailsContext);
     if (!result) throw new Error("You forgot to put the QuizDetailsProvider!");
     return result;
-}
+};
 
-export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) => {
+
     const [quizDetails, setQuizDetails] = useState<Quiz>({
         title: '',
         description: '',
@@ -36,34 +36,31 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             answers: [{ id: 1, content: '', isCorrect: true },
             { id: 2, content: '', isCorrect: false }]
         }
-    ])
-
+    ]);
     const [activeQuestion, setActiveQuestion] = useState<number>(questions.length - 1);
-
-
     const onChangeQuestionTitle = (event: React.ChangeEvent<HTMLInputElement>, questionId: number): void => {
         setQuestions(prev =>
             prev.map(question =>
                 question.id === questionId
                     ? { ...question, title: event.target.value }
                     : question
-            ))
-    }
+            ));
+    };
 
     const deleteQuestion = (questionId: number): void => {
         if (questions.length === 1) return;
         setQuestions(prev =>
             prev.filter(question =>
                 question.id !== questionId
-            ))
-    }
+            ));
+    };
 
     const deleteAnswer = (answerId: number, questionIndex: number): void => {
         if (questions[questionIndex].answers.length === 2) return;
         const tempArr = [...questions];
-        tempArr[questionIndex].answers = tempArr[questionIndex].answers.filter(answer => answer.id !== answerId)
+        tempArr[questionIndex].answers = tempArr[questionIndex].answers.filter(answer => answer.id !== answerId);
         setQuestions(tempArr);
-    }
+    };
 
     const markedAsCorrect = (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number): void => {
         setQuestions(prev => {
@@ -73,10 +70,10 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                 } else if (item.isCorrect === true && item.id !== answerId) {
                     item.isCorrect = false;
                 }
-            })
+            });
             return [...prev];
         });
-    }
+    };
 
     const changeAnswerContent = (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number): void => {
         const tempAnswersArr = [...questions[questionIndex].answers];
@@ -84,16 +81,16 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             if (item.id === answerId) {
                 item.content = event.target.value;
             }
-        })
+        });
         setQuestions(prev => {
             prev[questionIndex].answers.forEach((item) => {
                 if (item.id === answerId) {
                     item.content = event.target.value;
                 }
-            })
+            });
             return [...prev];
         });
-    }
+    };
 
     return (
         <QuizDetailsContext.Provider value={{
@@ -108,9 +105,8 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             changeAnswerContent,
             activeQuestion,
             setActiveQuestion
-
         }}>
             {children}
         </QuizDetailsContext.Provider>
     );
-}
+};

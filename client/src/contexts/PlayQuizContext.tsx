@@ -1,19 +1,20 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
+import axios from 'axios';
 import { Quiz } from "../interfaces/PlayQuizInterfaces";
 import { Question } from "../interfaces/PlayQuizInterfaces";
-import axios from 'axios';
-import { useLocation } from "react-router-dom";
 
 export interface PlayQuizContextType {
     quiz: Quiz;
-    currentQuestion: Question;
-    setCurrentQuestion: Dispatch<SetStateAction<Question>>;
+    currentQuestion: Question | undefined;
+    setCurrentQuestion: Dispatch<SetStateAction<Question | undefined>>;
     correctAnswers: number;
     setCorrectAnswers: Dispatch<SetStateAction<number>>;
     score: number;
     setScore: Dispatch<SetStateAction<number>>;
     nickname: string;
     setNickname: Dispatch<SetStateAction<string>>;
+    sendScoreToServer: (call: (id: number | null) => void) => Promise<any>;
 }
 
 export const PlayQuizContext = createContext<PlayQuizContextType | null>(null);
@@ -25,29 +26,46 @@ export const usePlayQuiz = () => {
 };
 
 export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
+
     const [score, setScore] = useState<number>(0);
     const [correctAnswers, setCorrectAnswers] = useState<number>(0);
-    const [currentQuestion, setCurrentQuestion] = useState<Question>({} as Question);
+    const [currentQuestion, setCurrentQuestion] = useState<Question>();
     const [quiz, setQuiz] = useState<Quiz>({} as Quiz);
     const [nickname, setNickname] = useState<string>('');
-    const { search } = useLocation();
     const location = useLocation();
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        try {
-            fetchQuiz();
-        } catch (error) {
-            console.log(error);
-        }
+        fetchQuiz();
+        // eslint-disable-next-line
     }, [location.pathname]);
 
     const fetchQuiz = async () => {
-        const searchParams = new URLSearchParams(search);
-        const id = searchParams.get('id');
-        if (!id) return;
-        let { data } = await axios.get(`http://localhost:8080/api/quiz/${id}`);
-        setQuiz(data[0]);
-        setCurrentQuestion(data[0].questions[0]);
+        try {
+            const id = searchParams.get('id');
+            if (!id) return;
+            let { data } = await axios.get(`http://localhost:8080/api/quiz/${id}`);
+            setQuiz(data);
+            setCurrentQuestion(data.questions[0]);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const sendScoreToServer = async (call: (id: number | null) => void) => {
+        if (!nickname) call(null);
+        const API_ENDPOINT = 'http://localhost:8080/api/score';
+        const requestBody = {
+            nickname,
+            quizId: quiz.id,
+            score: Math.round(score)
+        };
+        try {
+            const { data } = await axios.post(API_ENDPOINT, requestBody);
+            call(data.id);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (
@@ -60,7 +78,8 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
             score,
             setScore,
             nickname,
-            setNickname
+            setNickname,
+            sendScoreToServer
         }}>
             {children}
         </PlayQuizContext.Provider>

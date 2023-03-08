@@ -32,7 +32,7 @@ export const AlertDialog: FC<AlertDialogProps> = ({
     };
 
     const handleConfirm = (): void => {
-        if (onConfirm) onConfirm()
+        if (onConfirm) onConfirm();
         setOpen(false);
     };
 
@@ -93,4 +93,4 @@ export const AlertDialog: FC<AlertDialogProps> = ({
             </Dialog>
         </ >
     );
-}
+};

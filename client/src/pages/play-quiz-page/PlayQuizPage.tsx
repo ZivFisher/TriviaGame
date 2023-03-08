@@ -7,7 +7,8 @@ import { useIsBigScreen } from "../../consts/consts";
 import { usePlayQuiz } from "../../contexts/PlayQuizContext";
 import './PlayQuizPage.scss';
 
-export function PlayQuizPage() {
+export const PlayQuizPage = () => {
+
     const isBigScreen = useIsBigScreen();
     const { quiz } = usePlayQuiz();
 

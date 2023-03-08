@@ -1,10 +1,10 @@
-import { Checkbox } from '@mui/material';
-import { Question } from '../../interfaces/quizDetailInterface'
+import { Question } from '../../interfaces/quizDetailInterface';
+import { useQuizDetails } from '../../contexts/quizDetailsContext';
+import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import './SavedQuestion.scss'
-import { BootstrapTooltip } from '../tool-tip/Tooltip';
-import { useQuizDetails } from '../../contexts/quizDetailsContext';
+import { Checkbox } from '@mui/material';
+import './SavedQuestion.scss';
 
 
 interface SavedQuestionProps {
@@ -13,6 +13,7 @@ interface SavedQuestionProps {
 }
 
 export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, questionIndex }) => {
+
     const { setActiveQuestion, setQuestions } = useQuizDetails();
 
     const editQuestion = (questionIndex: number) => {
@@ -28,7 +29,7 @@ export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, question
             };
         }));
         setActiveQuestion(questionIndex);
-    }
+    };
     return (
         <div
             className='saved-question-container'
@@ -47,9 +48,9 @@ export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, question
                         />}
                     />
                     <p>{answer.content}</p>
-                </div>
+                </div>;
             })}
 
         </div>
-    )
-}
+    );
+};

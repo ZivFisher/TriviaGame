@@ -1,13 +1,7 @@
-
-
-export interface QuizCardInterface {
+export interface QuizCardProps {
     id: string;
-    quizId: number;
     image: string;
     title: string;
     description: string;
     responseCount: number;
 }
-
-
-

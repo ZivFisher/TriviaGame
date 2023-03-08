@@ -1,11 +1,10 @@
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnswerDetails } from '../answer-details/AnswerDetails';
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { Answer, Question } from '../../interfaces/quizDetailInterface';
-import './QuestionDetails.scss';
+import { Answer } from '../../interfaces/quizDetailInterface';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
+import { useIsBigScreen } from '../../consts/consts';
+import './QuestionDetails.scss';
 
 
 interface QuestionProps {
@@ -18,7 +17,9 @@ interface QuestionProps {
 }
 
 export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionTitle, index, onChangeQuestionTitle, deleteQuestion, copyQuestion }) => {
-    const isBigScreen = useMediaQuery('(min-width:600px)');
+
+    const [answerId, setAnswersId] = useState<number>(3);
+    const isBigScreen = useIsBigScreen();
     const {
         questions,
         setQuestions,
@@ -26,16 +27,15 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
         markedAsCorrect,
         changeAnswerContent,
     } = useQuizDetails();
-    const [answerId, setAnswersId] = useState<number>(3);
 
     const addAnswer = (questionIndex: number): void => {
         if (questions[questionIndex].answers.length === 4) return;
         setQuestions(prev =>
             prev.map(question =>
                 question.id === questionId ?
-                    { ...question, answers: [...question.answers, { id: answerId, isCorrect: false, content: '' }] } : question))
+                    { ...question, answers: [...question.answers, { id: answerId, isCorrect: false, content: '' }] } : question));
         setAnswersId(prev => prev + 1);
-    }
+    };
 
 
     return (
@@ -57,7 +57,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                             />
                         </BootstrapTooltip>
                         <BootstrapTooltip title="הוספת תמונה לשאלה">
-                            <img src="/svg/image.svg" alt=" upload image" className='image-photo-details pointer-img' />
+                            <img src="/svg/image.svg" alt=" upload" className='image-photo-details pointer-img' />
                         </BootstrapTooltip>
                     </div>
                     : <>
@@ -87,7 +87,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 value={questionTitle}
                                 onChange={(event) => onChangeQuestionTitle(event, questionId)}
                             />
-                            <img src="/svg/image.svg" alt="upload image" className='image-photo pointer-img' />
+                            <img src="/svg/image.svg" alt="upload" className='image-photo pointer-img' />
                         </div>
                     </>
                 }
@@ -102,7 +102,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                         answerContent={answer.content}
                         onAnswer={changeAnswerContent}
                         onDeleteAnswer={deleteAnswer}
-                        isCorrect={answer.isCorrect} />
+                        isCorrect={answer.isCorrect} />;
                 })}
                 {questions[index].answers.length < 4 ? <div className='answer-option' onClick={() => addAnswer(index)}>
                     <img src="/svg/plus.svg" alt="add answer" className='plus-photo' />
@@ -139,4 +139,4 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
 
         </div>
     );
-}
+};
