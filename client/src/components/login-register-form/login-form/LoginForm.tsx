@@ -18,15 +18,14 @@ export const LoginForm: FC = () => {
         e.preventDefault();
         try {
             const { success, msg, user } = await login('/auth/login', loginForm);
-            console.log(success)
             if (success) {
-                console.log("You are logged in, " + JSON.stringify(user, null, 2));
+                // console.log("You are logged in, " + JSON.stringify(user, null, 2));
                 navigate('/home-page');
             } else {
-                console.log("Invalid user information! Please try again");
+                console.log("Invalid user information! Please try again ", msg);
             }
         } catch (error) {
-
+            console.error(error);
         }
     }
 

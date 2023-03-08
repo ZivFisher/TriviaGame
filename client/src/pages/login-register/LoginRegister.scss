@@ -1,14 +1,15 @@
 @import '../../Variables.scss';
 
 .full-size-container {
+    @include main-content;
+    margin-top: 6vh;
+
     .register-login-container {
-        @include main-content;
         position: relative;
         height: 68vh;
         display: flex;
         flex-direction: row;
         padding-top: 5vh;
-        margin-top: 6vh;
 
         .right-leaf-img {
             display: none;

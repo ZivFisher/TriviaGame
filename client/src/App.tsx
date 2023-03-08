@@ -15,7 +15,7 @@ import { PlayQuizProvider } from "./contexts/PlayQuizContext";
 import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import { Loading } from './pages/loading/Loading';
 import { StartGamePage } from './pages/start-game-page/StartGamePage';
-import { AuthProvider } from '@hilma/auth';
+import { AuthProvider, PrivateRoute } from '@hilma/auth';
 
 import './App.scss';
 
@@ -31,7 +31,8 @@ function App() {
                   <CreateQuiz />
                 </QuizDetailsProvider>}
               ></Route>
-              <Route path='home-page' element={<HomePage />} />
+              {/* <Route path='home-page' element={<HomePage />} /> */}
+              <Route path="/home-page" element={<PrivateRoute componentName="User" component={<HomePage />} redirectPath="/" />} />
               <Route path='login' element={<Login />} />
               <Route path='register' element={<Register />} />
               <Route path='quiz-nickname' element={<QuizNickname />} />
