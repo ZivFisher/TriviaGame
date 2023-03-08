@@ -19,51 +19,48 @@ export class QuizService {
         return this.quizRepository.find({ relations: ['questions', 'questions.answers'] });
     }
 
-    async create(quizData: CreateQuizDto, files?: FilesType) {
-        if (String(quizData.imageId)) {
-            const imageFile = files.find(file => file.originalname === String(quizData.imageId))
-            console.log('imageFile:', imageFile)
-            quizData.image = await this.imageService.saveSingleFile([imageFile])
-            delete quizData.imageId
-        }
+    // async create(quizData: CreateQuizDto, files?: FilesType, userId: string) {
+    //     const imageFile = files.find(file => file.originalname === String(quizData.imageId))
+    //     quizData.image = await this.imageService.saveSingleFile([imageFile])
 
-        for (let i = 0; i < quizData.questions.length; i++) {
-            const question = quizData.questions[i];
-            if (String(question.imageId)) {
-                const imageFile = files.find(file => file.originalname === String(question.imageId))
-                question.image = await this.imageService.saveSingleFile([imageFile])
-                delete question.imageId
-            }
-            for (let j = 0; j < question.answers.length; j++) {
-                const answer = question.answers[j];
-                if (String(answer.imageId)) {
-                    const imageFile = files.find(file => file.originalname === String(answer.imageId))
-                    if (!imageFile) return;
-                    answer.image = await this.imageService.saveSingleFile([imageFile])
-                    delete answer.imageId
-                }
-            }
-        }
+    //     for (let i = 0; i < quizData.questions.length; i++) {
+    //         const question = quizData.questions[i];
+    //         if (question.imageId || question.imageId === 0) {
+    //             const imageFile = files.find(file => file.originalname === String(question.imageId))
+    //             question.image = await this.imageService.saveSingleFile([imageFile])
+    //             delete question.imageId
+    //         }
+    //         for (let j = 0; j < question.answers.length; j++) {
+    //             const answer = question.answers[j];
+    //             if (answer.imageId || answer.imageId === 0) {
+    //                 const imageFile = files.find(file => file.originalname === String(answer.imageId))
+    //                 answer.image = await this.imageService.saveSingleFile([imageFile])
+    //                 delete answer.imageId
+    //             }
+    //         }
+    //     }
 
-        const errors = await validate(quizData);
-        if (errors.length > 0) {
-            throw new BadRequestException(errors.toString());
-        }
-        const quiz = this.quizRepository.create(quizData);
-        return this.quizRepository.save(quiz);
-    }
 
-    createMyquiz(quiz: Partial<Quiz>) {
-        return this.quizRepository.create(quiz);
-    }
+    // quizData.user = new User({ id: userId })
+    // quizData.user = { id: userId }
+
+    // quizData.user = new User()
+    // user.id = userId
+
+    //     const quiz = this.quizRepository.create(quizData);
+    //     console.log('quiz:', quiz)
+
+    //     return this.quizRepository.save(quiz);
+    // }
 
     async getQuizDetails(id: string) {
-        const quiz = await this.quizRepository.find(
+        const quiz = await this.quizRepository.findOne(
             {
                 where: { id },
                 relations: ['questions', 'questions.answers']
             });
-        if (quiz.length === 0) throw new NotFoundException();
+
+        if (!quiz) throw new NotFoundException();
         return quiz;
     }
 
@@ -92,7 +89,25 @@ export class QuizService {
         return quiz;
     }
 
-    async update(id: string, quizData: CreateQuizDto) {
+    async update(id: string, quizData: CreateQuizDto, files?: FilesType) {
+        if (quizData.imageId || quizData.imageId === 0) {
+            const imageFile = files.find(file => file.originalname === String(quizData.imageId))
+            quizData.image = await this.imageService.saveSingleFile([imageFile])
+        }
+        for (let question of quizData.questions) {
+            if (question.imageId || question.imageId === 0) {
+                const imageFile = files.find(file => file.originalname === String(question.imageId))
+                question.image = await this.imageService.saveSingleFile([imageFile])
+                delete question.imageId
+            }
+            for (let answer of question.answers) {
+                if (answer.imageId || answer.imageId === 0) {
+                    const imageFile = files.find(file => file.originalname === String(answer.imageId))
+                    answer.image = await this.imageService.saveSingleFile([imageFile])
+                    delete answer.imageId
+                }
+            }
+        }
         const existQuiz = await this.getQuizById(id);
         const updatedQuiz = this.quizRepository.create(quizData);
         updatedQuiz.scores = [];

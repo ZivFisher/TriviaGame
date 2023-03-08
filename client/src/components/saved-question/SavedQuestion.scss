@@ -20,6 +20,17 @@
         font-weight: 200;
     }
 
+    .saved-question-div {
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+    }
+
+    img {
+        width: 5vw;
+        margin-right: 2vw;
+    }
+
     .drag-and-drop {
         position: absolute;
         top: 1vh;

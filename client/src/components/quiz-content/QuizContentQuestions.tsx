@@ -46,8 +46,8 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
                     >
                         {questions.map((question, index) => {
                             return <Draggable
-                                key={question.id}
-                                draggableId={`${question.id}`}
+                                key={question.id || question.tempId}
+                                draggableId={`${question.id || question.tempId}`}
                                 index={index}
                             >
                                 {(provided) => (
@@ -56,7 +56,6 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
                                         ref={provided.innerRef}
                                         {...provided.dragHandleProps}
                                         {...provided.draggableProps}
-                                        key={question.id}
                                     >
                                         {activeQuestion !== index && isBigScreen
                                             ? <SavedQuestion
@@ -66,7 +65,7 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
                                             : <QuestionDetails
                                                 index={index}
                                                 copyQuestion={copyQuestion}
-                                                questionId={question.id}
+                                                questionId={(question.id || question.tempId)!}
                                                 onChangeQuestionTitle={onChangeQuestionTitle}
                                                 deleteQuestion={deleteQuestion}
                                                 questionTitle={question.title}

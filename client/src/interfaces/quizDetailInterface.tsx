@@ -1,6 +1,7 @@
 
 export interface Answer {
-    id: number;
+    tempId?: number;
+    id?: number;
     content: string;
     isCorrect: boolean;
     image?: string;
@@ -8,7 +9,8 @@ export interface Answer {
 }
 
 export interface Question {
-    id: number;
+    tempId?: number;
+    id?: number;
     title: string;
     image?: string;
     imageId?: number;

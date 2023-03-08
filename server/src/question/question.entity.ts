@@ -14,9 +14,10 @@ export class Question {
     @Column({ nullable: true })
     image: string;
 
+
     @ManyToOne(() => Quiz, quiz => quiz.questions, { onDelete: 'CASCADE' })
     quiz: Quiz;
 
-    @OneToMany(() => Answer, answer => answer.question, { cascade: true, onDelete: 'CASCADE' })
+    @OneToMany(() => Answer, answer => answer.question, { cascade: true })
     answers: Answer[];
 }

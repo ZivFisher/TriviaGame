@@ -51,18 +51,19 @@ export class QuizController {
         }
     }
 
-    @UseFilesHandler(100)
-    @Post('/')
-    create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType) {
-        try {
-            return this.quizService.create(createdQuiz, files);
-        } catch (e) {
-            console.log(e);
-            if (e instanceof NotFoundException) {
-                throw e;
-            } else throw new BadRequestException();
-        }
-    }
+    // // @useJwtAuth()
+    // @UseFilesHandler(100)
+    // @Post('/')
+    // create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType, @RequestUser() userInfo: RequestUserType) {
+    //     try {
+    //         return this.quizService.create(createdQuiz, files, userInfo.id);
+    //     } catch (e) {
+    //         console.log(e);
+    //         if (e instanceof NotFoundException) {
+    //             throw e;
+    //         } else throw new BadRequestException();
+    //     }
+    // }
 
     @Delete('/:id')
     delete(@Param('id') id: string) {
@@ -76,10 +77,12 @@ export class QuizController {
         }
     }
 
+
+    @UseFilesHandler(100)
     @Put('/:id')
-    update(@Param('id') id: string, @Body() updatedQuiz: CreateQuizDto) {
+    update(@Param('id') id: string, @Body() updatedQuiz: CreateQuizDto, @UploadedFiles() files: FilesType) {
         try {
-            return this.quizService.update(id, updatedQuiz);
+            return this.quizService.update(id, updatedQuiz, files);
         } catch (e) {
             console.log(e);
             if (e instanceof NotFoundException) {

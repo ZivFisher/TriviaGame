@@ -11,7 +11,7 @@ import './AnswerDetails.scss';
 interface AnswerProps {
   answerNum: number;
   onCorrect: (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number) => void;
-  onAnswer: (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number) => void;
+  onAnswer: (event: string, answerId: number, questionIndex: number) => void;
   onDeleteAnswer: (answerId: number, questionIndex: number) => void;
   answerContent: string;
   answerId: number;
@@ -49,6 +49,7 @@ export const AnswerDetails: React.FC<AnswerProps> = ({
   const deleteImg = () => {
     setQuestions(prev => {
       delete prev[questionIndex].answers[answerIndex].image;
+      delete prev[questionIndex].answers[answerIndex].imageId;
       return [...prev];
     }
     );
@@ -70,9 +71,14 @@ export const AnswerDetails: React.FC<AnswerProps> = ({
           <input
             type="text"
             value={answerContent}
+            onClick={() => {
+              if (answerContent === 'תשובה ללא תוכן') {
+                onAnswer('', answerId, questionIndex)
+              }
+            }}
             className="answer-input"
             placeholder={`תשובה ${answerNum}`}
-            onChange={(event) => onAnswer(event, answerId, questionIndex)}
+            onChange={(event) => onAnswer(event.target.value, answerId, questionIndex)}
           />
           <div className="answer-option-div">
             {questions[questionIndex].answers[answerIndex].image
@@ -109,9 +115,14 @@ export const AnswerDetails: React.FC<AnswerProps> = ({
               <input
                 type="text"
                 value={answerContent}
+                onClick={() => {
+                  if (answerContent === 'תשובה ללא תוכן') {
+                    onAnswer('', answerId, questionIndex)
+                  }
+                }}
                 className="mobile-answer-input"
                 placeholder={`תשובה ${answerNum}`}
-                onChange={(event) => onAnswer(event, answerId, questionIndex)}
+                onChange={(event) => onAnswer(event.target.value, answerId, questionIndex)}
               />
               <label className={questions[questionIndex].answers[answerIndex].image ? 'disabled' : ''}>
                 <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />

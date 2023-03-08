@@ -7,6 +7,8 @@ import { QuizContentQuestions } from "./QuizContentQuestions";
 import { MobileHeader } from "../mobile-header/MobileHeader";
 import { AlertDialog } from "../alert-dialog/AlertDialog";
 import './QuizContent.scss';
+import { Question } from "../../interfaces/quizDetailInterface";
+import { Alert } from "@mui/material";
 
 export const QuizContent: React.FC = () => {
     const isBigScreen = useMediaQuery('(min-width:600px)');
@@ -15,10 +17,14 @@ export const QuizContent: React.FC = () => {
         setQuestions,
         setActiveQuestion,
         handleSave,
-        preView
+        preView,
+        quizDetails,
+        setError,
+        error
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [questionId, setQuestionId] = useState<number>(2);
+
 
 
 
@@ -35,7 +41,7 @@ export const QuizContent: React.FC = () => {
                     }))
                 })),
                 {
-                    id: questionId,
+                    tempId: questionId,
                     title: '',
                     answers: [
                         { id: 1, content: '', isCorrect: true },
@@ -47,29 +53,38 @@ export const QuizContent: React.FC = () => {
         setActiveQuestion(questions.length);
     }
 
-    const copyQuestion = (copyQuestionIndex: number, answers: Answer[]): void => {
+    const copyQuestion = (copyQuestionIndex: number): void => {
         if (questions.length === 10) return;
         setQuestions(prev => {
-            if (prev[copyQuestionIndex].title === '') {
-                prev[copyQuestionIndex].title = 'שאלה ללא כותרת'
+            const question = prev[copyQuestionIndex];
+            if (question.title === '') {
+                question.title = 'שאלה ללא כותרת'
             }
-            prev[copyQuestionIndex].answers.forEach(answer => {
+            question.answers.forEach(answer => {
                 if (answer.content === '') {
                     answer.content = 'תשובה ללא תוכן'
                 }
             })
-            const question = prev[copyQuestionIndex];
-            const duplicatedItem = JSON.parse(JSON.stringify(question));
-            duplicatedItem.id = questionId;
-            prev.push(duplicatedItem);
-            return [...prev]
+            const duplicatedItem: Question = JSON.parse(JSON.stringify(question));
+            duplicatedItem.tempId = questionId;
+
+            return [...prev, duplicatedItem]
         });
         setQuestionId((prev) => prev + 1);
         setActiveQuestion((prev) => prev + 1);
     }
 
     const onContinue = () => {
+        const quizCheck: boolean =
+            quizDetails.description === '' ||
+            quizDetails.title === '' ||
+            quizDetails.image === '';
+        if (quizCheck) {
+            setError('יש למלא את כל השדות ולבחור תמונה');
+            return;
+        }
         setIsNextPage(true);
+        setError('');
     }
 
 
@@ -102,7 +117,7 @@ export const QuizContent: React.FC = () => {
                 <QuizDetails onContinue={onContinue} />
                 <div className="questions-container-div">
                     <QuizContentQuestions copyQuestion={copyQuestion} />
-                    {!isBigScreen &&
+                    {!isBigScreen ?
                         <div className="finish-edit-quiz">
                             <button
                                 className='add-question-phone'
@@ -122,7 +137,15 @@ export const QuizContent: React.FC = () => {
                                     onClick={onClick}
                                 >סיום</button>}
                             />
-                        </div>}
+                            {error &&
+                                <Alert
+                                    severity="warning">{error}</Alert>
+                            }
+
+                        </div> :
+                        error && <Alert severity="warning">{error}</Alert>
+                    }
+
                 </div>
                 <div>
                     {isBigScreen &&

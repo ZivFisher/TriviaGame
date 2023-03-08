@@ -5,6 +5,7 @@ import { useQuizDetails } from '../../contexts/quizDetailsContext';
 import { UploadImage } from '../upload-image/UploadImage';
 import { FileInput, useFiles } from '@hilma/fileshandler-client';
 import './QuizDetails.scss';
+import { Alert } from '@mui/material';
 
 interface QuizDetailsProps {
     onContinue: () => void;
@@ -12,7 +13,7 @@ interface QuizDetailsProps {
 
 export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
     const isBigScreen: boolean = useMediaQuery('(min-width:600px)');
-    const { quizDetails, setQuizDetails, filesUploader } = useQuizDetails();
+    const { quizDetails, setQuizDetails, filesUploader, error } = useQuizDetails();
 
     const onChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuizDetails((prevState) => ({
@@ -48,7 +49,8 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
             {isBigScreen
                 ? quizDetails.image
                     ? <UploadImage imageSrc={quizDetails.image} deleteImg={deleteImg} className='quiz-details-img' />
-                    : <label>
+                    :
+                    <label>
                         <div className="upload-image">
                             <FileInput type="image"
                                 filesUploader={filesUploader}
@@ -59,8 +61,8 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
                             </BootstrapTooltip>
                         </div>
                     </label>
-
                 : <>
+                    {error && <Alert severity="warning">{error}</Alert>}
                     <div className='next-page-div'>
                         <button className='continue-edit-question' onClick={onContinue}>המשך</button>
                     </div>

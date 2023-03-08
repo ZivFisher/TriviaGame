@@ -1,21 +1,23 @@
 
-import { FilesUploader, useFiles } from "@hilma/fileshandler-client";
+import { FilesUploader } from "@hilma/fileshandler-client";
+import { useAsyncState } from "@hilma/tools";
 import axios from "axios";
-
 import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface"
 import { usePlayQuiz } from "./PlayQuizContext";
+import { Question as QuestionPlayQuiz } from '../interfaces/PlayQuizInterfaces';
+import { basicQuestions, basicQuiz } from "../consts/quizDetailsConsts";
 
 interface QuizDetailInterface {
     quizDetails: Quiz;
     setQuizDetails: React.Dispatch<React.SetStateAction<Quiz>>;
     questions: Question[];
     setQuestions: (questions: Question[] | ((prev: Question[]) => Question[])) => void;
-    onChangeQuestionTitle: (event: React.ChangeEvent<HTMLInputElement>, questionId: number) => void;
+    onChangeQuestionTitle: (event: string, questionId: number) => void;
     deleteAnswer: (answerId: number, questionIndex: number) => void;
     markedAsCorrect: (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number) => void;
-    changeAnswerContent: (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number) => void;
+    changeAnswerContent: (event: string, answerId: number, questionIndex: number) => void;
     deleteQuestion: (questionId: number) => void;
     activeQuestion: number;
     setActiveQuestion: React.Dispatch<React.SetStateAction<number>>;
@@ -24,6 +26,8 @@ interface QuizDetailInterface {
     deleteImg: (questionId?: number) => void;
     preView: () => void;
     filesUploader: FilesUploader;
+    error: string
+    setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const QuizDetailsContext = createContext<QuizDetailInterface | null>(null);
@@ -35,43 +39,34 @@ export const useQuizDetails = () => {
 }
 
 export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const { setQuiz, setCurrentQuestion } = usePlayQuiz();
-    const [quizDetails, setQuizDetails] = useState<Quiz | EditQuiz>({
-        title: '',
-        description: '',
-        image: ''
-    });
-    const [questions, setQuestions] = useState<Question[]>([
-        {
-            id: 1,
-            title: '',
-            answers: [{ id: 1, content: '', isCorrect: true },
-            { id: 2, content: '', isCorrect: false }]
-        }
-    ])
-    const [activeQuestion, setActiveQuestion] = useState<number>(questions.length - 1);
+    const { setQuiz, setCurrentQuestion, filesUploader, quiz } = usePlayQuiz();
+    const [quizDetails, setQuizDetails] = useState<Quiz | EditQuiz>(basicQuiz);
+    const [questions, setQuestions, getQuestions] = useAsyncState<Question[]>(basicQuestions)
+    const [activeQuestion, setActiveQuestion] = useState<number>(0);
     const navigate = useNavigate();
-    const { state } = useLocation();
-    const filesUploader = useFiles();
+    const [searchParams] = useSearchParams();
+    const id = searchParams.get('id');
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
-        if (state !== null) {
-            getQuiz(state.id);
+        if (id) {
+            getQuiz(id);
+        } else {
+            setQuizDetails(basicQuiz)
+            setQuestions(basicQuestions)
         }
-        console.log(questions);
-        console.log(activeQuestion);
-    }, [questions, activeQuestion]);
+    }, [id]);
 
     const getQuiz = async (id: string) => {
         try {
             const { data } = await axios
-                .get<EditQuiz[]>(`http://localhost:8080/api/quiz/${id}`)
-            setQuestions(data[0].questions);
+                .get<EditQuiz>(`http://localhost:8080/api/quiz/${id}`)
+            setQuestions(data.questions);
             setQuizDetails({
-                title: data[0].title,
-                image: data[0].image,
-                description: data[0].description,
-                id: data[0].id
+                title: data.title,
+                image: data.image,
+                description: data.description,
+                id: data.id
             })
         } catch (error) {
             console.error(error);
@@ -79,35 +74,35 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     }
 
 
-    const onChangeQuestionTitle = (event: React.ChangeEvent<HTMLInputElement>, questionId: number): void => {
+    const onChangeQuestionTitle = (event: string, questionId: number): void => {
         setQuestions(prev =>
             prev.map(question =>
-                question.id === questionId
-                    ? { ...question, title: event.target.value }
+                (question.id || question.tempId) === questionId
+                    ? { ...question, title: event }
                     : question
             ))
     }
 
-    const deleteQuestion = (questionId: number): void => {
+    const deleteQuestion = async (questionId: number) => {
         if (questions.length === 1) return;
         setQuestions(prev =>
             prev.filter(question =>
-                question.id !== questionId
+                (question.id || question.tempId) !== questionId
             ))
-        if (activeQuestion === questions.length - 1) {
+        if (activeQuestion === (await getQuestions()).length) {
             setActiveQuestion(prev => prev - 1);
         }
     }
 
     const deleteAnswer = (answerId: number, questionIndex: number): void => {
         if (questions[questionIndex].answers.length === 2) return;
-        const answerToDelete = questions[questionIndex].answers.find((answer) => answer.id === answerId);
+        const answerToDelete = questions[questionIndex].answers.find((answer) => (answer.id || answer.tempId) === answerId);
         if (answerToDelete?.isCorrect) return;
 
         setQuestions((prevQuestions) => {
             const updatedQuestions = [...prevQuestions];
             const question = updatedQuestions[questionIndex];
-            const updatedAnswers = question.answers.filter((answer) => answer.id !== answerId);
+            const updatedAnswers = question.answers.filter((answer) => (answer.id || answer.tempId) !== answerId);
             const updatedQuestion = { ...question, answers: updatedAnswers };
             updatedQuestions[questionIndex] = updatedQuestion;
 
@@ -120,7 +115,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             prev[questionIndex].answers.forEach((item) => {
                 if (item.id === answerId && item.isCorrect === false) {
                     item.isCorrect = event.target.checked;
-                } else if (item.isCorrect === true && item.id !== answerId) {
+                } else if (item.isCorrect === true && (item.id || item.tempId) !== answerId) {
                     item.isCorrect = false;
                 }
             })
@@ -128,15 +123,26 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         });
     }
 
-    const changeAnswerContent = (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number): void => {
+    const changeAnswerContent = (event: string, answerId: number, questionIndex: number): void => {
         setQuestions(prev => {
             prev[questionIndex].answers.forEach((item) => {
-                if (item.id === answerId) {
-                    item.content = event.target.value;
+                if ((item.id || item.tempId) === answerId) {
+                    item.content = event;
                 }
             })
             return [...prev];
         });
+    }
+
+    const deleteId = () => {
+        const tempArr = JSON.parse(JSON.stringify(questions));
+        tempArr.forEach((question: { id: any; answers: any[]; }) => {
+            delete question.id;
+            question.answers.forEach(answer => {
+                delete answer.id;
+            })
+        })
+        return tempArr
     }
 
     const handleSave = async () => {
@@ -145,26 +151,28 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         const answerCheck: boolean = questions.some((question) => {
             return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '')
         });
-        if (answerCheck || questionCheck || quizCheck) return;
+        if (answerCheck || questionCheck || quizCheck) {
+            setError('יש למלא את כל השדות הרלוונטיים לפני שמירת החידון.')
+            return;
+        }
         try {
             if (!quizDetails.id) {
+                const arr = deleteId();
                 const { data } = await filesUploader.post<Quiz | null>(`http://localhost:8080/api/quiz`, {
                     title: quizDetails.title,
                     description: quizDetails.description,
                     image: quizDetails.image,
                     imageId: quizDetails.imageId,
-                    questions: questions
+                    questions: arr
                 })
             } else {
-                const { data } = await axios
-                    .put<Quiz | null>(`http://localhost:8080/api/quiz/${quizDetails.id}`, {
-                        title: quizDetails.title,
-                        description: quizDetails.description,
-                        image: quizDetails.image,
-                        questions: questions
-                    })
+                const { data } = await filesUploader.put<Quiz | null>(`http://localhost:8080/api/quiz/${quizDetails.id}`, {
+                    title: quizDetails.title,
+                    description: quizDetails.description,
+                    image: quizDetails.image,
+                    questions: questions
+                })
             }
-
             navigate('/my-quizzes');
         } catch (error) {
             console.error(error);
@@ -176,6 +184,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             [...prev.map(question => {
                 if (question.id === questionId) {
                     delete question.image;
+                    delete question.imageId;
                 }
                 return question;
             })]
@@ -183,15 +192,24 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     }
 
     const preView = () => {
+        const quizCheck: boolean = quizDetails.description === '' || quizDetails.title === '' || quizDetails.image === '';
+        const questionCheck: boolean = questions.some((item) => item.title === 'שאלה ללא כותרת' || item.title === '');
+        const answerCheck: boolean = questions.some((question) => {
+            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '')
+        });
+        if (answerCheck || questionCheck || quizCheck) {
+            setError('יש למלא את כל השדות הרלוונטיים לפני צפייה מקדימה בחידון.')
+            return;
+        }
         setQuiz({
             id: '1',
             title: quizDetails.title,
             description: quizDetails.description,
             image: quizDetails.image,
-            questions: questions
+            questions: questions as QuestionPlayQuiz[]
         })
 
-        setCurrentQuestion(questions[0])
+        setCurrentQuestion(questions[0] as QuestionPlayQuiz)
         navigate('/start-game');
     }
 
@@ -212,7 +230,9 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             getQuiz,
             deleteImg,
             preView,
-            filesUploader
+            filesUploader,
+            setError,
+            error
         }}>
             {children}
         </QuizDetailsContext.Provider>

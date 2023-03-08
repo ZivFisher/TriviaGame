@@ -4,6 +4,7 @@ import { testQuiz } from "../components/play-quiz/developmentData";
 import { Question } from "../interfaces/PlayQuizInterfaces";
 import axios from 'axios';
 import { useLocation } from "react-router-dom";
+import { FilesUploader, useFiles } from "@hilma/fileshandler-client";
 
 export interface PlayQuizContextType {
     quiz: Quiz;
@@ -16,6 +17,7 @@ export interface PlayQuizContextType {
     setScore: Dispatch<SetStateAction<number>>;
     nickname: string;
     setNickname: Dispatch<SetStateAction<string>>;
+    filesUploader: FilesUploader;
 }
 
 export const PlayQuizContext = createContext<PlayQuizContextType | null>(null);
@@ -35,6 +37,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode }> = ({ children }
     const { search } = useLocation();
     const searchParams = new URLSearchParams(search);
     const id = searchParams.get('id');
+    const filesUploader = useFiles();
 
     useEffect(() => {
         try {
@@ -61,7 +64,8 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode }> = ({ children }
             score,
             setScore,
             nickname,
-            setNickname
+            setNickname,
+            filesUploader
         }}>
             {children}
         </PlayQuizContext.Provider>

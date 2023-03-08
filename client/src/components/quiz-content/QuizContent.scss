@@ -4,18 +4,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70vw;
+    width: 71vw;
     height: 7vh;
     cursor: auto;
     position: fixed;
     background-color: $body-color;
-    right: 16vw;
-    top: 9.5vh;
-    padding: 0 1vw;
+    right: 16.5vw;
+    top: 9.1vh;
+    padding: 0.1vw;
+    z-index: 1000;
 }
 
 .create-quiz-main-content {
     margin-top: 8vh;
+}
+
+.MuiPaper-root {
+    margin-top: 2vh;
+    margin-right: 5vw;
+    width: 60vw;
+    z-index: 1500;
+    margin-right: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
+
+    .MuiAlert-message {
+        font-size: 18px;
+    }
 }
 
 .show-quiz {
@@ -79,6 +96,17 @@
     .create-quiz-main-content {
         display: flex;
         margin: 0;
+    }
+
+    .MuiPaper-root {
+        margin-top: 2vh;
+        margin-right: 5vw;
+        width: 80vw;
+        z-index: 1500;
+
+        .MuiAlert-message {
+            font-size: 18px;
+        }
     }
 
 

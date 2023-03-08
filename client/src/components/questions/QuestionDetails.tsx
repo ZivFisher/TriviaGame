@@ -16,7 +16,7 @@ interface QuestionProps {
     index: number;
     copyQuestion: (copyQuestionIndex: number, answers: Answer[]) => void;
     deleteQuestion: (questionId: number) => void;
-    onChangeQuestionTitle: (event: React.ChangeEvent<HTMLInputElement>, questionId: number) => void;
+    onChangeQuestionTitle: (event: string, questionId: number) => void;
 }
 
 export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionTitle, index, onChangeQuestionTitle, deleteQuestion, copyQuestion }) => {
@@ -36,15 +36,15 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
         if (questions[questionIndex].answers.length === 4) return;
         setQuestions(prev =>
             prev.map(question =>
-                question.id === questionId ?
-                    { ...question, answers: [...question.answers, { id: answerId, isCorrect: false, content: '' }] } : question))
+                (question.id || question.tempId) === questionId ?
+                    { ...question, answers: [...question.answers, { tempId: answerId, isCorrect: false, content: '' }] } : question))
         setAnswersId(prev => prev + 1);
     }
 
     const handleImageChange = ({ id, link }: UploadedFile): void => {
         setQuestions(prev =>
             [...prev.map(question => {
-                if (question.id === questionId) {
+                if ((question.id || question.tempId) === questionId) {
                     question.image = link;
                     question.imageId = id;
                 }
@@ -66,7 +66,12 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 className='question-content'
                                 type="text"
                                 placeholder='שאלה ללא כותרת'
-                                onChange={(event) => onChangeQuestionTitle(event, questionId)}
+                                onClick={() => {
+                                    if (questionTitle === 'שאלה ללא כותרת') {
+                                        onChangeQuestionTitle('', questionId)
+                                    }
+                                }}
+                                onChange={(event) => onChangeQuestionTitle(event.target.value, questionId)}
                                 value={questionTitle}
                             />
                         </BootstrapTooltip>
@@ -113,7 +118,12 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                     className='mobile-question-content'
                                     type="text"
                                     value={questionTitle}
-                                    onChange={(event) => onChangeQuestionTitle(event, questionId)}
+                                    onClick={() => {
+                                        if (questionTitle === 'שאלה ללא כותרת') {
+                                            onChangeQuestionTitle('', questionId)
+                                        }
+                                    }}
+                                    onChange={(event) => onChangeQuestionTitle(event.target.value, questionId)}
                                 />
                                 <label className={questions[index].image ? 'disabled' : ''}>
                                     <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />
@@ -133,10 +143,10 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
 
                 {questions[index].answers.map((answer, answerIndex) => {
                     return <AnswerDetails
-                        key={answer.id}
+                        key={(answer.id || answer.tempId)!}
                         questionIndex={index}
                         answerNum={answerIndex + 1}
-                        answerId={answer.id}
+                        answerId={(answer.id || answer.tempId)!}
                         onCorrect={markedAsCorrect}
                         answerContent={answer.content}
                         onAnswer={changeAnswerContent}

@@ -18,6 +18,7 @@
     .answer-input-option {
         display: flex;
         align-items: center;
+        gap: 2vw;
     }
 
     img {
@@ -26,24 +27,25 @@
 
 
     .image-photo {
-        width: 22px;
+        width: 24px;
         margin-left: 1.3vw;
         margin-right: 2vw;
     }
 
     .bin-answer-photo-opacity {
-        width: 20px;
+        width: 22px;
         opacity: 0.125;
     }
 
     .bin-answer-photo {
-        width: 20px;
+        width: 22px;
         opacity: 0.8;
     }
 
 
     .answer-option-div {
-        display: inline-block;
+        display: flex;
+        gap: 2vw;
         margin-bottom: -20px;
     }
 

@@ -21,6 +21,8 @@ export class CreateQuizDto {
     @IsNumber()
     imageId: number;
 
+
+
     @IsNotEmpty({ message: 'Quiz questions array is required' })
     @IsArray()
     @ArrayMinSize(1, { message: 'Every quiz must have at least one question' })
