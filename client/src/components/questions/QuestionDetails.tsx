@@ -1,5 +1,4 @@
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnswerDetails } from '../answer-details/AnswerDetails';
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -8,6 +7,7 @@ import { useQuizDetails } from '../../contexts/quizDetailsContext';
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client'
 import { UploadImage } from '../upload-image/UploadImage';
 import './QuestionDetails.scss';
+import { useIsBigScreen } from '../../consts/consts';
 
 
 interface QuestionProps {
@@ -20,7 +20,7 @@ interface QuestionProps {
 }
 
 export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionTitle, index, onChangeQuestionTitle, deleteQuestion, copyQuestion }) => {
-    const isBigScreen = useMediaQuery('(min-width:600px)');
+    const isBigScreen = useIsBigScreen();
     const {
         questions,
         setQuestions,
@@ -39,7 +39,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                 (question.id || question.tempId) === questionId ?
                     { ...question, answers: [...question.answers, { tempId: answerId, isCorrect: false, content: '' }] } : question))
         setAnswersId(prev => prev + 1);
-    }
+    };
 
     const handleImageChange = ({ id, link }: UploadedFile): void => {
         setQuestions(prev =>
@@ -192,4 +192,4 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
 
         </div>
     );
-}
+};

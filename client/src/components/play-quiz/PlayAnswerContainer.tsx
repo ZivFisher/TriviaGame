@@ -4,23 +4,22 @@ import { PlayAnswer } from './PlayAnswer';
 import './PlayQuizComponents.scss';
 
 export const PlayAnswerContainer: React.FC = () => {
-    const { currentQuestion } = usePlayQuiz();
 
+    const { currentQuestion } = usePlayQuiz();
     const [highlightCorrect, setHighlightCorrect] = useState<boolean>(false);
     const [haveImages, setHaveImages] = useState<boolean>(false);
     const [toggleClick, setToggleClick] = useState<boolean>(false);
-
-
-    const { answers } = currentQuestion;
+    const answers = currentQuestion?.answers;
 
     useEffect(() => {
-        if (answers.some(answer => answer.image)) setHaveImages(true);
+        if (answers?.some(answer => answer.image)) setHaveImages(true);
         else setHaveImages(false);
-    }, [currentQuestion])
+        // eslint-disable-next-line
+    }, [currentQuestion]);
 
     return (
         <div className={haveImages ? 'play-answer-container-img' : 'play-answer-container'}>
-            {answers.map(answer => {
+            {answers?.map(answer => {
                 return (
                     <PlayAnswer
                         key={answer.id}
@@ -31,7 +30,7 @@ export const PlayAnswerContainer: React.FC = () => {
                         toggleClick={toggleClick}
                         setToggleClick={setToggleClick}
                     />
-                )
+                );
             })}
         </div>
     );

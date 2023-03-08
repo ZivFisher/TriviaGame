@@ -34,9 +34,19 @@ export class ScoreService {
                 take: 5
             });
             return scores;
-        } catch (err) {
-            console.log(err);
-            throw err;
+
+        } catch (e) {
+            console.log(e);
+            throw e;
         }
+    }
+
+    async getScoreById(id: number) {
+        return this.scoreRepository.findOne({
+            where: {
+                id
+            },
+            relations: ['quiz']
+        });
     }
 }

@@ -16,6 +16,7 @@ import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import { Loading } from './pages/loading/Loading';
 import { StartGamePage } from './pages/start-game-page/StartGamePage';
 import { MyQuizzesProvider } from './contexts/MyQuizzesContext';
+import { ShareQuizResult } from './pages/quiz-results/ShareQuizResult';
 import './App.scss';
 
 
@@ -36,6 +37,7 @@ function App() {
             <Route path='register' element={<Register />} />
             <Route path='quiz-nickname' element={<QuizNickname />} />
             <Route path='quiz-results' element={<QuizResults />} />
+            <Route path='quiz-shared-result' element={<ShareQuizResult />} />
             <Route path='play-quiz' element={<PlayQuizPage />} />
             <Route path='start-game' element={<StartGamePage />} />
             <Route path='score-board' element={

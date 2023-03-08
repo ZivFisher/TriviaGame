@@ -24,55 +24,59 @@
         display: flex;
         align-items: center;
         overflow: visible;
-
-
-        .dancing-monkey {
-            position: absolute;
-            z-index: 3;
-            width: 100px;
-            top: -10vh;
-        }
+        width: 70vw;
     }
 
-    .MuiDialogTitle-root {
-        font-family: $Rubik-extra-bold-800;
-        font-size: 2.5rem;
-        padding-bottom: 1vh;
-    }
-
-    .MuiDialogContent-root {
-        font-family: $Rubik-bold-700;
-        font-size: 2rem;
-        text-align: center;
-        padding-bottom: 5vh;
-    }
-
-    .MuiDialogActions-root {
-        display: flex;
-        justify-content: center;
-        gap: 1vw;
-
-        .home-btn.MuiButton-root,
-        .share-btn.MuiButton-root {
-            background-color: $main-color;
-            margin-left: 0;
-            font-size: 1rem;
-            font-family: $Rubik-extra-bold-800;
-            width: fit-content;
-            padding: 0.8vh 1.4vw;
-            border-radius: 6px;
-
-            .share-logo {
-                width: 1rem;
-                padding-left: 1vw;
-            }
-        }
-
-        .home-btn.MuiButton-root {
-            background-color: $browner-red;
-        }
+    .dancing-monkey {
+        position: absolute;
+        z-index: 3;
+        width: 100px;
+        top: -10vh;
     }
 }
+
+
+.MuiDialogTitle-root {
+    font-family: $Rubik-extra-bold-800;
+    font-size: 2.5rem;
+    padding-bottom: 1vh;
+}
+
+.MuiDialogContent-root {
+    font-family: $Rubik-bold-700;
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 5vh;
+}
+
+.MuiDialogActions-root {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+
+    .home-btn.MuiButton-root,
+    .share-btn.MuiButton-root,
+    .play-btn.MuiButton-root {
+        background-color: $main-color;
+        margin-left: 0;
+        font-size: 1rem;
+        font-family: $Rubik-extra-bold-800;
+        width: fit-content;
+        padding: 0.8vh 1.4vw;
+        border-radius: 6px;
+        color: $white;
+
+        .logo {
+            width: 1rem;
+            padding-left: 1vw;
+        }
+    }
+
+    .home-btn.MuiButton-root {
+        background-color: $browner-red;
+    }
+}
+
 
 
 @media screen and (min-width: 601px) {
@@ -126,16 +130,18 @@
             }
 
             .share-description-par {
-                font-family: Rubik-light-300;
+                font-family: $Rubik-light-300;
                 margin-bottom: 5vh;
             }
 
+            .play-btn.MuiButton-root,
             .share-btn.MuiButton-root {
                 font-weight: bold;
                 background-color: $main-color;
                 padding: 1vh 2vw;
+                color: $white;
 
-                .share-logo {
+                .logo {
                     width: 1rem;
                     padding-left: 0.8vw;
                 }
@@ -143,4 +149,6 @@
         }
 
     }
+
+
 }

@@ -1,5 +1,8 @@
 @import '../../Variables.scss';
 
+.align-loading {
+    margin: 6vh auto;
+}
 
 
 .start-game-container {
@@ -8,6 +11,8 @@
     text-align: center;
     position: relative;
     margin-right: 15vw;
+
+
 
     .header-logo {
         width: 100vw;
@@ -61,6 +66,7 @@
     }
 }
 
+
 @media only screen and (max-width: 600px) {
 
     .start-game-page-div {
@@ -86,6 +92,7 @@
         margin-top: 2vh;
         position: relative;
         width: 100vw;
+        margin-right: 0;
 
 
         .start-game-btn {

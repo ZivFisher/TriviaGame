@@ -1,15 +1,22 @@
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
+import { useIsBigScreen } from '../../consts/consts';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
+import { Loading } from '../loading/Loading';
 import './StartGamePage.scss';
 
 export const StartGamePage: React.FC = () => {
-    const isBigScreen = useMediaQuery('(min-width: 600px)');
+
+    const isBigScreen = useIsBigScreen();
     const navigate = useNavigate();
     const { quiz } = usePlayQuiz();
 
     const startGame = () => {
-        navigate('/quiz-nickname')
+        navigate('/quiz-nickname');
+    };
+
+    if (!quiz) {
+        return <div className='align-loading'>
+            <Loading /></div>;
     }
 
     return (
@@ -27,8 +34,9 @@ export const StartGamePage: React.FC = () => {
                 }
                 <img
                     src={quiz.image}
-                    alt="quiz photo"
-                    className='quiz-image' />
+                    alt="quiz"
+                    className='quiz-image'
+                />
                 <button
                     onClick={startGame}
                     className='start-game-btn'>התחילו לשחק
@@ -44,5 +52,5 @@ export const StartGamePage: React.FC = () => {
                     className='banana-leaf-left' />
             }
         </div>
-    )
-}
+    );
+};

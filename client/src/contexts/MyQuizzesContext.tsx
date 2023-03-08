@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
+import axios from "axios";
 import { QuizCardInterface } from "../interfaces/myquizzesInterface";
 
 
@@ -8,6 +8,8 @@ interface MyQuizzesContextType {
     setCards: Dispatch<SetStateAction<QuizCardInterface[] | undefined>>;
     getCards: (userId: string) => Promise<void>;
     deleteQuizFromDB: (id: string) => Promise<void>;
+    isLoadingQuizzes: boolean;
+    setIsLoadingQuizzes: Dispatch<SetStateAction<boolean>>;
 }
 
 export const MyQuizzesContext = createContext<MyQuizzesContextType | null>(null);
@@ -22,6 +24,7 @@ export const useMyQuizzesContext = () => {
 export const MyQuizzesProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
 
     const [cards, setCards] = useState<QuizCardInterface[]>();
+    const [isLoadingQuizzes, setIsLoadingQuizzes] = useState<boolean>(true);
 
     const getCards = async (userId: string) => {
         try {
@@ -29,6 +32,9 @@ export const MyQuizzesProvider: React.FC<{ children: ReactNode; }> = ({ children
             setCards(data);
         } catch (error) {
             console.log(error);
+        }
+        finally {
+            setIsLoadingQuizzes(false);
         }
     };
 
@@ -47,7 +53,9 @@ export const MyQuizzesProvider: React.FC<{ children: ReactNode; }> = ({ children
             cards,
             setCards,
             getCards,
-            deleteQuizFromDB
+            deleteQuizFromDB,
+            isLoadingQuizzes,
+            setIsLoadingQuizzes,
         }}>
             {children}
         </MyQuizzesContext.Provider>

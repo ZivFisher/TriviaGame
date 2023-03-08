@@ -1,7 +1,6 @@
 import { FilesType, ImageService } from '@hilma/fileshandler-server';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
 import { CreateQuizDto } from './quiz.dto';
 import { Quiz } from './quiz.entity';
@@ -59,7 +58,6 @@ export class QuizService {
                 where: { id },
                 relations: ['questions', 'questions.answers']
             });
-
         if (!quiz) throw new NotFoundException();
         return quiz;
     }

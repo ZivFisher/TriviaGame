@@ -30,8 +30,16 @@
 }
 
 @media only screen and (max-width: 600px) {
+
+
+    .my-quizzes-div {
+        height: fit-content;
+
+    }
+
     .my-quizzes-container {
         border: none;
     }
+
 
 }

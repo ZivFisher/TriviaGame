@@ -36,7 +36,8 @@ export const useQuizDetails = () => {
     const result = useContext(QuizDetailsContext);
     if (!result) throw new Error("You forgot to put the QuizDetailsProvider!");
     return result;
-}
+};
+
 
 export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const { setQuiz, setCurrentQuestion, filesUploader, quiz } = usePlayQuiz();
@@ -80,8 +81,8 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                 (question.id || question.tempId) === questionId
                     ? { ...question, title: event }
                     : question
-            ))
-    }
+            ));
+    };
 
     const deleteQuestion = async (questionId: number) => {
         if (questions.length === 1) return;
@@ -118,10 +119,10 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                 } else if (item.isCorrect === true && (item.id || item.tempId) !== answerId) {
                     item.isCorrect = false;
                 }
-            })
+            });
             return [...prev];
         });
-    }
+    };
 
     const changeAnswerContent = (event: string, answerId: number, questionIndex: number): void => {
         setQuestions(prev => {
@@ -129,10 +130,10 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                 if ((item.id || item.tempId) === answerId) {
                     item.content = event;
                 }
-            })
+            });
             return [...prev];
         });
-    }
+    };
 
     const deleteId = () => {
         const tempArr = JSON.parse(JSON.stringify(questions));
