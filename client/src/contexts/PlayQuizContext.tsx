@@ -1,5 +1,5 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import axios from 'axios';
 import { Quiz } from "../interfaces/PlayQuizInterfaces";
 import { Question } from "../interfaces/PlayQuizInterfaces";
@@ -32,17 +32,16 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
     const [currentQuestion, setCurrentQuestion] = useState<Question>();
     const [quiz, setQuiz] = useState<Quiz>({} as Quiz);
     const [nickname, setNickname] = useState<string>('');
-    const location = useLocation();
     const [searchParams] = useSearchParams();
+    const id = searchParams.get('id');
 
     useEffect(() => {
         fetchQuiz();
         // eslint-disable-next-line
-    }, [location.pathname]);
+    }, []);
 
     const fetchQuiz = async () => {
         try {
-            const id = searchParams.get('id');
             if (!id) return;
             let { data } = await axios.get(`http://localhost:8080/api/quiz/${id}`);
             setQuiz(data);

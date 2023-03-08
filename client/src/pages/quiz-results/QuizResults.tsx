@@ -71,44 +71,42 @@ export const QuizResults: FC = () => {
                             : null}
                     </div></>
                 :
-                <>
-                    <Dialog
-                        className='quiz-results-dialog'
-                        open={!isBigScreen}
-                    >
-                        <img
-                            className='dancing-monkey'
-                            src="./svg/Group597.svg"
-                            alt="dancing monkey" />
-                        <DialogTitle>הצלחת {correctAnswers} מתוך {questions?.length}</DialogTitle>
-                        <DialogContent>
-                            ציונך: {score}
-                        </DialogContent>
-                        {scoreId
-                            ?
-                            <DialogActions>
-                                <AlertDialog
-                                    question="הקישור הועתק"
-                                    description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
-                                    showCancelButton={false}
-                                    triggerButton={handleShare}
+                <Dialog
+                    className='quiz-results-dialog'
+                    open={!isBigScreen}
+                >
+                    <img
+                        className='dancing-monkey'
+                        src="./svg/Group597.svg"
+                        alt="dancing monkey" />
+                    <DialogTitle>הצלחת {correctAnswers} מתוך {questions?.length}</DialogTitle>
+                    <DialogContent>
+                        ציונך: {score}
+                    </DialogContent>
+                    {scoreId
+                        ?
+                        <DialogActions>
+                            <AlertDialog
+                                question="הקישור הועתק"
+                                description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
+                                showCancelButton={false}
+                                triggerButton={handleShare}
+                            />
+                            <Button
+                                className='home-btn'
+                                variant="contained"
+                                onClick={navigateToHome}
+                            >
+                                <img
+                                    className='logo'
+                                    src="./svg/home.svg"
+                                    alt="Home Button"
                                 />
-                                <Button
-                                    className='home-btn'
-                                    variant="contained"
-                                    onClick={navigateToHome}
-                                >
-                                    <img
-                                        className='logo'
-                                        src="./svg/home.svg"
-                                        alt="Home Button"
-                                    />
-                                    עמוד הבית
-                                </Button>
-                            </DialogActions>
-                            : null}
-                    </Dialog>
-                </>
+                                עמוד הבית
+                            </Button>
+                        </DialogActions>
+                        : null}
+                </Dialog>
             }
         </div>
     );

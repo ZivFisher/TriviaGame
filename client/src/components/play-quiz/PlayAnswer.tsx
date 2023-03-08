@@ -43,9 +43,9 @@ export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, high
             setCorrectAnswers(prev => prev + 1);
         }
         setHighlightCorrect(true);
-        setTimeout(async () => {
+        setTimeout(() => {
             if (quiz.questions.length !== questionIndex + 1) {
-                setCurrentQuestion(quiz.questions[questionIndex + 1]);
+                setCurrentQuestion(quiz?.questions[questionIndex + 1]);
             } else {
                 setScore(prev => Math.round(prev));
                 sendScoreToServer((id: number | null) => {
