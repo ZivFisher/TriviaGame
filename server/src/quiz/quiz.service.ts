@@ -15,9 +15,6 @@ export class QuizService {
         private readonly quizRepository: Repository<Quiz>,
     ) { }
 
-    getAll() {
-        return this.quizRepository.find({ relations: ['questions', 'questions.answers'] });
-    }
 
     getQuizByUserId(id: string) {
         return this.quizRepository.find({
@@ -39,6 +36,10 @@ export class QuizService {
         quizData.user = { id } as MyUser;
         const quiz = this.quizRepository.create(quizData);
         return this.quizRepository.save(quiz);
+    }
+
+    getAll() {
+        return this.quizRepository.find({ relations: ['questions', 'questions.answers'] });
     }
 
     createMyquiz(quiz: Partial<Quiz>) {

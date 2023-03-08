@@ -13,6 +13,25 @@ export class QuizController {
     ) { }
 
     @Get('/')
+    @UseJwtAuth()
+    getByUserId(@RequestUser() user: RequestUserType) {
+        return this.quizService.getQuizByUserId(user.id)
+    }
+
+    @UseJwtAuth()
+    @Post('/')
+    create(@Body() createdQuiz: CreateQuizDto, @RequestUser() user: RequestUserType) {
+        try {
+            return this.quizService.create(createdQuiz, user.id);
+        } catch (e) {
+            console.log(e);
+            if (e instanceof NotFoundException) {
+                throw e;
+            } else throw new BadRequestException();
+        }
+    }
+
+    @Get('/all')
     getAll() {
         try {
             return this.quizService.getAll();
@@ -22,11 +41,6 @@ export class QuizController {
         }
     }
 
-    @Get('/user')
-    @UseJwtAuth()
-    getByUserId(@RequestUser() user: RequestUserType) {
-        return this.quizService.getQuizByUserId(user.id)
-    }
 
     @Get('/:id')
     getById(@Param('id') id: string) {
@@ -59,18 +73,6 @@ export class QuizController {
         }
     }
 
-    @UseJwtAuth()
-    @Post('/')
-    create(@Body() createdQuiz: CreateQuizDto, @RequestUser() user: RequestUserType) {
-        try {
-            return this.quizService.create(createdQuiz, user.id);
-        } catch (e) {
-            console.log(e);
-            if (e instanceof NotFoundException) {
-                throw e;
-            } else throw new BadRequestException();
-        }
-    }
 
 
     @Delete('/:id')
