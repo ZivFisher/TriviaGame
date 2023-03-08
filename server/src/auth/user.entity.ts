@@ -5,7 +5,6 @@ import { Quiz } from "src/quiz/quiz.entity";
 @ChildEntity()
 export class MyUser extends User {
 
-    @OneToMany(() => Quiz, quiz => quiz.userId, { cascade: true, onDelete: 'CASCADE' })
-    quizzes: Quiz[];
-
+    @OneToMany(() => Quiz, quiz => quiz.user, { cascade: true })
+    quizzes?: Quiz[];
 }

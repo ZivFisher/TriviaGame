@@ -27,5 +27,5 @@ export class Quiz {
 
 
     @ManyToOne(() => MyUser, user => user.quizzes, { onDelete: 'CASCADE' })
-    userId: string;
+    user: MyUser;
 }

@@ -1,3 +1,4 @@
+import { RequestUser, RequestUserType, UseJwtAuth } from '@hilma/auth-nest';
 import { Body, Controller, Delete, Get, Param, Post, Put, BadRequestException, NotFoundException, Inject, forwardRef } from '@nestjs/common';
 import { ScoreService } from 'src/score/score.service';
 import { CreateQuizDto } from './quiz.dto';
@@ -21,6 +22,12 @@ export class QuizController {
         }
     }
 
+    @Get('/user')
+    @UseJwtAuth()
+    getByUserId(@RequestUser() user: RequestUserType) {
+        return this.quizService.getQuizByUserId(user.id)
+    }
+
     @Get('/:id')
     getById(@Param('id') id: string) {
         try {
@@ -33,9 +40,11 @@ export class QuizController {
         }
     }
 
-    @Get('/:userId/user-quizzes')
-    getUserQuizzes(@Param('userId') userId: string) {
-        return this.quizService.getUserQuizzes(userId);
+
+    @Get('/user-quizzes')
+    @UseJwtAuth()
+    getUserQuizzes(@RequestUser() user: RequestUserType) {
+        return this.quizService.getUserQuizzes(user.id);
     }
 
     @Get('/:id/scores')
@@ -50,10 +59,11 @@ export class QuizController {
         }
     }
 
+    @UseJwtAuth()
     @Post('/')
-    create(@Body() createdQuiz: CreateQuizDto) {
+    create(@Body() createdQuiz: CreateQuizDto, @RequestUser() user: RequestUserType) {
         try {
-            return this.quizService.create(createdQuiz);
+            return this.quizService.create(createdQuiz, user.id);
         } catch (e) {
             console.log(e);
             if (e instanceof NotFoundException) {
@@ -61,6 +71,7 @@ export class QuizController {
             } else throw new BadRequestException();
         }
     }
+
 
     @Delete('/:id')
     delete(@Param('id') id: string) {

@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateQuizDto } from './quiz.dto';
 import { Quiz } from './quiz.entity';
 import { Score } from '../score/score.entity';
+import { MyUser } from 'src/auth/user.entity';
 
 @Injectable()
 export class QuizService {
@@ -18,11 +19,24 @@ export class QuizService {
         return this.quizRepository.find({ relations: ['questions', 'questions.answers'] });
     }
 
-    async create(quizData: CreateQuizDto) {
+    getQuizByUserId(id: string) {
+        return this.quizRepository.find({
+            where: {
+                user: {
+                    id: id
+                }
+            },
+        })
+    }
+
+    async create(quizData: CreateQuizDto, id: string) {
         const errors = await validate(quizData);
         if (errors.length > 0) {
             throw new BadRequestException(errors.toString());
         }
+
+
+        quizData.user = { id } as MyUser;
         const quiz = this.quizRepository.create(quizData);
         return this.quizRepository.save(quiz);
     }
@@ -41,7 +55,7 @@ export class QuizService {
         return quiz;
     }
 
-    async getUserQuizzes(userId: string,) {
+    async getUserQuizzes(userId: string) {
         const quizzes = await this.quizRepository.createQueryBuilder('quiz')
             .select([
                 'quiz.id id', 'title', 'description', 'image'
