@@ -1,5 +1,5 @@
-import { RequestUser, RequestUserType, UseLocalAuth, User, UserService } from '@hilma/auth-nest';
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { RequestUser, RequestUserType, UseJwtAuth, UseLocalAuth, User, UserService } from '@hilma/auth-nest';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
 @Controller('auth')
@@ -24,6 +24,12 @@ export class AuthController {
     async login(@RequestUser() userInfo: RequestUserType, @Res() res: Response) {
         const body = this.userService.login(userInfo, res);
         return res.send(body);
+    }
+
+    @UseJwtAuth()
+    @Get('user')
+    getUser(@RequestUser() userInfo: RequestUserType) {
+        return userInfo;
     }
 
 }
