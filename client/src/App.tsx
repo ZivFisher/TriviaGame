@@ -16,6 +16,7 @@ import { ScoreBoardProvider } from './contexts/ScorePageContext';
 import { Loading } from './pages/loading/Loading';
 import { StartGamePage } from './pages/start-game-page/StartGamePage';
 import { MyQuizzesProvider } from './contexts/MyQuizzesContext';
+import { SavedQuizAlert } from './components/saved-quiz-popup/SavedQuizAlert';
 import './App.scss';
 
 
@@ -30,6 +31,7 @@ function App() {
                 <CreateQuiz />
               </QuizDetailsProvider>}
             ></Route>
+            <Route path="quiz-saved" element={<SavedQuizAlert />} />
             <Route path='home-page' element={<HomePage />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
