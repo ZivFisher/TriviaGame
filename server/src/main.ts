@@ -12,7 +12,7 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['content-type', 'Authorization'],
     credentials: true
-  })
+  });
   app.use(cookieParser());
   await app.listen(8080);
 }
