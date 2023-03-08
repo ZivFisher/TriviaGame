@@ -4,21 +4,19 @@ import { NoQuizzesFound } from "../../components/no-quizzes-found/NoQuizzesFound
 import { MobileHeader } from "../../components/mobile-header/MobileHeader";
 import { useIsBigScreen } from "../../consts/consts";
 import { useMyQuizzesContext } from "../../contexts/MyQuizzesContext";
-import { Loading } from "../loading/Loading";
+import { useUser } from "../../contexts/UserContext";
 import './my-quizzes.scss';
 
 
 export const MyQuizzes: React.FC = () => {
 
     const isBigScreen = useIsBigScreen();
-    const { cards, getCards, isLoadingQuizzes } = useMyQuizzesContext();
-    const userId = '685edf2e-7625-4bab-9e7e-d9cb5cc03dca';
+    const { cards, getCards } = useMyQuizzesContext();
+    const { user } = useUser();
 
     useEffect(() => {
-        getCards(userId);
+        getCards(user.id);
     }, []);
-
-    if (isLoadingQuizzes) return (<Loading />);
 
     return (
         <div className="my-quizzes-div">

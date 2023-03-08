@@ -1,4 +1,4 @@
-import { FilesHandlerModule, ImageService } from '@hilma/fileshandler-server';
+import { UserModule } from '@hilma/auth-nest';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScoreModule } from 'src/score/score.module';
@@ -14,7 +14,8 @@ import { QuizService } from './quiz.service';
   exports: [QuizService],
   imports: [
     TypeOrmModule.forFeature([Quiz]),
-    ScoreModule
+    ScoreModule,
+    UserModule
   ]
 })
 export class QuizModule { }

@@ -6,7 +6,11 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+<<<<<<< HEAD
     "@hilma/fileshandler-client": "^0.0.34",
+=======
+    "@hilma/auth": "^1.0.1-beta.11",
+>>>>>>> e75df88280caba74ad6afddefdace9c5487a31a0
     "@hilma/tools": "^0.2.0",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.11",
@@ -33,6 +37,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+<<<<<<< HEAD
+=======
+  "proxy": "http://localhost:8080",
+>>>>>>> e75df88280caba74ad6afddefdace9c5487a31a0
   "eslintConfig": {
     "extends": [
       "react-app",

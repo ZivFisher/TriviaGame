@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+=======
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+>>>>>>> e75df88280caba74ad6afddefdace9c5487a31a0
 import { CreateScoreDto } from './score.dto';
 import { ScoreService } from './score.service';
 

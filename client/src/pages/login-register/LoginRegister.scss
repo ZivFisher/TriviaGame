@@ -1,14 +1,15 @@
 @import '../../Variables.scss';
 
 .full-size-container {
+    @include main-content;
+    margin-top: 6vh;
+
     .register-login-container {
-        @include main-content;
         position: relative;
         height: 68vh;
         display: flex;
         flex-direction: row;
         padding-top: 5vh;
-        margin-top: 6vh;
 
         .right-leaf-img {
             display: none;
@@ -41,7 +42,6 @@
             .right-side {
                 .register-login-titles {
                     margin-bottom: 2.6vh;
-
                 }
             }
         }
@@ -51,6 +51,7 @@
 
 @media screen and (max-width: 600px) {
     .full-size-container {
+        margin-top: 0;
         overflow: hidden;
         width: 100vw;
         height: 100vh;

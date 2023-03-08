@@ -5,52 +5,67 @@ import { Repository } from 'typeorm';
 import { CreateQuizDto } from './quiz.dto';
 import { Quiz } from './quiz.entity';
 import { Score } from '../score/score.entity';
+import { MyUser } from 'src/auth/user.entity';
 
 @Injectable()
 export class QuizService {
+
     constructor(
         @InjectRepository(Quiz)
         private readonly quizRepository: Repository<Quiz>,
         private readonly imageService: ImageService
     ) { }
 
+
+    getQuizByUserId(id: string) {
+        return this.quizRepository.find({
+            where: {
+                user: {
+                    id: id
+                }
+            },
+        })
+    }
+
+    async create(quizData: CreateQuizDto, files?: FilesType, id: string) {
+        const imageFile = files.find(file => file.originalname === String(quizData.imageId))
+        quizData.image = await this.imageService.saveSingleFile([imageFile])
+
+        for (let i = 0; i < quizData.questions.length; i++) {
+            const question = quizData.questions[i];
+            if (question.imageId || question.imageId === 0) {
+                const imageFile = files.find(file => file.originalname === String(question.imageId))
+                question.image = await this.imageService.saveSingleFile([imageFile])
+                delete question.imageId
+            }
+            for (let j = 0; j < question.answers.length; j++) {
+                const answer = question.answers[j];
+                if (answer.imageId || answer.imageId === 0) {
+                    const imageFile = files.find(file => file.originalname === String(answer.imageId))
+                    answer.image = await this.imageService.saveSingleFile([imageFile])
+                    delete answer.imageId
+                }
+            }
+        }
+
+        // const errors = await validate(quizData);
+        // if (errors.length > 0) {
+        //     throw new BadRequestException(errors.toString());
+        // }
+
+
+        quizData.user = { id } as MyUser;
+        const quiz = this.quizRepository.create(quizData);
+        return this.quizRepository.save(quiz);
+    }
+
     getAll() {
         return this.quizRepository.find({ relations: ['questions', 'questions.answers'] });
     }
 
-    // async create(quizData: CreateQuizDto, files?: FilesType, userId: string) {
-    //     const imageFile = files.find(file => file.originalname === String(quizData.imageId))
-    //     quizData.image = await this.imageService.saveSingleFile([imageFile])
-
-    //     for (let i = 0; i < quizData.questions.length; i++) {
-    //         const question = quizData.questions[i];
-    //         if (question.imageId || question.imageId === 0) {
-    //             const imageFile = files.find(file => file.originalname === String(question.imageId))
-    //             question.image = await this.imageService.saveSingleFile([imageFile])
-    //             delete question.imageId
-    //         }
-    //         for (let j = 0; j < question.answers.length; j++) {
-    //             const answer = question.answers[j];
-    //             if (answer.imageId || answer.imageId === 0) {
-    //                 const imageFile = files.find(file => file.originalname === String(answer.imageId))
-    //                 answer.image = await this.imageService.saveSingleFile([imageFile])
-    //                 delete answer.imageId
-    //             }
-    //         }
-    //     }
-
-
-    // quizData.user = new User({ id: userId })
-    // quizData.user = { id: userId }
-
-    // quizData.user = new User()
-    // user.id = userId
-
-    //     const quiz = this.quizRepository.create(quizData);
-    //     console.log('quiz:', quiz)
-
-    //     return this.quizRepository.save(quiz);
-    // }
+    createMyquiz(quiz: Partial<Quiz>) {
+        return this.quizRepository.create(quiz);
+    }
 
     async getQuizDetails(id: string) {
         const quiz = await this.quizRepository.findOne(
@@ -62,7 +77,7 @@ export class QuizService {
         return quiz;
     }
 
-    async getUserQuizzes(userId: string,) {
+    async getUserQuizzes(userId: string) {
         const quizzes = await this.quizRepository.createQueryBuilder('quiz')
             .select([
                 'quiz.id id', 'title', 'description', 'image'

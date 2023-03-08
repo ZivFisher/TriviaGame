@@ -1,3 +1,4 @@
+import { RequestUser, RequestUserType, UseJwtAuth } from '@hilma/auth-nest';
 import { FilesType, UseFilesHandler } from '@hilma/fileshandler-server';
 import { Body, Controller, Delete, Get, Param, Post, Put, BadRequestException, NotFoundException, Inject, forwardRef, UploadedFiles } from '@nestjs/common';
 import { ScoreService } from 'src/score/score.service';
@@ -13,6 +14,26 @@ export class QuizController {
     ) { }
 
     @Get('/')
+    @UseJwtAuth()
+    getByUserId(@RequestUser() user: RequestUserType) {
+        return this.quizService.getQuizByUserId(user.id)
+    }
+
+    @UseFilesHandler(100)
+    @UseJwtAuth()
+    @Post('/')
+    create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType, @RequestUser() user: RequestUserType) {
+        try {
+            return this.quizService.create(createdQuiz, files, user.id);
+        } catch (e) {
+            console.log(e);
+            if (e instanceof NotFoundException) {
+                throw e;
+            } else throw new BadRequestException();
+        }
+    }
+
+    @Get('/all')
     getAll() {
         try {
             return this.quizService.getAll();
@@ -21,6 +42,7 @@ export class QuizController {
             throw new BadRequestException();
         }
     }
+
 
     @Get('/:id')
     getById(@Param('id') id: string) {
@@ -34,9 +56,11 @@ export class QuizController {
         }
     }
 
-    @Get('/:userId/user-quizzes')
-    getUserQuizzes(@Param('userId') userId: string) {
-        return this.quizService.getUserQuizzes(userId);
+
+    @Get('/user-quizzes')
+    @UseJwtAuth()
+    getUserQuizzes(@RequestUser() user: RequestUserType) {
+        return this.quizService.getUserQuizzes(user.id);
     }
 
     @Get('/:id/scores')
@@ -51,19 +75,6 @@ export class QuizController {
         }
     }
 
-    // // @useJwtAuth()
-    // @UseFilesHandler(100)
-    // @Post('/')
-    // create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType, @RequestUser() userInfo: RequestUserType) {
-    //     try {
-    //         return this.quizService.create(createdQuiz, files, userInfo.id);
-    //     } catch (e) {
-    //         console.log(e);
-    //         if (e instanceof NotFoundException) {
-    //             throw e;
-    //         } else throw new BadRequestException();
-    //     }
-    // }
 
     @Delete('/:id')
     delete(@Param('id') id: string) {
