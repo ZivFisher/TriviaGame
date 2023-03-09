@@ -21,6 +21,7 @@ export class QuizController {
 
 
     @UseJwtAuth()
+    @UseFilesHandler(100)
     @Post('/')
     create(@Body() createdQuiz: CreateQuizDto, @UploadedFiles() files: FilesType, @RequestUser() user: RequestUserType) {
         try {
@@ -89,6 +90,7 @@ export class QuizController {
     }
 
 
+    @UseFilesHandler(100)
     @Put('/:id')
     update(@Param('id') id: string, @Body() updatedQuiz: CreateQuizDto, @UploadedFiles() files: FilesType) {
         try {

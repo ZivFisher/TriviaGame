@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Preview } from '../../components/preview/Preview';
 import { useIsBigScreen } from '../../consts/consts';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
 import { Loading } from '../loading/Loading';
@@ -8,7 +9,7 @@ export const StartGamePage: React.FC = () => {
 
     const isBigScreen = useIsBigScreen();
     const navigate = useNavigate();
-    const { quiz } = usePlayQuiz();
+    const { quiz, isPreview } = usePlayQuiz();
 
     const startGame = () => {
         navigate('/quiz-nickname');
@@ -21,6 +22,9 @@ export const StartGamePage: React.FC = () => {
 
     return (
         <div className='start-game-page-div'>
+            {isBigScreen && isPreview &&
+                <Preview />
+            }
             <div className="start-game-container">
                 {!isBigScreen &&
                     <div className="header-logo">

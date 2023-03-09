@@ -90,7 +90,7 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
                     className='menu-item'
                     onClick={() => {
                         handleClose();
-                        navigate(encodeURI(`/create-quiz?quizId=${id}`));
+                        navigate(encodeURI(`/create-quiz?id=${id}`));
                     }}>
                     <img
                         className='menu-icon'

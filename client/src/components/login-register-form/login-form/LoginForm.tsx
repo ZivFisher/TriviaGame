@@ -28,7 +28,8 @@ export const LoginForm: FC = () => {
                     roles: user.roles,
                     roleKeys: user.roleKeys
                 })
-                navigate('/home-page');
+                console.log(111111111111111)
+                navigate('/create-quiz');
             } else {
                 console.log("Invalid user information! Please try again ", msg);
             }

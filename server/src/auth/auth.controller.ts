@@ -14,7 +14,6 @@ export class AuthController {
         });
         const { id } = await this.userService.createUser<User>({
             ...user,
-            roles: [{ id: 2 }]
         });
         return id;
     }

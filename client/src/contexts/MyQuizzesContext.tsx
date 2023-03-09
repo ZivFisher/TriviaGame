@@ -26,9 +26,9 @@ export const MyQuizzesProvider: React.FC<{ children: ReactNode; }> = ({ children
     const [cards, setCards] = useState<QuizCardInterface[]>();
     const [isLoadingQuizzes, setIsLoadingQuizzes] = useState<boolean>(true);
 
-    const getCards = async (userId: string) => {
+    const getCards = async () => {
         try {
-            const { data } = await axios.get<QuizCardInterface[]>(`http://localhost:8080/api/quiz/${userId}/user-quizzes`);
+            const { data } = await axios.get<QuizCardInterface[]>(`http://localhost:8080/api/quiz`);
             setCards(data);
         } catch (error) {
             console.log(error);

@@ -1,9 +1,11 @@
 import { Button } from '@mui/material'
 import axios from 'axios';
 import { FC, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import '../LoginRegisterForm.scss';
 
 export const RegisterForm: FC = () => {
+    const navigate = useNavigate()
 
     const [registerForm, setRegisterForm] = useState<{
         username: string,
@@ -31,6 +33,7 @@ export const RegisterForm: FC = () => {
         if (!passwordValidated()) return;
         try {
             const { data } = await axios.post("/auth/register", registerForm);
+            navigate('/login')
 
         } catch (error) {
             alert(JSON.stringify(error, null, 2));

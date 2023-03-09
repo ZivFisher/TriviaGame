@@ -31,14 +31,16 @@ function App() {
             <Route path='/' element={< Main />}>
               <Route
                 path='/create-quiz'
-                element=
-                {<PrivateRoute
-                  componentName="User"
-                  component={
-                    <QuizDetailsProvider>
-                      <CreateQuiz />
-                    </QuizDetailsProvider>}
-                  redirectPath="/login" />}
+                element={<QuizDetailsProvider>
+                  <CreateQuiz />
+                </QuizDetailsProvider>}
+              // {<PrivateRoute
+              //   componentName="User"
+              //   component={
+              //     <QuizDetailsProvider>
+              //       <CreateQuiz />
+              //     </QuizDetailsProvider>}
+              //   redirectPath="/login" />}
               />
               {/* <Route path='home-page' element={<HomePage />} /> */}
               <Route path="/home-page" element={<PrivateRoute componentName="User" component={<HomePage />} redirectPath="/login" />} />
@@ -48,11 +50,15 @@ function App() {
               <Route path='quiz-results' element={<QuizResults />} />
               <Route path='play-quiz' element={<PlayQuizPage />} />
               <Route path='start-game' element={<StartGamePage />} />
+              <Route path='quiz-shared-result' element={<ShareQuizResult />} />
               <Route path='score-board' element={
                 <ScoreBoardProvider>
                   <ScorePage />
                 </ScoreBoardProvider>} />
-              <Route path='my-quizzes' element={<PrivateRoute componentName="User" component={<MyQuizzesProvider><MyQuizzes /></MyQuizzesProvider>} redirectPath="/login" />} />
+              <Route path='my-quizzes'
+                element={<MyQuizzesProvider><MyQuizzes /></MyQuizzesProvider>}
+              // {<PrivateRoute componentName="User" component={<MyQuizzesProvider><MyQuizzes /></MyQuizzesProvider>} redirectPath="/login" />} 
+              />
               <Route path='loading' element={<Loading />} />
               <Route path='/*' element={<NotFoundContent />} />
             </Route>

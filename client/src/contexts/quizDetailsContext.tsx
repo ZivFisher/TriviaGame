@@ -40,18 +40,27 @@ export const useQuizDetails = () => {
 
 
 export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const { setQuiz, setCurrentQuestion, filesUploader, quiz } = usePlayQuiz();
+    const { setQuiz, setCurrentQuestion, filesUploader, quiz, setIsPreview } = usePlayQuiz();
     const [quizDetails, setQuizDetails] = useState<Quiz | EditQuiz>(basicQuiz);
     const [questions, setQuestions, getQuestions] = useAsyncState<Question[]>(basicQuestions)
     const [activeQuestion, setActiveQuestion] = useState<number>(0);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
+    const edit = searchParams.get('edit');
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
         if (id) {
             getQuiz(id);
+        } else if (edit) {
+            setQuizDetails({
+                title: quiz.title,
+                description: quiz.description,
+                image: quiz.image!,
+                imageId: quiz.imageId
+            })
+            setQuestions(quiz.questions)
         } else {
             setQuizDetails(basicQuiz)
             setQuestions(basicQuestions)
@@ -202,11 +211,13 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             setError('יש למלא את כל השדות הרלוונטיים לפני צפייה מקדימה בחידון.')
             return;
         }
+        setIsPreview(true)
         setQuiz({
             id: '1',
             title: quizDetails.title,
             description: quizDetails.description,
             image: quizDetails.image,
+            imageId: quizDetails.imageId!,
             questions: questions as QuestionPlayQuiz[]
         })
 

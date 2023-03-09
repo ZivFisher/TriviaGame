@@ -1,5 +1,5 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 import { Quiz } from "../interfaces/PlayQuizInterfaces";
 import { Question } from "../interfaces/PlayQuizInterfaces";
@@ -18,6 +18,9 @@ export interface PlayQuizContextType {
     sendScoreToServer: (call: (id: number | null) => void) => Promise<any>;
     setQuiz: Dispatch<SetStateAction<Quiz>>;
     filesUploader: FilesUploader;
+    setIsPreview: Dispatch<SetStateAction<boolean>>;
+    isPreview: boolean;
+    backToEdit: () => void;
 }
 
 export const PlayQuizContext = createContext<PlayQuizContextType | null>(null);
@@ -38,10 +41,11 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
     const filesUploader = useFiles();
+    const navigate = useNavigate();
+    const [isPreview, setIsPreview] = useState<boolean>(false);
 
     useEffect(() => {
         fetchQuiz();
-        // eslint-disable-next-line
     }, []);
 
     const fetchQuiz = async () => {
@@ -71,6 +75,10 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
         }
     };
 
+    const backToEdit = () => {
+        navigate('create-quiz?edit=true');
+    }
+
     return (
         <PlayQuizContext.Provider value={{
             quiz: quiz,
@@ -84,7 +92,10 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
             nickname,
             setNickname,
             sendScoreToServer,
-            filesUploader
+            filesUploader,
+            setIsPreview,
+            isPreview,
+            backToEdit
         }}>
             {children}
         </PlayQuizContext.Provider>

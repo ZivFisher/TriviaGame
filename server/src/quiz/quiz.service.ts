@@ -48,12 +48,6 @@ export class QuizService {
             }
         }
 
-        // const errors = await validate(quizData);
-        // if (errors.length > 0) {
-        //     throw new BadRequestException(errors.toString());
-        // }
-
-
         quizData.user = { id } as MyUser;
         const quiz = this.quizRepository.create(quizData);
         return this.quizRepository.save(quiz);

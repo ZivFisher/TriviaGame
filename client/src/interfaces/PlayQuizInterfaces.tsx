@@ -3,6 +3,7 @@ export interface Quiz {
     title: string;
     description: string;
     image?: string;
+    imageId?: number;
     questions: Question[];
 }
 
@@ -10,6 +11,7 @@ export interface Question {
     id: number;
     title: string;
     image?: string;
+    imageId?: number;
     answers: Answer[];
 }
 
@@ -18,6 +20,7 @@ export interface Answer {
     isCorrect: boolean;
     content: string;
     image?: string;
+    imageId?: number;
 }
 
 

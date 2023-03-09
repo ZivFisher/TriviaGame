@@ -20,8 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@hilma/fileshandler-server": "^1.0.2",
     "@hilma/auth-nest": "^0.6.1",
+    "@hilma/fileshandler-server": "^1.0.2",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
