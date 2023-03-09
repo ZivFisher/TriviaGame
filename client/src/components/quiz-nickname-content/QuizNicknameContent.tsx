@@ -1,13 +1,13 @@
 
 import { Button, useMediaQuery } from '@mui/material';
-import React, { useState } from 'react';
 import { MobileHeader } from '../mobile-header/MobileHeader';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
 import { useNavigate } from 'react-router-dom';
+import { Preview } from '../preview/Preview';
 
 export function QuizNicknameContent() {
     const phoneMedia: boolean = useMediaQuery('(max-width:600px)');
-    const { nickname, setNickname, quiz } = usePlayQuiz();
+    const { nickname, setNickname, quiz, isPreview } = usePlayQuiz();
     const navigate = useNavigate();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -17,6 +17,9 @@ export function QuizNicknameContent() {
 
     return (
         <div className='quiz-nickname-container'>
+            {!phoneMedia && isPreview &&
+                <Preview />
+            }
             {!phoneMedia
                 ? <h1 className='quiz-nickname-header'>{quiz.title}</h1>
                 : <MobileHeader title={quiz.title} showLogo={false} />

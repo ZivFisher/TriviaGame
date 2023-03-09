@@ -60,12 +60,16 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                 image: quiz.image!,
                 imageId: quiz.imageId
             })
-            setQuestions(quiz.questions)
+            setQuestions(quiz.questions);
         } else {
             setQuizDetails(basicQuiz)
             setQuestions(basicQuestions)
         }
     }, [id]);
+
+    useEffect(() => {
+        console.log(questions)
+    }, [questions])
 
     const getQuiz = async (id: string) => {
         try {
@@ -123,7 +127,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
     const markedAsCorrect = (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number): void => {
         setQuestions(prev => {
             prev[questionIndex].answers.forEach((item) => {
-                if (item.id === answerId && item.isCorrect === false) {
+                if ((item.id || item.tempId) === answerId && item.isCorrect === false) {
                     item.isCorrect = event.target.checked;
                 } else if (item.isCorrect === true && (item.id || item.tempId) !== answerId) {
                     item.isCorrect = false;

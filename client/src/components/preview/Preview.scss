@@ -1,9 +1,27 @@
+@import '../../Variables.scss';
+
 .preview-div {
     display: flex;
     justify-content: space-between;
+    text-align: center;
     flex-direction: row-reverse;
     width: 36vw;
-    margin: 3vh auto 0 31.5vw;
+    height: 10vh;
+    position: absolute;
+    top: 1vh;
+    right: 17vw;
 
-    .preview-par {}
+    .preview-btn {
+        background-color: $white;
+        border: 1px solid $opacity-dark-blue;
+        color: $main-color;
+        width: 7.5vw;
+        text-align: center;
+        font-size: 9px;
+        font-weight: 510;
+        border-radius: 6px;
+        height: 4vh;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
 }

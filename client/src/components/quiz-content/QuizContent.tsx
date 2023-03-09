@@ -44,8 +44,8 @@ export const QuizContent: React.FC = () => {
                     tempId: questionId,
                     title: '',
                     answers: [
-                        { id: 1, content: '', isCorrect: true },
-                        { id: 2, content: '', isCorrect: false }
+                        { tempId: 1, content: '', isCorrect: true },
+                        { tempId: 2, content: '', isCorrect: false }
                     ]
                 }]
         });

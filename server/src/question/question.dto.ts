@@ -13,7 +13,7 @@ export class CreateQuestionDto {
 
     @IsOptional()
     @IsString()
-    @IsNotEmpty({ message: 'Question image cannot be empty string' })
+    // @IsNotEmpty({ message: 'Question image cannot be empty string' })
     image: string;
 
     @IsOptional()

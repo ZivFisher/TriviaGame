@@ -1,5 +1,13 @@
 @import '../../Variables.scss';
 
+
+.quiz-results-big-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
 .quiz-results-container {
     position: relative;
     width: 100vw;

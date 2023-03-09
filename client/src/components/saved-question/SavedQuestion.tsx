@@ -44,7 +44,7 @@ export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, question
                 }
             </div>
             {question.answers.map((answer) => {
-                return <div className='saved-question-answers' key={answer.id}>
+                return <div className='saved-question-answers' key={answer.id || answer.tempId}>
                     <Checkbox
                         checked={answer.isCorrect}
                         icon={<RadioButtonUncheckedIcon />}

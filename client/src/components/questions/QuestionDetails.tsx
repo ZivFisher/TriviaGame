@@ -81,6 +81,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 imageSrc={questions[index].image}
                                 deleteImg={deleteImg}
                                 questionId={questionId}
+                                className='question-margin'
                             />
                             : <BootstrapTooltip title="הוספת תמונה לשאלה">
                                 <label>

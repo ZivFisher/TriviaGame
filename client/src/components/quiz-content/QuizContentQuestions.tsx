@@ -61,6 +61,7 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
                                             ? <SavedQuestion
                                                 question={question}
                                                 questionIndex={index}
+                                                key={question.id || question.tempId}
                                             />
                                             : <QuestionDetails
                                                 index={index}

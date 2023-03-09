@@ -1,11 +1,12 @@
-import { Button } from '@mui/material'
+import { Alert, Button } from '@mui/material'
 import axios from 'axios';
 import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../LoginRegisterForm.scss';
 
 export const RegisterForm: FC = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [error, setError] = useState<string>('');
 
     const [registerForm, setRegisterForm] = useState<{
         username: string,
@@ -30,13 +31,16 @@ export const RegisterForm: FC = () => {
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
         e.preventDefault();
-        if (!passwordValidated()) return;
+        if (!passwordValidated()) {
+            setError('הסיסמאות שהזנת אינן זהות');
+            return;
+        };
         try {
             const { data } = await axios.post("/auth/register", registerForm);
             navigate('/login')
 
         } catch (error) {
-            alert(JSON.stringify(error, null, 2));
+            setError('תקלה בשרת, נסה שוב במועד מאוחר יותר')
         }
 
     }
@@ -81,6 +85,9 @@ export const RegisterForm: FC = () => {
             >
                 הרשמה
             </Button>
+            {error &&
+                <Alert severity="warning">{error}</Alert>
+            }
         </form>
     )
 }

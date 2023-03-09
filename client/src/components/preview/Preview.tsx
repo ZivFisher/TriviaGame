@@ -6,7 +6,7 @@ export const Preview: React.FC = () => {
     return (
         <div className='preview-div'>
             <p className='preview-par'>תצוגה מקדימה</p>
-            <button onClick={backToEdit}>חזרה לעריכה</button>
+            <button className='preview-btn' onClick={backToEdit}>חזרה לעריכה</button>
         </div>
     )
 }

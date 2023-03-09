@@ -3,18 +3,20 @@ import { PlayAnswerContainer } from "../../components/play-quiz/PlayAnswerContai
 import { PlayProgressBar } from "../../components/play-quiz/PlayProgressBar";
 import { QuestionIndicator } from "../../components/play-quiz/QuestionIndicator";
 import { QuestionTitle } from "../../components/play-quiz/QuestionTitle";
+import { Preview } from "../../components/preview/Preview";
 import { useIsBigScreen } from "../../consts/consts";
 import { usePlayQuiz } from "../../contexts/PlayQuizContext";
 import './PlayQuizPage.scss';
 
 export const PlayQuizPage = () => {
-
     const isBigScreen = useIsBigScreen();
-    const { quiz } = usePlayQuiz();
+    const { quiz, isPreview } = usePlayQuiz();
 
     return (
         <div className="play-quiz-page">
-            {!isBigScreen ? <MobileHeader title={quiz.title} showLogo={false} /> : null}
+            {!isBigScreen ? <MobileHeader title={quiz.title} showLogo={false} /> : isPreview &&
+                <Preview />
+            }
             <PlayProgressBar />
             <div className='play-quiz-container'>
                 <div className='quiz-play-board'>
