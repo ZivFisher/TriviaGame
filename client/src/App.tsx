@@ -18,6 +18,7 @@ import { StartGamePage } from './pages/start-game-page/StartGamePage';
 import { AuthProvider, PrivateRoute } from '@hilma/auth';
 import { MyQuizzesProvider } from './contexts/MyQuizzesContext';
 import { ShareQuizResult } from './pages/quiz-results/ShareQuizResult';
+import { SavedQuizAlert } from './components/saved-quiz-popup/SavedQuizAlert';
 import './App.scss';
 
 
