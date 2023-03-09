@@ -4,7 +4,7 @@ import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Answer } from '../../interfaces/quizDetailInterface';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
-import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client'
+import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import { UploadImage } from '../upload-image/UploadImage';
 import './QuestionDetails.scss';
 import { useIsBigScreen } from '../../consts/consts';
@@ -37,7 +37,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
         setQuestions(prev =>
             prev.map(question =>
                 (question.id || question.tempId) === questionId ?
-                    { ...question, answers: [...question.answers, { tempId: answerId, isCorrect: false, content: '' }] } : question))
+                    { ...question, answers: [...question.answers, { tempId: answerId, isCorrect: false, content: '' }] } : question));
         setAnswersId(prev => prev + 1);
     };
 
@@ -68,7 +68,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 placeholder='שאלה ללא כותרת'
                                 onClick={() => {
                                     if (questionTitle === 'שאלה ללא כותרת') {
-                                        onChangeQuestionTitle('', questionId)
+                                        onChangeQuestionTitle('', questionId);
                                     }
                                 }}
                                 onChange={(event) => onChangeQuestionTitle(event.target.value, questionId)}
@@ -86,7 +86,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                             : <BootstrapTooltip title="הוספת תמונה לשאלה">
                                 <label>
                                     <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />
-                                    <img src="/svg/image.svg" alt=" upload image" className='image-photo-details pointer-img' />
+                                    <img src="/svg/image.svg" alt="upload image" className='image-photo-details pointer-img' />
                                 </label>
                             </BootstrapTooltip>
                         }
@@ -97,7 +97,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                         }
                         <div className='question-title'>
                             <p>שאלה {index + 1}</p>
-                            <div className='mobile-question-option'>
+                            <div className={questions.length === 1 ? 'mobile-question-option disabled' : 'mobile-question-option'}>
                                 <img
                                     src="/svg/copy.svg"
                                     alt="copy question"
@@ -121,7 +121,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                     value={questionTitle}
                                     onClick={() => {
                                         if (questionTitle === 'שאלה ללא כותרת') {
-                                            onChangeQuestionTitle('', questionId)
+                                            onChangeQuestionTitle('', questionId);
                                         }
                                     }}
                                     onChange={(event) => onChangeQuestionTitle(event.target.value, questionId)}
@@ -154,7 +154,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                         onDeleteAnswer={deleteAnswer}
                         isCorrect={answer.isCorrect}
                         questionId={questionId}
-                        answerIndex={answerIndex} />
+                        answerIndex={answerIndex} />;
                 })}
                 {questions[index].answers.length < 4
                     ? <div className='answer-option' onClick={() => addAnswer(index)}>
@@ -165,7 +165,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                 {isBigScreen
                     ? <>
                         <p className='line'></p>
-                        <div className='question-option'>
+                        <div className={questions.length === 1 ? 'question-option disabled' : 'question-option'}>
                             <BootstrapTooltip title="שכפול">
                                 <img
                                     src="/svg/copy.svg"

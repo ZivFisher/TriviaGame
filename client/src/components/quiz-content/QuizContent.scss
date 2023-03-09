@@ -10,7 +10,7 @@
     position: fixed;
     background-color: $body-color;
     right: 16.5vw;
-    top: 9.1vh;
+    top: 8.7vh;
     padding: 0.1vw;
     z-index: 1000;
 }
@@ -35,22 +35,25 @@
     }
 }
 
+.show-quiz,
+.save-quiz {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 1vh 1.5vw;
+    border-radius: 6px;
+    gap: 0.6vw;
+}
+
 .show-quiz {
     background-color: $white;
     border: 1px solid $opacity-dark-blue;
     color: $main-color;
-    width: 7.5vw;
-    text-align: center;
     font-size: 9px;
     font-weight: 510;
-    border-radius: 6px;
-    height: 4vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.4vw;
     font-size: 0.8rem;
-    cursor: pointer;
 }
 
 .item-container {
@@ -59,18 +62,9 @@
 
 .save-quiz {
     background-color: $main-color;
-    text-align: center;
-    border-radius: 8px;
-    width: 8vw;
-    height: 4vh;
     color: $white;
     margin-right: 1vw;
     border: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.6vw;
 }
 
 .share-quiz-photo {

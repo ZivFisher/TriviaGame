@@ -45,7 +45,7 @@ export const ShareQuizResult: FC = () => {
     };
 
     return (
-        <div className='quiz-results-container'>
+        <div className='quiz-results-container top-container' style={{ top: '8vh' }}>
             <img
                 className='confetti-animation'
                 src="./animation/confetti.gif"

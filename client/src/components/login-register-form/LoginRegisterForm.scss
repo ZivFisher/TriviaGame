@@ -49,16 +49,13 @@
     }
 
     .MuiPaper-root {
-        margin-top: 2vh;
-        margin-right: 5vw;
-        width: 40vw;
+        width: fit-content;
         z-index: 1500;
-        margin-right: 20vw;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 2vh;
-        position: absolute;
+        margin-right: 0;
+        gap: 1vw;
 
         .MuiAlert-message {
             font-size: 18px;
@@ -72,17 +69,18 @@
         flex-direction: column;
         align-items: center;
 
+
         .MuiPaper-root {
             margin-top: 37vh;
-            margin-right: 3vw;
-            width: 40vw;
+            width: fit-content;
             z-index: 1500;
-            margin-right: 20vw;
+            margin-right: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 2vh;
             position: absolute;
+            gap: 2vw;
 
             .MuiAlert-message {
                 font-size: 18px;

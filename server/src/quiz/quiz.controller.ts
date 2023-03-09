@@ -16,7 +16,8 @@ export class QuizController {
     @Get('/')
     @UseJwtAuth()
     getByUserId(@RequestUser() user: RequestUserType) {
-        return this.quizService.getQuizByUserId(user.id)
+        console.log(user.id);
+        return this.quizService.getUserQuizzes(user.id);
     }
 
 
@@ -58,7 +59,7 @@ export class QuizController {
     }
 
 
-    @Get('/user-quizzes')
+    @Get('/user/quizzes')
     @UseJwtAuth()
     getUserQuizzes(@RequestUser() user: RequestUserType) {
         return this.quizService.getUserQuizzes(user.id);

@@ -3,6 +3,7 @@
 .full-size-container {
     @include main-content;
     margin-top: 6vh;
+    height: fit-content;
 
     .register-login-container {
         position: relative;

@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Preview } from '../../components/preview/Preview';
 import { useIsBigScreen } from '../../consts/consts';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
@@ -9,11 +10,21 @@ export const StartGamePage: React.FC = () => {
 
     const isBigScreen = useIsBigScreen();
     const navigate = useNavigate();
-    const { quiz, isPreview } = usePlayQuiz();
+    const { quiz, isPreview, fetchQuiz } = usePlayQuiz();
+    const [searchParams] = useSearchParams();
+    const id = searchParams.get('id');
+
+    useEffect(() => {
+        if (id) {
+            fetchQuiz();
+        }
+    }, [id]);
 
     const startGame = () => {
         navigate('/quiz-nickname');
     };
+
+
 
     if (!quiz) {
         return <div className='align-loading'>

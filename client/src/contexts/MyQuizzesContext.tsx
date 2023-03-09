@@ -30,6 +30,7 @@ export const MyQuizzesProvider: React.FC<{ children: ReactNode; }> = ({ children
         try {
             const { data } = await axios.get<QuizCardInterface[]>(`http://localhost:8080/api/quiz`);
             setCards(data);
+            console.log(data);
         } catch (error) {
             console.log(error);
         }

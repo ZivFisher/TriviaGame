@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 import { LoginForm } from '../../../components/login-register-form/login-form/LoginForm';
 import { LoginRegisterTitles } from '../../../components/login-register-titles/LoginRegisterTitles';
 import '../LoginRegister.scss';
@@ -17,5 +17,5 @@ export const Login: FC = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

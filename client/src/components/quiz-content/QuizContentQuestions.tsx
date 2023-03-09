@@ -24,7 +24,18 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
     const handleDrop = (droppedItem: any) => {
         // Ignore drop outside droppable container
         if (!droppedItem.destination) return;
+
         setQuestions(prev => {
+            prev.forEach((question) => {
+                if (question.title === '') {
+                    question.title = 'שאלה ללא כותרת';
+                }
+                question.answers.forEach(answer => {
+                    if (answer.content === '') {
+                        answer.content = 'תשובה ללא תוכן';
+                    }
+                });
+            });
             let updatedList = [...prev];
             // Remove dragged item
             const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
@@ -75,7 +86,7 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
 
                                     </div>
                                 )}
-                            </Draggable>
+                            </Draggable>;
                         })}
                         {provided.placeholder}
                     </div>
@@ -83,4 +94,4 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
             </Droppable>
         </DragDropContext>
     );
-}
+};

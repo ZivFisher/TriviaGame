@@ -88,10 +88,12 @@
 
 
 @media screen and (min-width: 601px) {
+
+
+
     .quiz-results-container {
         @include main-content;
         position: relative;
-        top: 8vh;
         height: 68vh;
         display: flex;
         flex-direction: column;
@@ -157,6 +159,4 @@
         }
 
     }
-
-
 }

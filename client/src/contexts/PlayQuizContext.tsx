@@ -1,6 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from 'axios';
+import { useAsyncState } from "@hilma/tools";
 import { Quiz } from "../interfaces/PlayQuizInterfaces";
 import { Question } from "../interfaces/PlayQuizInterfaces";
 import { FilesUploader, useFiles } from "@hilma/fileshandler-client";
@@ -21,6 +22,8 @@ export interface PlayQuizContextType {
     setIsPreview: Dispatch<SetStateAction<boolean>>;
     isPreview: boolean;
     backToEdit: () => void;
+    fetchQuiz: () => Promise<void>;
+
 }
 
 export const PlayQuizContext = createContext<PlayQuizContextType | null>(null);
@@ -33,7 +36,7 @@ export const usePlayQuiz = () => {
 
 export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
 
-    const [score, setScore] = useState<number>(0);
+    const [score, setScore, getScore] = useAsyncState<number>(0);
     const [correctAnswers, setCorrectAnswers] = useState<number>(0);
     const [currentQuestion, setCurrentQuestion] = useState<Question>();
     const [quiz, setQuiz] = useState<Quiz>({} as Quiz);
@@ -60,12 +63,13 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
     };
 
     const sendScoreToServer = async (call: (id: number | null) => void) => {
-        if (!nickname) call(null);
+        if (!id) return call(null);
+        const scored = await getScore();
         const API_ENDPOINT = 'http://localhost:8080/api/score';
         const requestBody = {
             nickname,
             quizId: quiz.id,
-            score: Math.round(score)
+            score: Math.round(scored)
         };
         try {
             const { data } = await axios.post(API_ENDPOINT, requestBody);
@@ -77,7 +81,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
 
     const backToEdit = () => {
         navigate('create-quiz?edit=true');
-    }
+    };
 
     return (
         <PlayQuizContext.Provider value={{
@@ -95,7 +99,8 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
             filesUploader,
             setIsPreview,
             isPreview,
-            backToEdit
+            backToEdit,
+            fetchQuiz
         }}>
             {children}
         </PlayQuizContext.Provider>

@@ -23,10 +23,10 @@
         border-radius: 10px;
         background-color: $black;
         text-align: center;
-        opacity: 30%;
+        opacity: 60%;
         color: $white;
         bottom: 2%;
-        right: 15%;
+        right: 13%;
         font-size: 0.85rem;
         font-family: $Rubik-regular;
         padding: 1vh;
@@ -96,23 +96,22 @@
         flex-direction: column;
         width: 70vw;
         height: 16vh;
-        padding-bottom: 3vh;
 
         .response-count {
-            bottom: 30%;
-            right: 60%;
+            bottom: 25%;
+            right: 67%;
         }
 
         .quiz-card-image {
             width: 100%;
-            height: 70%;
+            height: 75%;
         }
 
         .quiz-card-content {
             display: flex;
             align-items: center;
-            padding-top: 2vh;
             position: relative;
+            height: 25%;
 
             .quiz-card-title {
                 font-size: 1.5rem;

@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 import './ComputerHeader.scss';
 
 export const ComputerHeader: React.FC = () => {

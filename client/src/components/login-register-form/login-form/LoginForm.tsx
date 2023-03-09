@@ -1,6 +1,6 @@
-import { Button } from '@mui/material'
-import { FC, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Alert, Button } from '@mui/material';
+import { FC, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@hilma/auth';
 import { useUser } from '../../../contexts/UserContext';
 import '../LoginRegisterForm.scss';
@@ -10,11 +10,12 @@ export const LoginForm: FC = () => {
     const navigate = useNavigate();
     const { setUser } = useUser();
 
-    const [loginForm, setLoginForm] = useState<{ username: string, password: string }>({ username: '', password: '' })
+    const [error, setError] = useState<string | null>(null);
+    const [loginForm, setLoginForm] = useState<{ username: string, password: string; }>({ username: '', password: '' });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLoginForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-    }
+        setLoginForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,15 +28,16 @@ export const LoginForm: FC = () => {
                     type: user.type,
                     roles: user.roles,
                     roleKeys: user.roleKeys
-                })
+                });
                 navigate('/home-page');
             } else {
-                console.log("Invalid user information! Please try again ", msg);
+                console.log(msg);
+                setError('אחד או יותר מהפרטים שהזנת שגויים');
             }
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     return (
         <form className='login-register-form' onSubmit={(e) => handleSubmit(e)}>
@@ -67,6 +69,9 @@ export const LoginForm: FC = () => {
                 כניסה
             </Button>
             <p className='register-par'>עוד לא משתמש רשום? <Link to='/register'>הירשם כאן</Link></p>
+            {error
+                ? <Alert severity="warning">{error}</Alert>
+                : null}
         </form>
-    )
-}
+    );
+};

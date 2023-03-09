@@ -47,32 +47,32 @@ export const QuizContent: React.FC = () => {
                         { tempId: 1, content: '', isCorrect: true },
                         { tempId: 2, content: '', isCorrect: false }
                     ]
-                }]
+                }];
         });
         setQuestionId((prev) => prev + 1);
         setActiveQuestion(questions.length);
-    }
+    };
 
     const copyQuestion = (copyQuestionIndex: number): void => {
         if (questions.length === 10) return;
         setQuestions(prev => {
             const question = prev[copyQuestionIndex];
             if (question.title === '') {
-                question.title = 'שאלה ללא כותרת'
+                question.title = 'שאלה ללא כותרת';
             }
             question.answers.forEach(answer => {
                 if (answer.content === '') {
-                    answer.content = 'תשובה ללא תוכן'
+                    answer.content = 'תשובה ללא תוכן';
                 }
-            })
+            });
             const duplicatedItem: Question = JSON.parse(JSON.stringify(question));
             duplicatedItem.tempId = questionId;
 
-            return [...prev, duplicatedItem]
+            return [...prev, duplicatedItem];
         });
         setQuestionId((prev) => prev + 1);
         setActiveQuestion((prev) => prev + 1);
-    }
+    };
 
     const onContinue = () => {
         const quizCheck: boolean =
@@ -85,7 +85,7 @@ export const QuizContent: React.FC = () => {
         }
         setIsNextPage(true);
         setError('');
-    }
+    };
 
 
     return (
@@ -157,4 +157,4 @@ export const QuizContent: React.FC = () => {
             </div>
         </div>
     );
-}
+};

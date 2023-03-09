@@ -49,6 +49,7 @@ function App() {
               <Route path='play-quiz' element={<PlayQuizPage />} />
               <Route path='start-game' element={<StartGamePage />} />
               <Route path='quiz-shared-result' element={<ShareQuizResult />} />
+              <Route path='saved-quiz-alert' element={<SavedQuizAlert />} />
               <Route path='score-board' element={
                 <ScoreBoardProvider>
                   <ScorePage />

@@ -26,7 +26,7 @@
         gap: 1vw;
     }
 
-    img {
+    img:not(.drag-and-drop) {
         width: 5vw;
         margin-right: 2vw;
     }

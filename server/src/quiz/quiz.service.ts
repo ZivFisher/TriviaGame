@@ -24,26 +24,26 @@ export class QuizService {
                     id: id
                 }
             },
-        })
+        });
     }
 
     async create(quizData: CreateQuizDto, files: FilesType, id: string) {
-        const imageFile = files.find(file => file.originalname === String(quizData.imageId))
-        quizData.image = await this.imageService.saveSingleFile([imageFile])
+        const imageFile = files.find(file => file.originalname === String(quizData.imageId));
+        quizData.image = await this.imageService.saveSingleFile([imageFile]);
 
         for (let i = 0; i < quizData.questions.length; i++) {
             const question = quizData.questions[i];
             if (question.imageId || question.imageId === 0) {
-                const imageFile = files.find(file => file.originalname === String(question.imageId))
-                question.image = await this.imageService.saveSingleFile([imageFile])
-                delete question.imageId
+                const imageFile = files.find(file => file.originalname === String(question.imageId));
+                question.image = await this.imageService.saveSingleFile([imageFile]);
+                delete question.imageId;
             }
             for (let j = 0; j < question.answers.length; j++) {
                 const answer = question.answers[j];
                 if (answer.imageId || answer.imageId === 0) {
-                    const imageFile = files.find(file => file.originalname === String(answer.imageId))
-                    answer.image = await this.imageService.saveSingleFile([imageFile])
-                    delete answer.imageId
+                    const imageFile = files.find(file => file.originalname === String(answer.imageId));
+                    answer.image = await this.imageService.saveSingleFile([imageFile]);
+                    delete answer.imageId;
                 }
             }
         }
@@ -79,10 +79,10 @@ export class QuizService {
             .addSelect((sq) => sq
                 .select('COUNT(score.id)', 'responseCount')
                 .from(Score, 'score')
-                .where('score.quizId = quiz.id'),
+                .where('score.quiz_id = quiz.id'),
                 'responseCount'
             )
-            .where(`quiz.userId = :userId`, { userId })
+            .where(`quiz.user = :userId`, { userId })
             .getRawMany();
         if (quizzes.length === 0) {
             return [];
@@ -98,20 +98,20 @@ export class QuizService {
 
     async update(id: string, quizData: CreateQuizDto, files?: FilesType) {
         if (quizData.imageId || quizData.imageId === 0) {
-            const imageFile = files.find(file => file.originalname === String(quizData.imageId))
-            quizData.image = await this.imageService.saveSingleFile([imageFile])
+            const imageFile = files.find(file => file.originalname === String(quizData.imageId));
+            quizData.image = await this.imageService.saveSingleFile([imageFile]);
         }
-        for (let question of quizData.questions) {
+        for (const question of quizData.questions) {
             if (question.imageId || question.imageId === 0) {
-                const imageFile = files.find(file => file.originalname === String(question.imageId))
-                question.image = await this.imageService.saveSingleFile([imageFile])
-                delete question.imageId
+                const imageFile = files.find(file => file.originalname === String(question.imageId));
+                question.image = await this.imageService.saveSingleFile([imageFile]);
+                delete question.imageId;
             }
-            for (let answer of question.answers) {
+            for (const answer of question.answers) {
                 if (answer.imageId || answer.imageId === 0) {
-                    const imageFile = files.find(file => file.originalname === String(answer.imageId))
-                    answer.image = await this.imageService.saveSingleFile([imageFile])
-                    delete answer.imageId
+                    const imageFile = files.find(file => file.originalname === String(answer.imageId));
+                    answer.image = await this.imageService.saveSingleFile([imageFile]);
+                    delete answer.imageId;
                 }
             }
         }

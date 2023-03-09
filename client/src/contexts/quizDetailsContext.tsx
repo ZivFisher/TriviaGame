@@ -4,10 +4,11 @@ import { useAsyncState } from "@hilma/tools";
 import axios from "axios";
 import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface"
+import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface";
 import { usePlayQuiz } from "./PlayQuizContext";
 import { Question as QuestionPlayQuiz } from '../interfaces/PlayQuizInterfaces';
 import { basicQuestions, basicQuiz } from "../consts/quizDetailsConsts";
+import { useIsBigScreen } from "../consts/consts";
 
 interface QuizDetailInterface {
     quizDetails: Quiz;
@@ -26,7 +27,7 @@ interface QuizDetailInterface {
     deleteImg: (questionId?: number) => void;
     preView: () => void;
     filesUploader: FilesUploader;
-    error: string
+    error: string;
     setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -39,16 +40,17 @@ export const useQuizDetails = () => {
 };
 
 
-export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) => {
     const { setQuiz, setCurrentQuestion, filesUploader, quiz, setIsPreview } = usePlayQuiz();
     const [quizDetails, setQuizDetails] = useState<Quiz | EditQuiz>(basicQuiz);
-    const [questions, setQuestions, getQuestions] = useAsyncState<Question[]>(basicQuestions)
+    const [questions, setQuestions, getQuestions] = useAsyncState<Question[]>(basicQuestions);
     const [activeQuestion, setActiveQuestion] = useState<number>(0);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
     const edit = searchParams.get('edit');
     const [error, setError] = useState<string>('');
+    const isBigScreen = useIsBigScreen();
 
     useEffect(() => {
         if (id) {
@@ -59,33 +61,29 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                 description: quiz.description,
                 image: quiz.image!,
                 imageId: quiz.imageId
-            })
+            });
             setQuestions(quiz.questions);
         } else {
-            setQuizDetails(basicQuiz)
-            setQuestions(basicQuestions)
+            setQuizDetails(basicQuiz);
+            setQuestions(basicQuestions);
         }
     }, [id]);
-
-    useEffect(() => {
-        console.log(questions)
-    }, [questions])
 
     const getQuiz = async (id: string) => {
         try {
             const { data } = await axios
-                .get<EditQuiz>(`http://localhost:8080/api/quiz/${id}`)
+                .get<EditQuiz>(`http://localhost:8080/api/quiz/${id}`);
             setQuestions(data.questions);
             setQuizDetails({
                 title: data.title,
                 image: data.image,
                 description: data.description,
                 id: data.id
-            })
+            });
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
 
     const onChangeQuestionTitle = (event: string, questionId: number): void => {
@@ -102,11 +100,11 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         setQuestions(prev =>
             prev.filter(question =>
                 (question.id || question.tempId) !== questionId
-            ))
+            ));
         if (activeQuestion === (await getQuestions()).length) {
             setActiveQuestion(prev => prev - 1);
         }
-    }
+    };
 
     const deleteAnswer = (answerId: number, questionIndex: number): void => {
         if (questions[questionIndex].answers.length === 2) return;
@@ -122,7 +120,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
 
             return updatedQuestions;
         });
-    }
+    };
 
     const markedAsCorrect = (event: React.ChangeEvent<HTMLInputElement>, answerId: number, questionIndex: number): void => {
         setQuestions(prev => {
@@ -154,19 +152,19 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             delete question.id;
             question.answers.forEach(answer => {
                 delete answer.id;
-            })
-        })
-        return tempArr
-    }
+            });
+        });
+        return tempArr;
+    };
 
     const handleSave = async () => {
         const quizCheck: boolean = quizDetails.description === '' || quizDetails.title === '' || quizDetails.image === '';
         const questionCheck: boolean = questions.some((item) => item.title === 'שאלה ללא כותרת' || item.title === '');
         const answerCheck: boolean = questions.some((question) => {
-            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '')
+            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '');
         });
         if (answerCheck || questionCheck || quizCheck) {
-            setError('יש למלא את כל השדות הרלוונטיים לפני שמירת החידון.')
+            setError('יש למלא את כל השדות הרלוונטיים לפני שמירת החידון.');
             return;
         }
         try {
@@ -178,44 +176,48 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                     image: quizDetails.image,
                     imageId: quizDetails.imageId,
                     questions: arr
-                })
+                });
             } else {
                 const { data } = await filesUploader.put<Quiz | null>(`http://localhost:8080/api/quiz/${quizDetails.id}`, {
                     title: quizDetails.title,
                     description: quizDetails.description,
                     image: quizDetails.image,
                     questions: questions
-                })
+                });
             }
-            navigate('/my-quizzes');
+            if (isBigScreen) {
+                navigate('/my-quizzes');
+                return;
+            };
+            navigate('/saved-quiz-alert');
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const deleteImg = (questionId?: number) => {
         setQuestions(prev =>
             [...prev.map(question => {
-                if (question.id === questionId) {
+                if ((question.id || question.tempId) === questionId) {
                     delete question.image;
                     delete question.imageId;
                 }
                 return question;
             })]
         );
-    }
+    };
 
     const preView = () => {
         const quizCheck: boolean = quizDetails.description === '' || quizDetails.title === '' || quizDetails.image === '';
         const questionCheck: boolean = questions.some((item) => item.title === 'שאלה ללא כותרת' || item.title === '');
         const answerCheck: boolean = questions.some((question) => {
-            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '')
+            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '');
         });
         if (answerCheck || questionCheck || quizCheck) {
-            setError('יש למלא את כל השדות הרלוונטיים לפני צפייה מקדימה בחידון.')
+            setError('יש למלא את כל השדות הרלוונטיים לפני צפייה מקדימה בחידון.');
             return;
         }
-        setIsPreview(true)
+        setIsPreview(true);
         setQuiz({
             id: '1',
             title: quizDetails.title,
@@ -223,11 +225,11 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             image: quizDetails.image,
             imageId: quizDetails.imageId!,
             questions: questions as QuestionPlayQuiz[]
-        })
+        });
 
-        setCurrentQuestion(questions[0] as QuestionPlayQuiz)
+        setCurrentQuestion(questions[0] as QuestionPlayQuiz);
         navigate('/start-game');
-    }
+    };
 
     return (
         <QuizDetailsContext.Provider value={{
@@ -253,4 +255,4 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             {children}
         </QuizDetailsContext.Provider>
     );
-}
+};

@@ -1,6 +1,6 @@
-import { Alert, Button } from '@mui/material'
+import { Alert, Button } from '@mui/material';
 import axios from 'axios';
-import { FC, useState } from 'react'
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../LoginRegisterForm.scss';
 
@@ -10,21 +10,21 @@ export const RegisterForm: FC = () => {
 
     const [registerForm, setRegisterForm] = useState<{
         username: string,
-        password: string
+        password: string;
     }>({
         username: '',
         password: ''
-    })
+    });
 
     const [validatePassword, setValidatePassword] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setRegisterForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-    }
+        setRegisterForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    };
 
     const handleChangeValidatePassword = (content: string) => {
         setValidatePassword(content);
-    }
+    };
 
     const passwordValidated = () => validatePassword === registerForm.password;
 
@@ -37,12 +37,16 @@ export const RegisterForm: FC = () => {
         };
         try {
             const { data } = await axios.post("/auth/register", registerForm);
-            navigate('/login')
+            navigate('/login');
 
-        } catch (error) {
-            setError('תקלה בשרת, נסה שוב במועד מאוחר יותר')
+        } catch (error: any) {
+            if (error.status === 500) {
+                setError('תקלה בשרת, נסה שוב במועד מאוחר יותר');
+            }
+            else {
+                setError('שם המשתמש קיים במערכת');
+            }
         }
-
     }
 
     return (
@@ -89,5 +93,5 @@ export const RegisterForm: FC = () => {
                 <Alert severity="warning">{error}</Alert>
             }
         </form>
-    )
-}
+    );
+};
