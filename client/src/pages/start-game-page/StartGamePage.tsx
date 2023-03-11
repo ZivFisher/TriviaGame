@@ -43,9 +43,9 @@ export const StartGamePage: React.FC = () => {
                         <img src="./svg/Layer32.svg" alt="BANANAS.Games" />
                     </div>
                 }
-                <h1>{quiz.title}</h1>
+                <h1 className='big-title'>{quiz.title}</h1>
                 {!isBigScreen &&
-                    <h2>{quiz.description}</h2>
+                    <h2 className='quiz-description'>{quiz.description}</h2>
                 }
                 <img
                     src={quiz.image}
