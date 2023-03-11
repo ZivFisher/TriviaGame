@@ -16,7 +16,7 @@ export interface PlayQuizContextType {
     setScore: Dispatch<SetStateAction<number>>;
     nickname: string;
     setNickname: Dispatch<SetStateAction<string>>;
-    sendScoreToServer: (call: (id: number | null) => void) => Promise<any>;
+    sendScoreToServer: (call: (id?: number) => void) => Promise<any>;
     setQuiz: Dispatch<SetStateAction<Quiz>>;
     filesUploader: FilesUploader;
     setIsPreview: Dispatch<SetStateAction<boolean>>;
@@ -62,8 +62,11 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
         }
     };
 
-    const sendScoreToServer = async (call: (id: number | null) => void) => {
-        if (!id) return call(null);
+    const sendScoreToServer = async (call: (id?: number) => void) => {
+        if (!quiz.id) {
+            call();
+            return;
+        }
         const scored = await getScore();
         const API_ENDPOINT = 'http://localhost:8080/api/score';
         const requestBody = {

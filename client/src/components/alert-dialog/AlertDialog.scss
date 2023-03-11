@@ -3,7 +3,8 @@
 .dialog-box {
     padding: 3vh 2vw;
     height: 27vh;
-    width: 35vw;
+    width: 25vw;
+    overflow: hidden;
 
     .dialog-title {
         font-weight: bold;

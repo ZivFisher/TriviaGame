@@ -48,7 +48,8 @@ export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, high
                 setCurrentQuestion(quiz?.questions[questionIndex + 1]);
             } else {
                 setScore(prev => Math.round(prev));
-                sendScoreToServer((id: number | null) => {
+                sendScoreToServer((id?: number) => {
+
                     if (id) navigate(`/quiz-results?scoreId=${id}`);
                     else navigate(`/quiz-results`);
                 });

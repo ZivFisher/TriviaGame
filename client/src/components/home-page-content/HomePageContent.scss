@@ -89,7 +89,6 @@
 @media screen and (max-width: 600px) {
     .home-page-interface {
         margin-top: 15vh;
-        height: 100%;
         width: 100%;
         align-items: center;
         justify-content: flex-start;
@@ -143,7 +142,7 @@
         height: 32vh;
         z-index: 2;
         position: fixed;
-        bottom: -55px;
+        bottom: -105px;
         left: -25vw;
     }
 

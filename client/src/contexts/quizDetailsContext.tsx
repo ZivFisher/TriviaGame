@@ -1,9 +1,9 @@
 
-import { FilesUploader } from "@hilma/fileshandler-client";
-import { useAsyncState } from "@hilma/tools";
-import axios from "axios";
 import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
+import { FilesUploader } from "@hilma/fileshandler-client";
+import { useAsyncState } from "@hilma/tools";
 import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface";
 import { usePlayQuiz } from "./PlayQuizContext";
 import { Question as QuestionPlayQuiz } from '../interfaces/PlayQuizInterfaces';
@@ -219,7 +219,6 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
         }
         setIsPreview(true);
         setQuiz({
-            id: '1',
             title: quizDetails.title,
             description: quizDetails.description,
             image: quizDetails.image,
