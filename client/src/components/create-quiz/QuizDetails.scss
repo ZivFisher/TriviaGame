@@ -67,14 +67,14 @@
     }
 
     .phone-input {
-        height: 3vh;
+        height: 4.2vh;
         display: block;
         width: 80vw;
         margin: 1vh;
         background-color: $input-background-color;
         border: 1px solid $opacity-black;
         border-radius: 4px;
-        outline: none;
+        outline: 1px solid rgba($dark-color, 0.15);
     }
 
 }
@@ -126,9 +126,9 @@
             border-radius: 4px;
             margin-right: 1vw;
             color: $white;
-            height: 4vh;
+            height: 5vh;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 2.4rem;
             border: none;
         }
 
@@ -141,7 +141,7 @@
 
         label {
             margin-right: 2vw;
-            font-size: 16px;
+            font-size: 2rem;
         }
 
         .quiz-details-img {

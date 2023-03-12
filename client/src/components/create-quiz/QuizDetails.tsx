@@ -62,10 +62,10 @@ export const QuizDetails: React.FC<QuizDetailsProps> = ({ onContinue }) => {
                         </div>
                     </label>
                 : <>
-                    {error && <Alert severity="warning">{error}</Alert>}
                     <div className='next-page-div'>
                         <button className='continue-edit-question' onClick={onContinue}>המשך</button>
                     </div>
+                    {error && <Alert severity="warning">{error}</Alert>}
                     <div className='add-photo-continue'>
                         {quizDetails.image
                             ? <UploadImage imageSrc={quizDetails.image} deleteImg={deleteImg} className='quiz-details-img' />

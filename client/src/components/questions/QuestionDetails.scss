@@ -68,8 +68,8 @@
         border-radius: 5px;
         margin-bottom: 3vh;
         margin-top: 1vh;
-        padding: 1vw;
-        width: 90vw;
+        padding: 2vw;
+        width: 86vw;
         margin-right: 3vw;
         background-color: $input-background-color;
         display: flex;
@@ -92,11 +92,12 @@
         background-color: $input-background-color;
         border: none;
         outline: none;
-        width: 78vw;
+        width: 74vw;
+        font-size: 1.8rem;
     }
 
     .image-photo-details {
-        width: 30px;
+        width: 26px;
         display: block;
     }
 
@@ -125,7 +126,7 @@
         display: inline-block;
         border-bottom: 1px solid #8eafc3;
         color: $dark-color;
-        font-size: 14px;
+        font-size: 1.7rem;
     }
 
     .line {
@@ -179,7 +180,7 @@
         }
 
         .plus-photo {
-            width: 17px;
+            width: 2rem;
         }
 
         .border-question {

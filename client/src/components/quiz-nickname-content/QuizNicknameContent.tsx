@@ -2,12 +2,19 @@ import { useNavigate } from 'react-router-dom';
 import { Button, useMediaQuery } from '@mui/material';
 import { MobileHeader } from '../mobile-header/MobileHeader';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
+<<<<<<< HEAD
+=======
+import { useNavigate, useSearchParams } from 'react-router-dom';
+>>>>>>> 68f4658d1f1b7c373bdf7094dd8c3bffc619bd17
 import { Preview } from '../preview/Preview';
+import { useIsBigScreen } from '../../consts/consts';
 
 export function QuizNicknameContent() {
-    const phoneMedia: boolean = useMediaQuery('(max-width:600px)');
+    const isBigScreen = useIsBigScreen();
     const { nickname, setNickname, quiz, isPreview } = usePlayQuiz();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const id = searchParams.get('id');
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const value: string = e.target.value;
@@ -16,12 +23,18 @@ export function QuizNicknameContent() {
 
     return (
         <div className='quiz-nickname-container'>
-            {!phoneMedia && isPreview &&
+            {isBigScreen && isPreview &&
                 <Preview />
             }
+<<<<<<< HEAD
             {!phoneMedia
                 ? <h1 className='quiz-nickname-header'>{quiz?.title}</h1>
                 : <MobileHeader title={quiz?.title} showLogo={false} />
+=======
+            {isBigScreen
+                ? <h1 className='quiz-nickname-header'>{quiz.title}</h1>
+                : <MobileHeader title={quiz.title} showLogo={false} />
+>>>>>>> 68f4658d1f1b7c373bdf7094dd8c3bffc619bd17
             }
             <div className='quiz-nickname-content'>
                 <label className='nickname-label'>איך קוראים לכם?</label>
@@ -34,13 +47,13 @@ export function QuizNicknameContent() {
                 />
                 <Button
                     className='quiz-nickname-button'
-                    onClick={() => navigate('/play-quiz')}
+                    onClick={() => navigate('/play-quiz?id=' + id)}
                     variant='contained'>
                     <span>יאללה בואו נתחיל!</span>
                     <img src='svg/IconAwesome-play.svg' alt='Play button' />
                 </Button>
             </div>
-            {phoneMedia && <img className='photo-bottom-left' src='svg/Group565bottom-left.svg' alt='A batch of leaves' />}
+            {!isBigScreen && <img className='photo-bottom-left' src='svg/bottom-left-leaf.svg' alt='A batch of leaves' />}
         </div>
     );
 }

@@ -65,14 +65,17 @@
 
         .mobile-answer-content {
             display: flex;
+            height: 5vh;
         }
     }
 
     .mobile-answer-input {
         border: none;
         outline: none;
-        width: 60vw;
+        width: 57vw;
         background-color: $input-background-color;
+        margin-right: 2vw;
+        font-size: 1.6rem;
     }
 
     .mobile-image-photo {

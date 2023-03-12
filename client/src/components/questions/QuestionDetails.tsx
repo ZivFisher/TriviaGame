@@ -97,7 +97,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                         }
                         <div className='question-title'>
                             <p>שאלה {index + 1}</p>
-                            <div className={questions.length === 1 ? 'mobile-question-option disabled' : 'mobile-question-option'}>
+                            <div className='mobile-question-option'>
                                 <img
                                     src="/svg/copy.svg"
                                     alt="copy question"
@@ -107,7 +107,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 <img
                                     src="/svg/trash.svg"
                                     alt="delete question"
-                                    className='mobile-bin pointer-img'
+                                    className={questions.length === 1 ? 'mobile-bin pointer-img disabled' : 'mobile-bin pointer-img'}
                                     onClick={() => deleteQuestion(questionId)}
                                 />
                             </div>

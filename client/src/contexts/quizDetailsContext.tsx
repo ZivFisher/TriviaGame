@@ -7,7 +7,6 @@ import { EditQuiz, Question, Quiz } from "../interfaces/quizDetailInterface";
 import { usePlayQuiz } from "./PlayQuizContext";
 import { Question as QuestionPlayQuiz } from '../interfaces/PlayQuizInterfaces';
 import { basicQuestions, basicQuiz } from "../consts/quizDetailsConsts";
-import { useIsBigScreen } from "../consts/consts";
 
 interface QuizDetailInterface {
     quizDetails: Quiz;
@@ -49,7 +48,6 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
     const id = searchParams.get('id');
     const edit = searchParams.get('edit');
     const [error, setError] = useState<string>('');
-    const isBigScreen = useIsBigScreen();
 
     useEffect(() => {
         if (id) {
@@ -68,6 +66,10 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
         }
         // eslint-disable-next-line
     }, [id]);
+
+    useEffect(() => {
+        console.log(questions);
+    }, [questions]);
 
     const getQuiz = async (id: string) => {
         try {
@@ -185,11 +187,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
                     questions: questions
                 });
             }
-            if (isBigScreen) {
-                navigate('/my-quizzes');
-                return;
-            };
-            navigate('/saved-quiz-alert');
+            navigate('/my-quizzes');
         } catch (error) {
             console.error(error);
         }
@@ -198,7 +196,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
     const deleteImg = (questionId?: number) => {
         setQuestions(prev =>
             [...prev.map(question => {
-                if ((question.id || question.tempId) === questionId) {
+                if (question.id === questionId) {
                     delete question.image;
                     delete question.imageId;
                 }

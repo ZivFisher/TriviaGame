@@ -1,5 +1,5 @@
-@mixin flex-center{
-    display:flex;
+@mixin flex-center {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -9,8 +9,7 @@
     width: 15vw;
     background: $color 0% 0% no-repeat padding-box;
     border-radius: 8px;
-    font-weight: 800;
-    border-bottom: 5px solid $border-bottom;
+    // font-weight: 800;
+    border-bottom: 7px solid $border-bottom;
     opacity: 1;
 }
-

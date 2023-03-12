@@ -6,7 +6,6 @@ import { QuizDetails } from "../create-quiz/QuizDetails";
 import { QuizContentQuestions } from "./QuizContentQuestions";
 import { MobileHeader } from "../mobile-header/MobileHeader";
 import { AlertDialog } from "../alert-dialog/AlertDialog";
-import './QuizContent.scss';
 import { Question } from "../../interfaces/quizDetailInterface";
 import Alert from "@mui/material/Alert";
 
@@ -23,7 +22,7 @@ export const QuizContent: React.FC = () => {
         error
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
-    const [questionId, setQuestionId] = useState<number>(2);
+    const [questionId, setQuestionId] = useState<number>(-2);
 
 
 
@@ -49,7 +48,7 @@ export const QuizContent: React.FC = () => {
                     ]
                 }];
         });
-        setQuestionId((prev) => prev + 1);
+        setQuestionId((prev) => prev - 1);
         setActiveQuestion(questions.length);
     };
 
@@ -70,7 +69,7 @@ export const QuizContent: React.FC = () => {
 
             return [...prev, duplicatedItem];
         });
-        setQuestionId((prev) => prev + 1);
+        setQuestionId((prev) => prev - 1);
         setActiveQuestion((prev) => prev + 1);
     };
 
@@ -119,6 +118,10 @@ export const QuizContent: React.FC = () => {
                     <QuizContentQuestions copyQuestion={copyQuestion} />
                     {!isBigScreen ?
                         <div className="finish-edit-quiz">
+                            {error &&
+                                <Alert
+                                    severity="warning">{error}</Alert>
+                            }
                             <button
                                 className='add-question-phone'
                                 onClick={addQuestion}>
