@@ -21,7 +21,7 @@ export const StartGamePage: React.FC = () => {
     }, [id]);
 
     const startGame = () => {
-        navigate('/quiz-nickname');
+        navigate(`/quiz-nickname?id=${id}`);
     };
 
 
