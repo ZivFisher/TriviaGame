@@ -1,8 +1,7 @@
-
+import { useNavigate } from 'react-router-dom';
 import { Button, useMediaQuery } from '@mui/material';
 import { MobileHeader } from '../mobile-header/MobileHeader';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
-import { useNavigate } from 'react-router-dom';
 import { Preview } from '../preview/Preview';
 
 export function QuizNicknameContent() {
@@ -13,7 +12,7 @@ export function QuizNicknameContent() {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const value: string = e.target.value;
         setNickname(value);
-    }
+    };
 
     return (
         <div className='quiz-nickname-container'>
@@ -21,8 +20,8 @@ export function QuizNicknameContent() {
                 <Preview />
             }
             {!phoneMedia
-                ? <h1 className='quiz-nickname-header'>{quiz.title}</h1>
-                : <MobileHeader title={quiz.title} showLogo={false} />
+                ? <h1 className='quiz-nickname-header'>{quiz?.title}</h1>
+                : <MobileHeader title={quiz?.title} showLogo={false} />
             }
             <div className='quiz-nickname-content'>
                 <label className='nickname-label'>איך קוראים לכם?</label>

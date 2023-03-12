@@ -18,6 +18,7 @@ export const StartGamePage: React.FC = () => {
         if (id) {
             fetchQuiz();
         }
+        // eslint-disable-next-line
     }, [id]);
 
     const startGame = () => {

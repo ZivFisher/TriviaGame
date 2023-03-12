@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import './MobileHeader.scss';
 
 interface MyProps {
-    title: string;
+    title?: string;
     showLogo: boolean;
 }
 
 export const MobileHeader: React.FC<MyProps> = ({ title, showLogo }) => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const handleNavigateBack = () => navigate(-1)
-    const handleNavigateHome = () => navigate('/home-page')
+    const handleNavigateBack = () => navigate(-1);
+    const handleNavigateHome = () => navigate('/home-page');
 
     return (
         <header className='generic-mobile-header'>
@@ -26,5 +26,5 @@ export const MobileHeader: React.FC<MyProps> = ({ title, showLogo }) => {
                 /> :
                 <div className='empty-div' />}
         </header>
-    )
-}
+    );
+};

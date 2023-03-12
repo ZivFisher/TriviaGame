@@ -29,6 +29,10 @@
     }
   }
 
+  a {
+    text-decoration: none;
+  }
+
   .header-nav {
     display: flex;
     align-items: center;
@@ -41,7 +45,6 @@
     .header-link {
       color: $dark-color;
       font-size: 1rem;
-      text-decoration: none;
       transition: color 0.2s ease-in-out;
 
       &:hover {

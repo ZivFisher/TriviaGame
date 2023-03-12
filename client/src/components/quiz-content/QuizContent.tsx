@@ -8,7 +8,7 @@ import { MobileHeader } from "../mobile-header/MobileHeader";
 import { AlertDialog } from "../alert-dialog/AlertDialog";
 import './QuizContent.scss';
 import { Question } from "../../interfaces/quizDetailInterface";
-import { Alert } from "@mui/material";
+import Alert from "@mui/material/Alert";
 
 export const QuizContent: React.FC = () => {
     const isBigScreen = useMediaQuery('(min-width:600px)');
@@ -138,12 +138,11 @@ export const QuizContent: React.FC = () => {
                                 >סיום</button>}
                             />
                             {error &&
-                                <Alert
-                                    severity="warning">{error}</Alert>
+                                <Alert severity="warning" className="warning">{error}</Alert>
                             }
 
                         </div> :
-                        error && <Alert severity="warning">{error}</Alert>
+                        error && <Alert severity="warning" className="warning">{error}</Alert>
                     }
 
                 </div>

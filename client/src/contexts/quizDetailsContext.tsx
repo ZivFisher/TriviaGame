@@ -1,4 +1,3 @@
-
 import React, { useState, createContext, useContext, FC, ReactNode, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -55,7 +54,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
     useEffect(() => {
         if (id) {
             getQuiz(id);
-        } else if (edit) {
+        } else if (edit && quiz) {
             setQuizDetails({
                 title: quiz.title,
                 description: quiz.description,
@@ -67,6 +66,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
             setQuizDetails(basicQuiz);
             setQuestions(basicQuestions);
         }
+        // eslint-disable-next-line
     }, [id]);
 
     const getQuiz = async (id: string) => {

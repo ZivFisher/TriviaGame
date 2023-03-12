@@ -6,11 +6,11 @@ export const QuestionIndicator: React.FC = () => {
 
     const { quiz, currentQuestion } = usePlayQuiz();
 
-    let questionIndex = quiz.questions.findIndex(question => question.id === currentQuestion?.id);
+    let questionIndex = quiz?.questions.findIndex(question => question.id === currentQuestion?.id) || -1;
 
     return (
         <div className='question-indicator'>
-            <p className='question-indicator-p'>{` שאלה ${questionIndex + 1}/${quiz.questions.length}`}</p>
+            <p className='question-indicator-p'>{` שאלה ${questionIndex + 1}/${quiz?.questions.length}`}</p>
         </div>
     );
 }

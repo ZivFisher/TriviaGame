@@ -7,7 +7,8 @@ import { Question } from "../interfaces/PlayQuizInterfaces";
 import { FilesUploader, useFiles } from "@hilma/fileshandler-client";
 
 export interface PlayQuizContextType {
-    quiz: Quiz;
+    quiz: Quiz | null;
+    setQuiz: Dispatch<SetStateAction<Quiz | undefined>>;
     currentQuestion: Question | undefined;
     setCurrentQuestion: Dispatch<SetStateAction<Question | undefined>>;
     correctAnswers: number;
@@ -17,7 +18,6 @@ export interface PlayQuizContextType {
     nickname: string;
     setNickname: Dispatch<SetStateAction<string>>;
     sendScoreToServer: (call: (id?: number) => void) => Promise<any>;
-    setQuiz: Dispatch<SetStateAction<Quiz>>;
     filesUploader: FilesUploader;
     setIsPreview: Dispatch<SetStateAction<boolean>>;
     isPreview: boolean;
@@ -39,7 +39,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
     const [score, setScore, getScore] = useAsyncState<number>(0);
     const [correctAnswers, setCorrectAnswers] = useState<number>(0);
     const [currentQuestion, setCurrentQuestion] = useState<Question>();
-    const [quiz, setQuiz] = useState<Quiz>({} as Quiz);
+    const [quiz, setQuiz] = useState<Quiz>();
     const [nickname, setNickname] = useState<string>('');
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
@@ -63,7 +63,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
     };
 
     const sendScoreToServer = async (call: (id?: number) => void) => {
-        if (!quiz.id) {
+        if (!quiz?.id) {
             call();
             return;
         }
@@ -71,7 +71,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
         const API_ENDPOINT = 'http://localhost:8080/api/score';
         const requestBody = {
             nickname,
-            quizId: quiz.id,
+            quizId: quiz?.id,
             score: Math.round(scored)
         };
         try {
@@ -88,7 +88,7 @@ export const PlayQuizProvider: React.FC<{ children: ReactNode; }> = ({ children 
 
     return (
         <PlayQuizContext.Provider value={{
-            quiz: quiz,
+            quiz: quiz || null,
             setQuiz,
             currentQuestion,
             setCurrentQuestion,
