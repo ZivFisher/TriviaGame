@@ -3,19 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { QuizCardProps } from './QuizCardProps';
 import { AlertDialog } from '../alert-dialog/AlertDialog';
 import { useMyQuizzesContext } from '../../contexts/MyQuizzesContext';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import './quiz-card.scss';
+import { IconButton } from '@mui/material';
 
 export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const { deleteQuizFromDB } = useMyQuizzesContext();
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -36,7 +38,8 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
     const deleteQuizButton = (onClick: () => void) => {
         return <MenuItem
             className='menu-item no-border'
-            onClick={onClick}>
+            onClick={onClick}
+        >
             <img className='menu-icon'
                 src="/svg/trash.svg"
                 alt="delete game" />
@@ -46,7 +49,7 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
 
     return (
         <div>
-            <Button
+            <IconButton
                 id="basic-button"
                 className="quiz-card-phoneMenu-btn"
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -56,13 +59,23 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
             >
                 <img
                     className="quiz-card-phoneMenu-btn-img"
-                    src='/svg/3dotsmenu.png' alt="three dots menu" />
-            </Button>
-            <Menu className='quiz-card-phoneMenu'
+                    src='/svg/3dotsmenu.png'
+                    alt="three dots menu"
+                />
+            </IconButton>
+            <Menu
+                className='quiz-card-phoneMenu'
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
+                keepMounted
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                // transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                anchorPosition={{
+                    top: 0,
+                    left: 700
+                }}
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
@@ -81,8 +94,7 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
                 <AlertDialog
                     question="הקישור הועתק"
                     description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
-                    onConfirm={() => {
-                    }}
+                    onConfirm={() => { }}
                     showCancelButton={false}
                     triggerButton={shareQuiz}
                 />
