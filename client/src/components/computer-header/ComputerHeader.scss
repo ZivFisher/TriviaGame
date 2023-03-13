@@ -29,6 +29,10 @@
     }
   }
 
+  a {
+    text-decoration: none;
+  }
+
   .header-nav {
     display: flex;
     align-items: center;
@@ -51,8 +55,9 @@
 
     .MuiButton-root.create-quiz-btn {
       background-color: $main-color;
-      font-weight: bold;
+      font-family: $Rubik-bold;
       padding: 0.8vh 2.5vw;
+      box-shadow: none;
     }
   }
 }

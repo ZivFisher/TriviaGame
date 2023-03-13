@@ -15,7 +15,7 @@
 
     .input {
         background-color: $input-background-color;
-        border: 0.2px solid rgba($border-color, 0.02);
+        border: 0.2px solid rgba($border-color, 0.22);
         height: 4vh;
         margin-top: 0.7vh;
         margin-bottom: 1.5vh;
@@ -26,6 +26,11 @@
         font-family: $Rubik-semi-bold-600;
         background-color: $main-color;
         margin-top: 2.6vh;
+        box-shadow: none;
+
+        &:hover {
+            background-color: rgba($darker-green, 0.9);
+        }
     }
 
     .register-par {
@@ -44,7 +49,7 @@
     .register-par,
     .input,
     .label {
-        width: 20vw;
+        width: 22vw;
         border-radius: 2px;
     }
 
@@ -63,12 +68,33 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 601px) {
+    .login-register-form {
+       position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+         .MuiButton-root,
+    .register-par,
+    .input,
+    .label {
+          width: 40vw;
+    border-radius: 2px;
+    }
+
+         .MuiButton-root {
+             font-size: 1.7rem;
+    margin-top: 1.6vh;
+         }
+    }
+}
+
+@media screen and (max-width: 400px) {
     .login-register-form {
         display: flex;
         flex-direction: column;
         align-items: center;
-
 
         .MuiPaper-root {
             margin-top: 37vh;
@@ -87,32 +113,32 @@
             }
         }
 
-        .label {
-            font-size: 1.02rem;
+        .label,
+        .register-par {
+            font-size: 1.6rem;
         }
 
         .MuiButton-root {
-            font-size: 1.3rem;
+            font-size: 2rem;
             margin-top: 1.6vh;
             text-align: center;
         }
 
         .MuiButton-root,
         .input {
-            height: 4.4vh;
+                height: 5.8vh;
         }
 
         .MuiButton-root,
         .register-par,
         .input,
         .label {
-            width: 50vw;
-            border-radius: 2px;
+            width: 70vw;
+            border-radius: 6px;
         }
 
         .register-par {
             text-align: center;
-            font-size: 1.1rem;
             margin: 0 auto;
             margin-top: 1.6vh;
         }
