@@ -8,7 +8,7 @@ export const PlayProgressBar = () => {
     const { quiz, currentQuestion } = usePlayQuiz();
     const currentIndex = useRef<number>(0);
 
-    const numOfQuestions: number = quiz.questions.length;
+    const numOfQuestions = quiz?.questions.length || 1;
 
     useEffect(() => {
         currentIndex.current++;

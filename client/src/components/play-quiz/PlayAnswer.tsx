@@ -19,7 +19,7 @@ export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, high
     const [isClicked, setIsClicked] = useState<boolean>(false);
     const answers = currentQuestion?.answers;
     const correctAnswer = answers?.find(answer => answer.isCorrect);
-    const questionIndex = currentQuestion ? quiz.questions.indexOf(currentQuestion) : -1;
+    const questionIndex = currentQuestion && quiz ? quiz.questions.indexOf(currentQuestion) : -1;
     const answerStyle = answer.isCorrect ? 'correct-answer' : 'wrong-answer';
 
 
@@ -39,12 +39,12 @@ export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, high
 
     const checkAnswer = (clickedAnswerId: number): void => {
         if (clickedAnswerId === correctAnswer?.id) {
-            setScore(prev => prev + (1 / quiz.questions.length * 100));
+            setScore(prev => prev + (1 / (quiz?.questions.length || 1) * 100));
             setCorrectAnswers(prev => prev + 1);
         }
         setHighlightCorrect(true);
         setTimeout(() => {
-            if (quiz.questions.length !== questionIndex + 1) {
+            if (quiz?.questions.length !== questionIndex + 1) {
                 setCurrentQuestion(quiz?.questions[questionIndex + 1]);
             } else {
                 setScore(prev => Math.round(prev));

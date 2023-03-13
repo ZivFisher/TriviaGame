@@ -14,7 +14,7 @@ export const PlayQuizPage = () => {
 
     return (
         <div className="play-quiz-page">
-            {!isBigScreen ? <MobileHeader title={quiz.title} showLogo={false} /> : isPreview &&
+            {!isBigScreen ? <MobileHeader title={quiz?.title} showLogo={false} /> : isPreview &&
                 <Preview />
             }
             <PlayProgressBar />

@@ -14,6 +14,10 @@
     height: 100vh;
     overflow: hidden;
 
+    .share-quiz-results-title {
+        margin-bottom: 9vh;
+    }
+
     .confetti-animation {
         position: absolute;
         z-index: 2;
@@ -156,7 +160,7 @@
 
                 .logo {
                     width: 1rem;
-                    padding-left: 0.8vw;
+                    padding-right: 0.8vw;
                 }
             }
         }

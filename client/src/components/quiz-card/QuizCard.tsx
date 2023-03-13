@@ -39,21 +39,52 @@ export const QuizCard: React.FC<QuizCardProps> = ({ id, image, title, descriptio
 
     return (
         <div className="quiz-card">
-            <p className="response-count">אנשים שענו: {responseCount}</p>
-            <img
-                className="quiz-card-image"
-                src={image}
-                alt="quiz img" />
+            <div className="img-response">
+                <p className="response-count">אנשים שענו: {responseCount}</p>
+                <img
+                    className="quiz-card-image"
+                    src={image}
+                    alt="quiz img" />
+            </div>
             <div className="quiz-card-content">
                 <h1 className="quiz-card-title">{title}</h1>
-                <p className="quiz-card-description">{description}</p>
+                {isBigScreen
+                    ? <p className="quiz-card-description">{description}</p>
+                    :
+                    null}
                 {isBigScreen
                     ?
-                    <Link
-                        to={encodeURI(`/score-board?id=${id}&title=${title}`)}
-                        className="quiz-card-scoreBoard-btn">לוח תוצאות</Link>
+                    <div className="quiz-card-all-links">
+                        <Link
+                            to={encodeURI(`/score-board?id=${id}&title=${title}`)}
+                            className="quiz-card-scoreBoard-btn">לוח תוצאות</Link>
+                        <div className="quiz-cards-links">
+                            <AlertDialog
+                                question="הקישור הועתק"
+                                description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
+                                showCancelButton={false}
+                                triggerButton={shareQuiz}
+                            />
+
+                            <Link
+                                to={encodeURI(`/create-quiz?id=${id}`)}
+                                className="quiz-cards-single-link-cover">
+                                <img
+                                    className="quiz-cards-single-link"
+                                    src="./svg/edit-link.svg"
+                                    alt="edit link" />
+                            </Link>
+                            <AlertDialog
+                                question="האם אתה בטוח?"
+                                description="אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים ששמרת ימחקו"
+                                onConfirm={() => deleteQuizFromDB(id)}
+                                showCancelButton={true}
+                                triggerButton={deleteQuizButton}
+                            />
+                        </div>
+                    </div>
                     :
-                    <div>
+                    <div className="quiz-card-mobile-menu">
                         <QuizCardMobileMenu
                             id={id}
                             image={image}
@@ -62,30 +93,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({ id, image, title, descriptio
                             responseCount={responseCount} />
                     </div>}
             </div>
-            <div className="quiz-cards-links">
-                <AlertDialog
-                    question="הקישור הועתק"
-                    description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
-                    showCancelButton={false}
-                    triggerButton={shareQuiz}
-                />
 
-                <Link
-                    to={encodeURI(`/create-quiz?id=${id}`)}
-                    className="quiz-cards-single-link-cover">
-                    <img
-                        className="quiz-cards-single-link"
-                        src="./svg/edit-link.svg"
-                        alt="edit link" />
-                </Link>
-                <AlertDialog
-                    question="האם אתה בטוח?"
-                    description="אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים ששמרת ימחקו"
-                    onConfirm={() => deleteQuizFromDB(id)}
-                    showCancelButton={true}
-                    triggerButton={deleteQuizButton}
-                />
-            </div>
         </div>
     );
 };
