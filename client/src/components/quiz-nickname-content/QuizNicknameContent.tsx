@@ -1,7 +1,11 @@
-import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Button, useMediaQuery } from '@mui/material';
 import { MobileHeader } from '../mobile-header/MobileHeader';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
+<<<<<<< HEAD
+=======
 import { useNavigate, useSearchParams } from 'react-router-dom';
+>>>>>>> 68f4658d1f1b7c373bdf7094dd8c3bffc619bd17
 import { Preview } from '../preview/Preview';
 import { useIsBigScreen } from '../../consts/consts';
 
@@ -22,9 +26,15 @@ export function QuizNicknameContent() {
             {isBigScreen && isPreview &&
                 <Preview />
             }
-            {isBigScreen
+<<<<<<< HEAD
+            {!phoneMedia
                 ? <h1 className='quiz-nickname-header'>{quiz?.title}</h1>
                 : <MobileHeader title={quiz?.title} showLogo={false} />
+=======
+            {isBigScreen
+                ? <h1 className='quiz-nickname-header'>{quiz.title}</h1>
+                : <MobileHeader title={quiz.title} showLogo={false} />
+>>>>>>> 68f4658d1f1b7c373bdf7094dd8c3bffc619bd17
             }
             <div className='quiz-nickname-content'>
                 <label className='nickname-label'>איך קוראים לכם?</label>
