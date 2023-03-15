@@ -31,6 +31,10 @@ export const RegisterForm: FC = () => {
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
         e.preventDefault();
+        if (registerForm.password === '' || registerForm.username === '' || validatePassword === '') {
+            setError('יש למלא את כל השדות')
+            return;
+        }
         if (!passwordValidated()) {
             setError('הסיסמאות שהזנת אינן זהות');
             return;
