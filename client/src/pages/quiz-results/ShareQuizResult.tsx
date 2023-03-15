@@ -61,17 +61,17 @@ export const ShareQuizResult: FC = () => {
                             src="./svg/Group878.svg"
                             alt="dancing monkey"
                         />
-                        <h1>{nickname} קיבל {score} בחידון {quizTitle}</h1>
+                        <h1 className='share-quiz-results-title'>{nickname} קיבל {score} בחידון {quizTitle}</h1>
                         <Button
                             className='play-btn'
                             variant="contained"
                             onClick={playQuiz}
-                        >
+                        >שחק בחידון זה בעצמך!
                             <img
                                 className='logo'
                                 src="./svg/IconAwesome-play.svg"
                                 alt="play button"
-                            />שחק בחידון זה בעצמך!
+                            />
                         </Button>
                     </div></>
                 :
@@ -85,7 +85,7 @@ export const ShareQuizResult: FC = () => {
                             src="./svg/Group597.svg"
                             alt="dancing monkey" />
                         <DialogContent>
-                            {nickname} קיבל {score} בחידון {quizTitle}
+                            <h1 className='share-quiz-results-title'>{nickname} קיבל {score} בחידון {quizTitle}</h1>
                         </DialogContent>
                         <DialogActions>
                             <Button

@@ -1,13 +1,13 @@
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";
-import { Answer } from "../answer-interface/AnswerType";
 import { QuizDetails } from "../create-quiz/QuizDetails";
 import { QuizContentQuestions } from "./QuizContentQuestions";
 import { MobileHeader } from "../mobile-header/MobileHeader";
 import { AlertDialog } from "../alert-dialog/AlertDialog";
 import { Question } from "../../interfaces/quizDetailInterface";
-import { Alert, IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Alert from "@mui/material/Alert";
 import './QuizContent.scss';
 
 export const QuizContent: React.FC = () => {
@@ -150,8 +150,12 @@ export const QuizContent: React.FC = () => {
                                     }}
                                 >סיום</button>}
                             />
+                            {error &&
+                                <Alert severity="warning" className="warning">{error}</Alert>
+                            }
+
                         </div> :
-                        error && <Alert severity="warning">{error}</Alert>
+                        error && <Alert severity="warning" className="warning">{error}</Alert>
                     }
 
                 </div>

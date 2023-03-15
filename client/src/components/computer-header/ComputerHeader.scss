@@ -29,6 +29,10 @@
     }
   }
 
+  a {
+    text-decoration: none;
+  }
+
   .header-nav {
     display: flex;
     align-items: center;
@@ -41,7 +45,6 @@
     .header-link {
       color: $dark-color;
       font-size: 1rem;
-      text-decoration: none;
       transition: color 0.2s ease-in-out;
 
       &:hover {
@@ -51,8 +54,9 @@
 
     .MuiButton-root.create-quiz-btn {
       background-color: $main-color;
-      font-weight: bold;
+      font-family: $Rubik-bold;
       padding: 0.8vh 2.5vw;
+      box-shadow: none;
     }
   }
 }

@@ -18,10 +18,11 @@ export const StartGamePage: React.FC = () => {
         if (id) {
             fetchQuiz();
         }
+        // eslint-disable-next-line
     }, [id]);
 
     const startGame = () => {
-        navigate('/quiz-nickname');
+        navigate(`/quiz-nickname?id=${id}`);
     };
 
 

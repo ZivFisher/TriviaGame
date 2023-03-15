@@ -1,7 +1,6 @@
 import { CreateQuestionDto } from './../question/question.dto';
 import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, ValidateNested } from "class-validator";
 import { Type } from 'class-transformer';
-import { Question } from 'src/question/question.entity';
 import { MyUser } from 'src/auth/user.entity';
 
 export class CreateQuizDto {
@@ -29,7 +28,7 @@ export class CreateQuizDto {
     @ArrayMinSize(1, { message: 'Every quiz must have at least one question' })
     @ValidateNested({ each: true })
     @Type(() => CreateQuestionDto)
-    questions: CreateQuestionDto[]
+    questions: CreateQuestionDto[];
 
-    user: MyUser
+    user: MyUser;
 }

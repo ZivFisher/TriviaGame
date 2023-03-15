@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
 import { useIsBigScreen } from '../../consts/consts';
 import { AlertDialog } from '../../components/alert-dialog/AlertDialog';
+import { Preview } from '../../components/preview/Preview';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,7 +11,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import LinearProgress from '@mui/material/LinearProgress';
 import './QuizResults.scss';
-import { Preview } from '../../components/preview/Preview';
 
 export const QuizResults: FC = () => {
 
@@ -19,7 +19,7 @@ export const QuizResults: FC = () => {
     const scoreId = searchParams.get('scoreId');
     const isBigScreen = useIsBigScreen();
     const { quiz, score, correctAnswers, isPreview } = usePlayQuiz();
-    const { questions } = quiz;
+    const questions = quiz?.questions;
 
     const handleShare = (onClick: () => void) => {
         navigator.clipboard.writeText(`http://localhost:3000/quiz-shared-result?scoreId=${scoreId}`);
@@ -84,8 +84,8 @@ export const QuizResults: FC = () => {
                             className='dancing-monkey'
                             src="./svg/Group597.svg"
                             alt="dancing monkey" />
-                        <DialogTitle>הצלחת {correctAnswers} מתוך {questions?.length}</DialogTitle>
-                        <DialogContent>
+                        <DialogTitle className='dialog-title'>הצלחת {correctAnswers} מתוך {questions?.length}</DialogTitle>
+                        <DialogContent className='dialog-content'>
                             ציונך: {score}
                         </DialogContent>
                         {scoreId
@@ -96,6 +96,7 @@ export const QuizResults: FC = () => {
                                     description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
                                     showCancelButton={false}
                                     triggerButton={handleShare}
+                                    className='copy-link-popup'
                                 />
                                 <Button
                                     className='home-btn'

@@ -3,13 +3,17 @@
 .my-quizzes-div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 100vw;
-    height: 80vh;
+    margin: 5vh 0;
+    flex-grow: 1;
+    box-sizing: border-box;
 }
 
 .my-quizzes-container {
     @include main-content();
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .my-quizzes-title {
@@ -17,11 +21,10 @@
     font-family: $Rubik-medium-500;
     color: $dark-color;
     font-weight: normal;
-    margin-bottom: 0;
+    font-size: 2rem;
 }
 
 .cards-holder {
-    height: 65vh;
     overflow: auto;
 
     &::-webkit-scrollbar {
@@ -34,10 +37,11 @@
 
     .my-quizzes-div {
         height: fit-content;
-
+        margin: 0;
     }
 
     .my-quizzes-container {
+        width: 80vw;
         border: none;
     }
 
