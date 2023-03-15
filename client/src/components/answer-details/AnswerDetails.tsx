@@ -96,7 +96,7 @@ export const AnswerDetails: React.FC<AnswerProps> = ({
             <img
               src="/svg/trash.svg"
               alt="delete answer"
-              className={questions[questionIndex].answers.length === 2 ? "bin-answer-photo-opacity" : "bin-answer-photo"}
+              className={"bin-answer-photo" + (questions[questionIndex].answers.length === 2 ? " disabled" : '')}
               onClick={() => onDeleteAnswer(answerId, questionIndex)}
             />
           </div>

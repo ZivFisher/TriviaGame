@@ -28,6 +28,7 @@ interface QuizDetailInterface {
     filesUploader: FilesUploader;
     error: string
     setError: React.Dispatch<React.SetStateAction<string>>;
+    checkValidateQuiz: () => boolean;
 }
 
 const QuizDetailsContext = createContext<QuizDetailInterface | null>(null);
@@ -63,13 +64,16 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             setQuestions(quiz.questions);
         } else {
             setQuizDetails(basicQuiz)
-            setQuestions(basicQuestions)
+            setQuestions(JSON.parse(JSON.stringify(basicQuestions)))
         }
     }, [id]);
 
     useEffect(() => {
-        console.log(questions)
-    }, [questions])
+        return () => {
+            setQuizDetails(basicQuiz);
+            setQuestions(basicQuestions);
+        }
+    }, [])
 
     const getQuiz = async (id: string) => {
         try {
@@ -159,20 +163,36 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
         return tempArr
     }
 
-    const handleSave = async () => {
-        const quizCheck: boolean = quizDetails.description === '' || quizDetails.title === '' || quizDetails.image === '';
-        const questionCheck: boolean = questions.some((item) => item.title === 'שאלה ללא כותרת' || item.title === '');
+    const checkValidateQuiz = () => {
+        const questionRegex: RegExp = /^.{5,30}$/;
+        const quizTitleRegex: RegExp = /^.{5,25}$/;
+        const quizDescriptionRegex: RegExp = /^.{5,40}$/;
+        const answerRegex: RegExp = /^.{5,30}$/;
+        const quizCheck: boolean = quizDetails.description === '' || !(quizDescriptionRegex.test(quizDetails.description)) || quizDetails.title === '' || !(quizTitleRegex.test(quizDetails.title)) || quizDetails.image === '';
+        const questionCheck: boolean = questions.some((item) => item.title === 'שאלה ללא כותרת' || item.title === '' || !questionRegex.test(item.title));
         const answerCheck: boolean = questions.some((question) => {
-            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || item.content === '')
+            return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || !answerRegex.test(item.content) || item.content === '' && item.image === '')
         });
-        if (answerCheck || questionCheck || quizCheck) {
-            setError('יש למלא את כל השדות הרלוונטיים לפני שמירת החידון.')
-            return;
+        if (quizCheck) {
+            setError('יש למלא את כל השדות ולהוסיף תמונה לחידון(הכותרת צריכה להכיל בין 5 ל-25 תווים והתיאור בין 5  ל-40 תווים)')
+            return false;
+        } else if (questionCheck) {
+            setError('כל שאלה צריכה להכיל בין 5 ל-30 תווים')
+            return false;
+        } else if (answerCheck) {
+            setError('כל תשובה צריכה להכיל בין 5 ל-30 תווים')
+            return false;
         }
+        else {
+            return true;
+        }
+    }
+
+    const handleSave = async () => {
         try {
             if (!quizDetails.id) {
                 const arr = deleteId();
-                const { data } = await filesUploader.post<Quiz | null>(`http://localhost:8080/api/quiz`, {
+                await filesUploader.post<Quiz | null>(`http://localhost:8080/api/quiz`, {
                     title: quizDetails.title,
                     description: quizDetails.description,
                     image: quizDetails.image,
@@ -180,7 +200,7 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
                     questions: arr
                 })
             } else {
-                const { data } = await filesUploader.put<Quiz | null>(`http://localhost:8080/api/quiz/${quizDetails.id}`, {
+                await filesUploader.put<Quiz | null>(`http://localhost:8080/api/quiz/${quizDetails.id}`, {
                     title: quizDetails.title,
                     description: quizDetails.description,
                     image: quizDetails.image,
@@ -247,7 +267,8 @@ export const QuizDetailsProvider: FC<{ children: ReactNode }> = ({ children }) =
             preView,
             filesUploader,
             setError,
-            error
+            error,
+            checkValidateQuiz
         }}>
             {children}
         </QuizDetailsContext.Provider>

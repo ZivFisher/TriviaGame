@@ -165,7 +165,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                 {isBigScreen
                     ? <>
                         <p className='line'></p>
-                        <div className={questions.length === 1 ? 'question-option disabled' : 'question-option'}>
+                        <div className='question-option'>
                             <BootstrapTooltip title="שכפול">
                                 <img
                                     src="/svg/copy.svg"
@@ -178,7 +178,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 <img
                                     src="/svg/trash.svg"
                                     alt="delete question"
-                                    className='delete pointer-img'
+                                    className={questions.length === 1 ? 'delete pointer-img disabled' : 'delete pointer-img'}
                                     onClick={() => deleteQuestion(questionId)} />
                             </BootstrapTooltip>
                         </div>

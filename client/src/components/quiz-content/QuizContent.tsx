@@ -7,7 +7,7 @@ import { QuizContentQuestions } from "./QuizContentQuestions";
 import { MobileHeader } from "../mobile-header/MobileHeader";
 import { AlertDialog } from "../alert-dialog/AlertDialog";
 import { Question } from "../../interfaces/quizDetailInterface";
-import { Alert } from "@mui/material";
+import { Alert, IconButton } from "@mui/material";
 import './QuizContent.scss';
 
 export const QuizContent: React.FC = () => {
@@ -20,7 +20,8 @@ export const QuizContent: React.FC = () => {
         preView,
         quizDetails,
         setError,
-        error
+        error,
+        checkValidateQuiz
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
     const [questionId, setQuestionId] = useState<number>(-2);
@@ -104,7 +105,11 @@ export const QuizContent: React.FC = () => {
                             showCancelButton={true}
                             triggerButton={(onClick: () => void) => <button
                                 className="save-quiz"
-                                onClick={onClick}><img src="/svg/save.svg" alt="" />שמירה
+                                onClick={() => {
+                                    const validateQuiz = checkValidateQuiz();
+                                    if (!validateQuiz) return;
+                                    onClick();
+                                }}><img src="/svg/save.svg" alt="" />שמירה
                             </button>}
                         />
                     </div>
@@ -138,7 +143,11 @@ export const QuizContent: React.FC = () => {
                                 showCancelButton={true}
                                 triggerButton={(onClick: () => void) => <button
                                     className='finish-edit'
-                                    onClick={onClick}
+                                    onClick={() => {
+                                        const validateQuiz = checkValidateQuiz();
+                                        if (!validateQuiz) return;
+                                        onClick()
+                                    }}
                                 >סיום</button>}
                             />
                         </div> :
@@ -146,13 +155,13 @@ export const QuizContent: React.FC = () => {
                     }
 
                 </div>
-                <div>
+                <IconButton className='add-answer-photo'>
                     {isBigScreen &&
                         <img src="/svg/plus.svg"
                             alt="add question"
                             onClick={addQuestion}
-                            className='add-answer-photo' />}
-                </div>
+                        />}
+                </IconButton>
             </div>
         </div>
     );
