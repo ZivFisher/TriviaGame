@@ -17,7 +17,7 @@ export const MobileHeader: React.FC<MyProps> = ({ title, showLogo }) => {
     return (
         <header className='generic-mobile-header'>
             <img onClick={handleNavigateBack} src="./svg/back.svg" alt="go back" />
-            <h1>{title}</h1>
+            <h1 style={{ fontSize: '3rem' }}>{title}</h1>
             {showLogo ?
                 <img
                     onClick={handleNavigateHome}

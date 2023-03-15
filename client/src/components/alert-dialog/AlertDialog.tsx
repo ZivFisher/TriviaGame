@@ -15,6 +15,7 @@ interface AlertDialogProps {
     onConfirm?: () => void;
     showCancelButton?: boolean;
     triggerButton: (onClick: () => void) => ReactElement;
+    className?: string;
 }
 
 export const AlertDialog: FC<AlertDialogProps> = ({
@@ -22,7 +23,8 @@ export const AlertDialog: FC<AlertDialogProps> = ({
     description = null,
     onConfirm,
     showCancelButton = false,
-    triggerButton
+    triggerButton,
+    className
 }) => {
 
     const [open, setOpen] = useState<boolean>(false);
@@ -46,6 +48,7 @@ export const AlertDialog: FC<AlertDialogProps> = ({
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                className={className}
             >
                 <Box
                     className='dialog-box'

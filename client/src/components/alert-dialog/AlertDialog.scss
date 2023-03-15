@@ -7,7 +7,15 @@
     overflow: hidden;
 
     .dialog-title {
-        font-weight: bold;
+        font-family: $Rubik-semi-bold-600;
+        color: $dark-color;
+        font-size: 1.5rem;
+    }
+
+    #alert-dialog-description {
+        color: $dark-color;
+        font-family: $Rubik-light-300;
+        font-size: 1.125rem;
     }
 
     .dialog-actions {
@@ -34,39 +42,51 @@
 //mobile devices
 @media screen and (max-width: 600px) {
 
+
+
     .dialog-box {
         padding: 6vh 3vw 3vh 3vw;
         width: 70vw;
-        height: 30vh;
 
-    }
+        .dialog-title.MuiDialogTitle-root {
+            font-family: $Rubik-extra-bold-800;
+            font-weight: bold;
+            text-align: center;
+            padding: 0;
+            margin-bottom: 1vh;
 
-    .dialog-title.MuiDialogTitle-root {
-        font-family: $Rubik-extra-bold-800;
-        font-size: 2.4rem;
-        font-weight: bold;
-        text-align: center;
-        padding: 0;
-        margin-bottom: 4vh;
-
-    }
-
-    #alert-dialog-description {
-        text-align: center;
-        padding: 0;
-        font-size: 1.4rem;
-    }
-
-    .dialog-actions {
-        display: flex;
-        justify-content: center;
-
-        .cancel-btn {
-            width: 5vw;
         }
 
-        .confirm-btn {
-            padding: 2vh 8vw;
+        #alert-dialog-description {
+            margin: 2vh 0;
+            text-align: center;
+            padding: 0;
+            font-size: 1.8rem;
+            font-family: $Rubik-light-300;
+            color: $dark-color;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 0;
+
+            .cancel-btn {
+                width: 5vw;
+            }
+
+            .confirm-btn {
+                padding: 0.5vh 8vw;
+                height: unset;
+                width: unset;
+                font-size: 1.7rem;
+                letter-spacing: 0;
+            }
+
+            .cancel-btn {
+                font-size: 1.7rem;
+                letter-spacing: 0;
+            }
         }
     }
 }

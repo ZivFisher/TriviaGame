@@ -84,8 +84,8 @@ export const QuizResults: FC = () => {
                             className='dancing-monkey'
                             src="./svg/Group597.svg"
                             alt="dancing monkey" />
-                        <DialogTitle>הצלחת {correctAnswers} מתוך {questions?.length}</DialogTitle>
-                        <DialogContent>
+                        <DialogTitle className='dialog-title'>הצלחת {correctAnswers} מתוך {questions?.length}</DialogTitle>
+                        <DialogContent className='dialog-content'>
                             ציונך: {score}
                         </DialogContent>
                         {scoreId
@@ -96,6 +96,7 @@ export const QuizResults: FC = () => {
                                     description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
                                     showCancelButton={false}
                                     triggerButton={handleShare}
+                                    className='copy-link-popup'
                                 />
                                 <Button
                                     className='home-btn'

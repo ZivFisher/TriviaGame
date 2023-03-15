@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QuizCardProps } from './QuizCardProps';
 import { AlertDialog } from '../alert-dialog/AlertDialog';
 import { useMyQuizzesContext } from '../../contexts/MyQuizzesContext';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 import './quiz-card.scss';
-import { IconButton } from '@mui/material';
 
 export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -69,13 +69,6 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                keepMounted
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                // transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                anchorPosition={{
-                    top: 0,
-                    left: 700
-                }}
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
@@ -97,6 +90,7 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
                     onConfirm={() => { }}
                     showCancelButton={false}
                     triggerButton={shareQuiz}
+                    className='copy-link-popup'
                 />
                 <MenuItem
                     className='menu-item'
@@ -111,10 +105,11 @@ export const QuizCardMobileMenu: React.FC<QuizCardProps> = ({ id, title }) => {
                 </MenuItem>
                 <AlertDialog
                     question="האם אתה בטוח?"
-                    description="אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים ששמרת ימחקו"
+                    description="אם תמחק את החידון לא יהיה ניתן לשחק בו או לשחזר אותו"
                     onConfirm={() => deleteQuizFromDB(id)}
                     showCancelButton={true}
                     triggerButton={deleteQuizButton}
+                    className='delete-popup'
                 />
             </Menu>
         </div>

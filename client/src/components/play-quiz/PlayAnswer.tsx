@@ -27,6 +27,7 @@ export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, high
         setIsClicked(false);
         setHighlightCorrect(false);
         setToggleClick(false);
+        console.log(questionIndex);
     }, [currentQuestion]);
 
     const onClick = () => {

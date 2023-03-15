@@ -6,7 +6,6 @@ import './Main.scss'
 
 export const Main: React.FC = () => {
     const isSmallScreen: boolean = useMediaQuery('(max-width: 600px)');
-
     return (
         <div className='main-area'>
             {isSmallScreen ? <>
