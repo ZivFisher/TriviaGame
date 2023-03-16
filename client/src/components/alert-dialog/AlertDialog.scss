@@ -1,17 +1,38 @@
 @import "../../Variables.scss";
 
+
+.MuiDialog-container {
+    .MuiPaper-root {
+        margin: 0;
+        border-radius: 8px;
+    }
+}
+
 .dialog-box {
-    padding: 3vh 2vw;
-    height: 27vh;
-    width: 25vw;
+    padding: 3vh 2.3vw 1.5vh 2.3vw;
+    height: 28vh;
+    width: 35vw;
     overflow: hidden;
+
+
 
     .dialog-title {
         font-weight: bold;
+        padding: 3vh 0 1vh 0;
+    }
+
+    #alert-dialog-description {
+        text-align: right;
+        padding: 0.5vh 0 0 0;
+        font-size: 1rem;
+    }
+
+    .MuiDialogContent-root {
+        padding: 0 0 1.2vh 0;
     }
 
     .dialog-actions {
-        margin-top: 8vh;
+        margin-top: 0;
 
         .cancel-btn {
             text-decoration: underline;
@@ -37,7 +58,13 @@
     .dialog-box {
         padding: 6vh 3vw 3vh 3vw;
         width: 70vw;
-        height: 30vh;
+        height: 22vh;
+
+        #alert-dialog-description {
+            text-align: center;
+            padding: 0;
+            font-size: 1.4rem;
+        }
 
     }
 
@@ -47,15 +74,11 @@
         font-weight: bold;
         text-align: center;
         padding: 0;
-    margin-bottom: 1vh;
+        margin-bottom: 1vh;
 
     }
 
-    #alert-dialog-description {
-        text-align: center;
-        padding: 0;
-        font-size: 1.4rem;
-    }
+
 
     .dialog-actions {
         display: flex;
