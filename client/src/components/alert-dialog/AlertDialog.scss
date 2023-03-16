@@ -38,11 +38,12 @@
             text-decoration: underline;
             font-weight: bold;
             color: $main-color;
+            border-radius: 28px;
 
         }
 
         .confirm-btn {
-            border-radius: 22px;
+            border-radius: 28px;
             width: 8vw;
             height: 5vh;
             font-weight: bold;
@@ -66,30 +67,33 @@
             font-size: 2rem;
         }
 
+
+        .dialog-actions {
+            display: flex;
+            justify-content: center;
+
+            .cancel-btn {
+                width: 5vw;
+            }
+
+            .confirm-btn {
+                padding: 2.8vh 18vw;
+                font-size: 2.2rem;
+            }
+        }
     }
 
     .dialog-title.MuiDialogTitle-root {
         font-family: $Rubik-extra-bold-800;
-        font-size: 2.4rem;
+        font-size: 3.4rem;
         font-weight: bold;
         text-align: center;
         padding: 0;
-        margin-bottom: 1vh;
+        margin-bottom: 0vh;
 
     }
 
 
 
-    .dialog-actions {
-        display: flex;
-        justify-content: center;
 
-        .cancel-btn {
-            width: 5vw;
-        }
-
-        .confirm-btn {
-            padding: 2vh 8vw;
-        }
-    }
 }

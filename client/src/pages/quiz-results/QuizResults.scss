@@ -39,7 +39,7 @@
     }
 
     .dialog-title {
-        font-size: 4.2rem !important;
+        font-size: 4rem !important;
     }
 }
 
@@ -48,14 +48,14 @@
 .quiz-results-dialog {
     .dialog-title.MuiDialogTitle-root {
         font-family: $Rubik-extra-bold-800;
-        padding: 0;
+           margin-bottom: 3vh;
         font-size: 4.25rem;
     }
 
     .MuiDialog-paper {
         width: 86vw;
-        height: 27vh;
-        padding: 6vh 2vw;
+        height: 30vh;
+        padding: 4vh 2vw 4vh 2vw;
         margin: 0;
         display: flex;
         align-items: center;
@@ -68,7 +68,7 @@
         font-family: $Rubik-bold-700;
         font-size: 3.2rem;
         text-align: center;
-        padding-bottom: 5vh;
+        padding: 0;
     }
 
     .MuiDialog-paper {
