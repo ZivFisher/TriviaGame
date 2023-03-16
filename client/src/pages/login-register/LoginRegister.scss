@@ -50,7 +50,7 @@
             position: relative;
             flex-direction: column;
             box-sizing: border-box;
-            z-index: 1;
+            z-index: 3;
             padding-top: 14vh;
 
             .right-leaf-img {
@@ -63,10 +63,10 @@
             }
 
             .right-side {
-                  padding-right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+                padding-right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
                 .register-login-titles {
                     margin-bottom: 2.6vh;
@@ -93,20 +93,20 @@
     .full-size-container {
 
         .right-leaf-img {
-              position: absolute;
-    z-index: 2;
-    top: -15vh;
-    width: 48vw;
-    right: -17vw;
+            position: absolute;
+            z-index: 2;
+            top: -15vh;
+            width: 48vw;
+            right: -17vw;
         }
 
         .register-login-img {
-      position: absolute;
-    z-index: 2;
-    width: 58vw;
-    left: -10vw;
-    bottom: -12vh;
-    transform: rotate(10deg);
+            position: absolute;
+            z-index: 2;
+            width: 58vw;
+            left: -10vw;
+            bottom: -12vh;
+            transform: rotate(10deg);
         }
 
         .register-login-container {
@@ -127,16 +127,16 @@
         }
 
         .register-login-img {
-             position: absolute;
-    z-index: 2;
-    width: 90vw;
-    left: -18vw;
-    bottom: -9vh;
-    transform: rotate(10deg);
+            position: absolute;
+            z-index: 2;
+            width: 90vw;
+            left: -18vw;
+            bottom: -9vh;
+            transform: rotate(10deg);
         }
 
         .register-login-container {
-                padding-top: 12.5vh;
+            padding-top: 12.5vh;
         }
     }
 }

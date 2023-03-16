@@ -14,9 +14,6 @@
     height: 100vh;
     overflow: hidden;
 
-    .share-quiz-results-title {
-        margin-bottom: 9vh;
-    }
 
     .confetti-animation {
         position: absolute;
@@ -26,18 +23,57 @@
         width: 110vw;
         height: 180vh;
     }
+
 }
 
-.quiz-results-dialog {
+.copy-link-popup,
+.delete-popup {
     .MuiDialog-paper {
-        position: relative;
+        justify-content: center;
+
+        .dialog-box {
+            padding: unset !important;
+            height: unset !important;
+            border-radius: 0;
+        }
+    }
+
+    .dialog-title {
+        font-size: 4.2rem !important;
+    }
+}
+
+.copy-link-popup,
+.delete-popup,
+.quiz-results-dialog {
+    .dialog-title.MuiDialogTitle-root {
+        font-family: $Rubik-extra-bold-800;
+        padding: 0;
+        font-size: 4.25rem;
+    }
+
+    .MuiDialog-paper {
+        width: 86vw;
+        height: 27vh;
         padding: 6vh 2vw;
         margin: 0;
         display: flex;
         align-items: center;
+    }
+}
+
+.quiz-results-dialog {
+
+    .dialog-content.MuiDialogContent-root {
+        font-family: $Rubik-bold-700;
+        font-size: 3.2rem;
+        text-align: center;
+        padding-bottom: 5vh;
+    }
+
+    .MuiDialog-paper {
+        position: relative;
         overflow: visible;
-        width: 86vw;
-        height: 27vh;
         border: 3px solid $light-gray;
         border-radius: 10px;
     }
@@ -90,6 +126,13 @@
 
 }
 
+.share-quiz-results-title {
+    font-family: $Rubik-bold-700;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
+
+}
 
 
 @media screen and (min-width: 601px) {
@@ -132,6 +175,15 @@
             align-items: center;
             background-color: $white;
 
+            .share-quiz-results-title {
+                margin-bottom: 9vh;
+                font-family: $Rubik-bold-700;
+                font-size: 2.5rem;
+                text-align: center;
+                padding-bottom: 5vh;
+
+            }
+
             .dancing-monkey-img {
                 width: 8vw;
                 margin-bottom: 3vh;
@@ -144,7 +196,7 @@
 
             .share-description-par {
                 font-family: $Rubik-light-300;
-                font-size: 0.9rem;
+                font-size: 1.5rem;
                 margin-bottom: 5vh;
             }
 
@@ -158,6 +210,7 @@
                 .logo {
                     width: 1rem;
                     padding-right: 0.8vw;
+                    margin-left: 1vw;
                 }
             }
         }

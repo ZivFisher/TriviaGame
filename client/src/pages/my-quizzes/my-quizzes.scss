@@ -27,6 +27,7 @@
 .cards-holder {
     overflow: auto;
 
+
     &::-webkit-scrollbar {
         display: none;
     }
@@ -41,7 +42,9 @@
     }
 
     .my-quizzes-container {
+        width: 80vw;
         border: none;
+        margin-top: 1vh;
     }
 
 

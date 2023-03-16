@@ -96,6 +96,7 @@ export const QuizResults: FC = () => {
                                     description="מצויין! עכשיו אתה יכול לשתף את החידון שלך עם חברים"
                                     showCancelButton={false}
                                     triggerButton={handleShare}
+                                    className='copy-link-popup'
                                 />
                                 <Button
                                     className='home-btn'

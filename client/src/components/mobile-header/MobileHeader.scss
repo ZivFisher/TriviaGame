@@ -2,7 +2,9 @@
     display: flex;
     justify-content: space-around;
     width: 100vw;
-    border-bottom: 3px solid rgb(250, 243, 243); //unique color
+    box-shadow: 0 6px 6px rgb(249 246 246); //unique color
+    font-size: 1.2rem;
+    padding-bottom: 1.5vh;
 
     .empty-div {
         width: 30px;

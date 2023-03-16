@@ -7,7 +7,7 @@
 
 .start-game-container {
     @include main-content();
-    margin-top: 7vh;
+    margin-top: 6vh;
     text-align: center;
     position: relative;
     margin-right: 15vw;
@@ -19,9 +19,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-bottom: 10px;
-        margin-bottom: 8vh;
-        border-bottom: 3px solid rgb(249, 246, 246); //unique color
+        padding-bottom: 3vh;
+        margin-bottom: 3vh;
+        box-shadow: 0 6px 6px rgb(249 246 246);
+        gap: 1.5vw;
 
 
         img {
@@ -89,21 +90,20 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 2vh;
+        margin-top: 4vh;
         position: relative;
         width: 100vw;
         margin-right: 0;
 
         .header-logo .header-title {
-            font-family: $Rubik-extra-bold-800 ;
+            font-family: $Rubik-bold ;
             font-size: 2rem;
-            font-weight: 1000;
         }
 
 
         .start-game-btn {
             position: static;
-            width: 80vw;
+            width: 85vw;
             margin-top: 6vh;
             z-index: 1;
             height: 10vh;
@@ -119,13 +119,13 @@
 
         .quiz-description {
             font-family: $Rubik-light-300;
-            font-size: 2.3rem;
+            font-size: 2rem;
             font-weight: 100;
             color: $dark-color;
         }
 
         .quiz-image {
-            width: 90vw;
+            width: 85vw;
             height: 20vh;
             margin-top: 6vh;
         }

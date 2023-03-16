@@ -22,11 +22,14 @@
     }
 
     .MuiButton-root {
+        width: 22vw;
         height: 5.3vh;
         font-family: $Rubik-semi-bold-600;
         background-color: $main-color;
         margin-top: 2.6vh;
         box-shadow: none;
+        font-size: 1.4rem;
+        border-radius: 5px;
 
         &:hover {
             background-color: rgba($darker-green, 0.9);
@@ -37,7 +40,7 @@
         padding: 0;
         margin-top: 2vh;
         color: $darker-green;
-        font-size: 0.8rem;
+        font-size: 1rem;
         text-align: left;
 
         a {
@@ -45,7 +48,6 @@
         }
     }
 
-    .MuiButton-root,
     .register-par,
     .input,
     .label {
@@ -61,6 +63,7 @@
         align-items: center;
         margin-right: 0;
         gap: 1vw;
+        margin-top: 1vh;
 
         .MuiAlert-message {
             font-size: 18px;
@@ -70,23 +73,23 @@
 
 @media screen and (max-width: 601px) {
     .login-register-form {
-       position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-         .MuiButton-root,
-    .register-par,
-    .input,
-    .label {
-          width: 40vw;
-    border-radius: 2px;
-    }
+        .MuiButton-root,
+        .register-par,
+        .input,
+        .label {
+            width: 40vw;
+            border-radius: 2px;
+        }
 
-         .MuiButton-root {
-             font-size: 1.7rem;
-    margin-top: 1.6vh;
-         }
+        .MuiButton-root {
+            font-size: 1.7rem;
+            margin-top: 1.6vh;
+        }
     }
 }
 
@@ -97,7 +100,7 @@
         align-items: center;
 
         .MuiPaper-root {
-            margin-top: 37vh;
+            margin-top: 40vh;
             width: fit-content;
             z-index: 1500;
             margin-right: 0;
@@ -126,7 +129,7 @@
 
         .MuiButton-root,
         .input {
-                height: 5.8vh;
+            height: 5.8vh;
         }
 
         .MuiButton-root,

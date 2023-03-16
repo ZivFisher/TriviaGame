@@ -85,7 +85,7 @@ export const ShareQuizResult: FC = () => {
                             src="./svg/Group597.svg"
                             alt="dancing monkey" />
                         <DialogContent>
-                            {nickname} קיבל {score} בחידון {quizTitle}
+                            <h1 className='share-quiz-results-title'>{nickname} קיבל {score} בחידון {quizTitle}</h1>
                         </DialogContent>
                         <DialogActions>
                             <Button

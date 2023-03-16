@@ -1,9 +1,9 @@
-import { Button } from '@mui/material';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { MobileHeader } from '../mobile-header/MobileHeader';
 import { usePlayQuiz } from '../../contexts/PlayQuizContext';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Preview } from '../preview/Preview';
 import { useIsBigScreen } from '../../consts/consts';
+import { Button } from '@mui/material';
 
 export function QuizNicknameContent() {
     const isBigScreen = useIsBigScreen();
