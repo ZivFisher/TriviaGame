@@ -108,8 +108,9 @@
         margin: 0;
     }
 
-    .MuiPaper-root {
-        margin-right: 0;
+    .finish-edit-quiz{
+        .MuiPaper-root {
+        margin-right: 6vw;
         width: 80vw;
         z-index: 1500;
         display: flex;
@@ -121,6 +122,9 @@
             font-size: 18px;
         }
     }
+    }
+    
+  
 
     .create-quiz-main-content-new {
         margin-right: -100vw;

@@ -164,23 +164,23 @@ export const QuizDetailsProvider: FC<{ children: ReactNode; }> = ({ children }) 
     };
 
     const checkValidateQuiz = () => {
-        const questionRegex: RegExp = /^.{5,30}$/;
-        const quizTitleRegex: RegExp = /^.{5,25}$/;
-        const quizDescriptionRegex: RegExp = /^.{5,40}$/;
-        const answerRegex: RegExp = /^.{5,30}$/;
+        const questionRegex: RegExp = /^.{2,30}$/;
+        const quizTitleRegex: RegExp = /^.{2,25}$/;
+        const quizDescriptionRegex: RegExp = /^.{2,40}$/;
+        const answerRegex: RegExp = /^.{2,30}$/;
         const quizCheck: boolean = quizDetails.description === '' || !(quizDescriptionRegex.test(quizDetails.description)) || quizDetails.title === '' || !(quizTitleRegex.test(quizDetails.title)) || quizDetails.image === '';
         const questionCheck: boolean = questions.some((item) => item.title === 'שאלה ללא כותרת' || item.title === '' || !questionRegex.test(item.title));
         const answerCheck: boolean = questions.some((question) => {
             return question.answers.some((item) => item.content === 'תשובה ללא תוכן' || !answerRegex.test(item.content) || item.content === '' && item.image === '')
         });
         if (quizCheck) {
-            setError('יש למלא את כל השדות ולהוסיף תמונה לחידון(הכותרת צריכה להכיל בין 5 ל-25 תווים והתיאור בין 5  ל-40 תווים)')
+            setError('יש למלא את כל השדות ולהוסיף תמונה לחידון(הכותרת צריכה להכיל בין 5 ל-25 תווים והתיאור בין 2  ל-40 תווים)')
             return false;
         } else if (questionCheck) {
-            setError('כל שאלה צריכה להכיל בין 5 ל-30 תווים')
+            setError('כל שאלה צריכה להכיל בין 2 ל-30 תווים')
             return false;
         } else if (answerCheck) {
-            setError('כל תשובה צריכה להכיל בין 5 ל-30 תווים')
+            setError('כל תשובה צריכה להכיל בין 2 ל-30 תווים')
             return false;
         }
         else {

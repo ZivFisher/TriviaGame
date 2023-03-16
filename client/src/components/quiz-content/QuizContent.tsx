@@ -150,9 +150,6 @@ export const QuizContent: React.FC = () => {
                                     }}
                                 >סיום</button>}
                             />
-                            {error &&
-                                <Alert severity="warning" className="warning">{error}</Alert>
-                            }
 
                         </div> :
                         error && <Alert severity="warning" className="warning">{error}</Alert>

@@ -9,9 +9,9 @@
 }
 
 .dialog-box {
-    padding: 3vh 2.3vw 1.5vh 2.3vw;
-    height: 28vh;
-    width: 35vw;
+  padding: 3vh 3.3vw;
+/*     height: 28vh; */
+/*     width: 35vw; */
     overflow: hidden;
 
 
@@ -39,7 +39,7 @@
             font-weight: bold;
             color: $main-color;
             border-radius: 28px;
-
+font-size: 1.1rem;
         }
 
         .confirm-btn {
@@ -48,6 +48,7 @@
             height: 5vh;
             font-weight: bold;
             background-color: $main-color;
+font-size: 1.1rem;
         }
     }
 }
@@ -59,7 +60,7 @@
     .dialog-box {
         padding: 6vh 3vw 3vh 3vw;
         width: 70vw;
-        height: 22vh;
+/*         height: 22vh; */
 
         #alert-dialog-description {
             text-align: center;
@@ -71,14 +72,16 @@
         .dialog-actions {
             display: flex;
             justify-content: center;
+            gap: 15px;
 
             .cancel-btn {
                 width: 5vw;
+                    font-size: 1.8rem;
             }
 
             .confirm-btn {
-                padding: 2.8vh 18vw;
-                font-size: 2.2rem;
+               padding: 2.8vh 14vw;
+                   font-size: 1.8rem;
             }
         }
     }
