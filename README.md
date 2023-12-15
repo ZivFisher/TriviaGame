@@ -19,34 +19,38 @@ This project was made as a practice project. It allows the user to create quizes
 
   To get started with the Quiz Game, follow these steps:
 
-```bash
 Clone the repository: 
+```bash
 git clone https://github.com/ZivFisher/TriviaGame.git
 ```
 
+Navigate to the project folder: 
 ```bash
-Navigate to the project folder: cd TriviaGame
+cd TriviaGame
 ```
 
+Install client & server dependencies: 
 ```bash
-Install client & server dependencies: npm install(npm i)
+npm install
 ```
 
+Create a database named: 
 ```bash
-Create a database named: "quiz_game".
+"quiz_game".
 ```
 
+Install the dump file: 
 ```bash
-Install the dump file: "add_roles" inside the dumps folder.
+"/dumps/add_roles" 
 ```
 
-```bash
 Start the server in development enviroment: 
+```bash
 npm run start:dev
 ```
 
-```bash
 Start the application: 
+```bash
 npm start
 ```
     
