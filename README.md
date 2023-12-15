@@ -15,13 +15,13 @@ This project was made as a practice project. It allows the user to create quizes
 Clone the repository: 
 
 ```bash
-git clone https://github.com/ZivFisher/TriviaGame.git
+git clone https://github.com/ZivFisher/trivia-game.git
 ```
 
 Navigate to the project directory: 
 
 ```bash
-cd TriviaGame
+cd trivia-game
 ```
 
 Install dependencies: 
