@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
-import './ComputerHeader.scss';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import "./ComputerHeader.scss";
 
 export const ComputerHeader: React.FC = () => {
   const navigate = useNavigate();
@@ -10,17 +10,17 @@ export const ComputerHeader: React.FC = () => {
       <nav className="header-nav">
         <Button
           variant="contained"
-          className='create-quiz-btn'
-          onClick={() => navigate('/create-quiz')}
+          className="create-quiz-btn"
+          onClick={() => navigate("/create-quiz")}
         >
           יצירת חידון
         </Button>
         <span className="header-divider">|</span>
-        <Link to="/my-quizzes" className="header-link">החידונים שלי</Link>
-        <span className="header-divider">|</span>
-        <Link to="/about" className="header-link">אודות</Link>
+        <Link to="/my-quizzes" className="header-link">
+          החידונים שלי
+        </Link>
       </nav>
-      <Link to='/home-page'>
+      <Link to="/home-page">
         <div className="header-logo">
           <h3 className="header-title">BANANAS.Games</h3>
           <img src="./svg/Layer32.svg" alt="BANANAS.Games" />
@@ -29,5 +29,3 @@ export const ComputerHeader: React.FC = () => {
     </header>
   );
 };
-
-
