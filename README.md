@@ -1,6 +1,4 @@
 
-## Screenshots
-
 ![App Screenshot](client/public/images/screenshot.png)
 
 
