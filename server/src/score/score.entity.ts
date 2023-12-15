@@ -1,5 +1,5 @@
 import { Quiz } from "src/quiz/quiz.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Score {
@@ -17,5 +17,6 @@ export class Score {
     date: Date;
 
     @ManyToOne(() => Quiz, quiz => quiz.scores, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'quiz_id' })
     quiz: Quiz;
 }

@@ -6,15 +6,15 @@
     @include main-content();
     position: relative;
     width: 68.75vw;
-    margin-top: 70px;
+    margin-top: 6vh;
     padding-right: 2.9rem;
-    height: 60vh;
-    padding-bottom: 8vh;
+      height: 60vh;
+      padding-bottom: 5vh;
 
 
     .score-page-monkey {
         position: absolute;
-        bottom: -7vh;
+        bottom: 0vh;
         right: -12vw;
         width: 7vw;
     }

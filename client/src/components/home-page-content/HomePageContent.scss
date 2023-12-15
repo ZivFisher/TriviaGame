@@ -3,156 +3,184 @@
 
 @mixin homePageButton($color, $border-bottom) {
     height: 7vh;
-    width: 15vw;
+    width: 205px;
     background-color: $color;
     border-radius: 8px;
-    font-weight: 800;
-    border-bottom: 5px solid $border-bottom;
-    opacity: 1;
+    font-weight: 900;
+    font-size: 18px;
+    border-bottom: 6px solid $border-bottom;
+
 }
 
 .home-page-interface {
     height: 70%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-self: center;
-    justify-content: space-evenly;
-}
+    justify-content: flex-start;
+    gap: 1vh;
 
-.home-page-header {
-    width: 26.14vw;
-    height: 7.68vh;
-    font-family: 'Rubik', sans-serif;
-    color: #0C3249;
-}
 
-.home-page-buttons {
-    width: 33vw;
-    height: 8vh;
-    display: flex;
-    justify-content: space-between;
+    p {
+        font-family: $Rubik-medium-500;
+        font-size: 1.6rem;
+    }
 
-    .create-button {
+    .greeting {
+        margin-top: 0;
+        font-weight: 900;
+    }
+
+
+    .home-page-header {
+        width: 100%;
+        height: 7.68vh;
+        font-family: $Rubik-extra-bold-800;
+        font-size: 3rem;
+        color: #0C3249;
+        margin: 0;
+    }
+
+    .home-page-buttons {
+        height: 8vh;
         display: flex;
-        gap: 5px;
-        @include homePageButton($main-color, $darker-green);
+        gap: 2vw;
+        margin-top: 2vh;
 
-        &:hover {
-            background-color: $main-color;
+        .create-button {
+            display: flex;
+            gap: 5px;
+            @include homePageButton($main-color, $darker-green);
+
+            img {
+                width: 1.5vw;
+                height: 2.5vh;
+                margin: 9px;
+            }
         }
 
-        img {
-            width: 1vw;
-            height: 2vh;
-        }
-    }
-
-    .my-quizzes-button {
-        @include homePageButton(#BE7F6B, #985E4B); //unique colors
-
-        &:hover {
-            background-color: #BE7F6B;
+        .my-quizzes-button {
+            @include homePageButton(#BE7F6B, #985E4B); //unique colors
         }
     }
 }
 
-.greeting {
-    font-weight: 900;
-}
+.banana-monkey-div {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 
-.banana-monkey {
-    width: 19vw;
-    height: 32vh;
-    align-self: center;
+    .banana-monkey-img {
+        width: 100%;
+        height: 43%;
+        padding-top: 10vh;
+    }
 }
 
 .logout {
     height: 3vh;
     width: fit-content;
-    font-weight: 900;
     display: flex;
     justify-content: space-around;
     align-self: flex-end;
     margin-bottom: 10px;
     text-decoration: none;
+    margin-left: 0.5vw;
 
     img {
-        width: 40%;
+        width: 30%;
     }
 
     span {
         color: $darker-green;
         width: 40%;
+        font-family: $Rubik-extra-bold-800;
+        font-size: 20px;
     }
 }
 
 @media screen and (max-width: 600px) {
     .home-page-interface {
-        margin-top: 15vh;
-        height: 100%;
         width: 100%;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1vh;
-        margin-left: 10vw;
+        align-items: start;
+        justify-content: center;
+        gap: 3vh;
+        margin-top: 6vh;
 
         .home-page-header {
-            text-align: center;
-            width: 40vw;
+            text-align: end;
+            width: 74%;
             font-size: 6rem;
-            height: 12vh;
+            height: fit-content;
+            margin: 0;
+
+            span {
+                display: block;
+                font-size: 4rem;
+                padding-left: 35px;
+            }
         }
 
 
         .home-page-buttons {
-            width: 55vw;
-            height: 25vh;
+            width: 51vw;
+            height: 22vh;
             flex-direction: column;
             justify-content: space-evenly;
+            align-self: center;
 
             .create-button {
                 width: 100%;
                 height: 40%;
-                font-size: 16px;
+                font-size: 2.2rem;
 
                 img {
                     width: 6vw;
                     height: 8vh;
-                    margin: 5px;
                 }
             }
 
             .my-quizzes-button {
                 width: 100%;
                 height: 40%;
-                font-size: 16px;
+                font-size: 2rem;
             }
         }
     }
 
     .logout {
         font-size: 16px;
+        align-self: flex-start;
     }
 
     .greeting {
         font-size: 30px;
     }
 
-    .banana-monkey {
-        width: 80vw;
-        height: 32vh;
+    .banana-monkey-div {
+        width: 85vw;
+        height: 36vh;
         z-index: 2;
         position: fixed;
-        bottom: -55px;
-        left: -25vw;
+        bottom: -70px;
+        left: -19vw;
+        transform: rotate(10deg);
+
+        .banana-monkey-img {
+            padding: 0;
+            height: 100%;
+        }
     }
 
     .leaves-top-right {
-        width: 80vw;
-        height: 32vh;
+        width: 60vw;
+        height: 27vh;
         z-index: 2;
         position: fixed;
-        top: -70px;
-        right: -34vw;
+        top: -71px;
+        right: -21.5vw;
     }
 }

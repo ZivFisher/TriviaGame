@@ -15,24 +15,32 @@
 
     .input {
         background-color: $input-background-color;
-        border: 0.2px solid rgba($border-color, 0.02);
+        border: 0.2px solid rgba($border-color, 0.22);
         height: 4vh;
         margin-top: 0.7vh;
         margin-bottom: 1.5vh;
     }
 
     .MuiButton-root {
+        width: 22vw;
         height: 5.3vh;
         font-family: $Rubik-semi-bold-600;
         background-color: $main-color;
         margin-top: 2.6vh;
+        box-shadow: none;
+        font-size: 1.4rem;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: rgba($darker-green, 0.9);
+        }
     }
 
     .register-par {
         padding: 0;
         margin-top: 2vh;
         color: $darker-green;
-        font-size: 0.8rem;
+        font-size: 1rem;
         text-align: left;
 
         a {
@@ -40,47 +48,100 @@
         }
     }
 
-    .MuiButton-root,
     .register-par,
     .input,
     .label {
-        width: 20vw;
+        width: 22vw;
         border-radius: 2px;
+    }
+
+    .MuiPaper-root {
+        width: fit-content;
+        z-index: 1500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0;
+        gap: 1vw;
+        margin-top: 1vh;
+
+        .MuiAlert-message {
+            font-size: 18px;
+        }
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 601px) {
+    .login-register-form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .MuiButton-root,
+        .register-par,
+        .input,
+        .label {
+            width: 40vw;
+            border-radius: 2px;
+        }
+
+        .MuiButton-root {
+            font-size: 1.7rem;
+            margin-top: 1.6vh;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
     .login-register-form {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        .label {
-            font-size: 1.02rem;
+        .MuiPaper-root {
+            margin-top: 40vh;
+            width: fit-content;
+            z-index: 1500;
+            margin-right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2vh;
+            position: absolute;
+            gap: 2vw;
+
+            .MuiAlert-message {
+                font-size: 18px;
+            }
+        }
+
+        .label,
+        .register-par {
+            font-size: 1.6rem;
         }
 
         .MuiButton-root {
-            font-size: 1.3rem;
+            font-size: 2rem;
             margin-top: 1.6vh;
             text-align: center;
         }
 
         .MuiButton-root,
         .input {
-            height: 4.4vh;
+            height: 5.8vh;
         }
 
         .MuiButton-root,
         .register-par,
         .input,
         .label {
-            width: 50vw;
-            border-radius: 2px;
+            width: 70vw;
+            border-radius: 6px;
         }
 
         .register-par {
             text-align: center;
-            font-size: 1.1rem;
             margin: 0 auto;
             margin-top: 1.6vh;
         }

@@ -1,0 +1,64 @@
+@import '../../Variables.scss';
+
+.saved-quiz-dialog {
+    .MuiDialog-paper {
+        position: relative;
+        padding: 5vh 6vw;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        overflow: visible;
+        width: 78vw;
+        border-radius: 8px;
+        border: 4px solid $light-gray;
+
+        .dancing-monkey {
+            position: absolute;
+            z-index: 3;
+            width: 100px;
+            top: -10vh;
+        }
+    }
+
+    .MuiDialogTitle-root {
+        font-family: $Rubik-extra-bold-800;
+        font-size: 2.8rem;
+        padding-bottom: 1vh;
+    }
+
+    .MuiDialogContent-root {
+        font-family: $Rubik-light-300;
+        font-size: 1.6rem;
+        text-align: center;
+        padding-bottom: 5vh;
+        color: rgba($dark-color, 0.5);
+
+    }
+
+    .MuiDialogActions-root {
+        display: flex;
+        justify-content: center;
+        gap: 1vw;
+
+        .home-btn.MuiButton-root,
+        .share-btn.MuiButton-root {
+            background-color: $main-color;
+            margin-left: 0;
+            font-size: 1.2rem;
+            font-family: $Rubik-extra-bold-800;
+            width: 28vw;
+            height: 5vh;
+            padding: 0.8vh 1.4vw;
+            border-radius: 6px;
+
+            .share-logo {
+                width: 1rem;
+                padding-left: 1vw;
+            }
+        }
+
+        .home-btn.MuiButton-root {
+            background-color: $browner-red;
+        }
+    }
+}

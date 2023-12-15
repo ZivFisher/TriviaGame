@@ -1,50 +1,52 @@
 @import '../../Variables.scss';
 
-
 .quiz-card {
     background: $white;
     box-shadow: 0 3px 6px $gray;
     display: flex;
     color: $dark-color;
-    margin: 3.5vh auto;
+    margin: 0 auto 3.5vh auto;
     width: 95%;
-    height: 13vh;
     position: relative;
-    padding-bottom: 1vh;
 
-
-    .quiz-card-image {
+    .img-response {
         width: 25%;
-        margin-left: 3vw;
-    }
+        height: 15vh;
+        position: relative;
 
-    .response-count {
-        position: absolute;
-        border-radius: 10px;
-        background-color: $black;
-        text-align: center;
-        opacity: 30%;
-        color: $white;
-        bottom: 2%;
-        right: 15%;
-        font-size: 0.85rem;
-        font-family: $Rubik-regular;
-        padding: 1vh;
+        .quiz-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
+        .response-count {
+            position: absolute;
+            border-radius: 10px;
+            background-color: rgba($black, 0.3);
+            text-align: center;
+            color: $white;
+            bottom: 0;
+            left: 5%;
+            font-size: 1rem;
+            font-family: $Rubik-regular;
+            padding: 0.2rem 1rem;
+        }
     }
 
     .quiz-card-content {
-        display: flex;
-        flex-direction: column;
+        width: 100%;
+        margin: 0 3vw 0 1vw;
 
         .quiz-card-title {
             font-family: $Rubik-semi-bold-600;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             margin-bottom: -1vh;
         }
 
         .quiz-card-description {
             font-family: $Rubik-light-300;
+            font-size: 1.125rem;
         }
 
         .quiz-card-scoreBoard-btn {
@@ -52,8 +54,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 7.5rem;
-            height: 1.75rem;
+            padding: 0.5rem 1.8rem;
+            width: fit-content;
             background: $main-color;
             color: $white;
             border-radius: 50px;
@@ -67,107 +69,109 @@
         }
     }
 
-    .quiz-cards-links {
+    .quiz-card-all-links {
         display: flex;
-        gap: 1rem;
-        position: absolute;
-        left: 1rem;
-        bottom: 1rem;
+        width: 100%;
+        justify-content: space-between;
 
-        .quiz-cards-single-link-cover {
-            box-shadow: 0 3px 6px $gray;
-            width: 4.5vh;
-            height: 4.5vh;
-            border-radius: 50%;
+        .quiz-cards-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            gap: 1.5rem;
+            left: 1rem;
+            bottom: 1rem;
+
+            .quiz-cards-single-link-cover {
+                box-shadow: 0 3px 6px $gray;
+                width: 4vh;
+                height: 4vh;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
         }
     }
 }
 
-
 @media only screen and (max-width: 600px) {
-
 
     .quiz-card {
         display: flex;
         flex-direction: column;
-        width: 70vw;
-        height: 16vh;
-        padding-bottom: 3vh;
+        height: 25vh;
+        margin-top: 3vh;
+        border-radius: 5px;
 
-        .response-count {
-            bottom: 30%;
-            right: 60%;
-        }
-
-        .quiz-card-image {
+        .img-response {
             width: 100%;
-            height: 70%;
+            height: 72%;
+
+            .response-count {
+                font-size: 1.6rem;
+            }
+
+            .quiz-card-image {
+                height: 100%;
+            }
         }
 
         .quiz-card-content {
             display: flex;
+            flex-direction: row-reverse;
+            justify-content: right;
             align-items: center;
-            padding-top: 2vh;
             position: relative;
+            height: 28%;
+            margin: 0;
 
             .quiz-card-title {
-                font-size: 1.5rem;
-            }
+                font-size: 2rem;
+                margin: 0;
+                margin-right: -2vh;
+                flex-grow: 1;
+                text-align: center;
 
-            .quiz-card-description {
-                display: none;
             }
 
             .quiz-card-phoneMenu-btn {
-                width: 2vw;
-                cursor: pointer;
-                position: absolute;
-                right: 2vw;
+
+                height: 4vh;
+                width: 4vh;
 
                 .quiz-card-phoneMenu-btn-img {
-                    width: 1.5vw;
-                    cursor: pointer;
-                    position: absolute;
-                    right: 2vw;
-                    bottom: 0.1vh;
+                    height: 100%;
                 }
             }
-        }
 
-        .quiz-cards-links {
-            .quiz-cards-single-link-cover {
-                display: none;
-            }
         }
     }
+}
 
-    #basic-menu {
-        left: -20vw;
-        top: -2vh;
+.quiz-card-phoneMenu {
+    .MuiList-root {
         padding: 0;
 
-        .menu-item {
-            min-height: 3vh;
-            width: 50vw;
-            font-size: 1.25rem;
-            border-bottom: 1px solid #0000000c; //unique color
+    }
 
-            .menu-icon {
-                width: 4vw;
-            }
-        }
+    .MuiPaper-root {
+        margin-top: -3.5vh;
+        margin-left: -7vh;
+        border-radius: 10px;
+        width: fit-content;
+    }
 
-        .menu-item.no-border {
-            border-bottom: none;
-        }
+    .menu-icon {
+        width: 4vw;
+        margin-left: 3vw;
+    }
 
-        .MuiList-root {
-            padding-top: 0;
-            padding-bottom: 0;
-        }
+    .menu-item {
+        font-size: 1.5rem;
+        padding-left: 11vw;
+    }
+
+    .menu-item:not(:last-child) {
+        border-bottom: 1px solid $gray;
     }
 }

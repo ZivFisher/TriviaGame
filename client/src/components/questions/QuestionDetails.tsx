@@ -1,11 +1,13 @@
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnswerDetails } from '../answer-details/AnswerDetails';
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Answer, Question } from '../../interfaces/quizDetailInterface';
-import './QuestionDetails.scss';
+import { Answer } from '../../interfaces/quizDetailInterface';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
+import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import { UploadImage } from '../upload-image/UploadImage';
+import './QuestionDetails.scss';
+import { useIsBigScreen } from '../../consts/consts';
 
 
 interface QuestionProps {
@@ -14,30 +16,42 @@ interface QuestionProps {
     index: number;
     copyQuestion: (copyQuestionIndex: number, answers: Answer[]) => void;
     deleteQuestion: (questionId: number) => void;
-    onChangeQuestionTitle: (event: React.ChangeEvent<HTMLInputElement>, questionId: number) => void;
+    onChangeQuestionTitle: (event: string, questionId: number) => void;
 }
 
 export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionTitle, index, onChangeQuestionTitle, deleteQuestion, copyQuestion }) => {
-    const isBigScreen = useMediaQuery('(min-width:600px)');
+    const isBigScreen = useIsBigScreen();
     const {
         questions,
         setQuestions,
         deleteAnswer,
         markedAsCorrect,
         changeAnswerContent,
+        deleteImg,
+        filesUploader
     } = useQuizDetails();
-    const [answerId, setAnswersId] = useState<number>(3);
+    const [answerId, setAnswersId] = useState<number>(questions[index].answers.length + 1);
 
     const addAnswer = (questionIndex: number): void => {
         if (questions[questionIndex].answers.length === 4) return;
         setQuestions(prev =>
             prev.map(question =>
-                question.id === questionId ?
-                    { ...question, answers: [...question.answers, { id: answerId, isCorrect: false, content: '' }] } : question))
+                (question.id || question.tempId) === questionId ?
+                    { ...question, answers: [...question.answers, { tempId: answerId, isCorrect: false, content: '' }] } : question));
         setAnswersId(prev => prev + 1);
-    }
+    };
 
-
+    const handleImageChange = ({ id, link }: UploadedFile): void => {
+        setQuestions(prev =>
+            [...prev.map(question => {
+                if ((question.id || question.tempId) === questionId) {
+                    question.image = link;
+                    question.imageId = id;
+                }
+                return question;
+            })]
+        );
+    };
     return (
         <div className='question-container-div'>
             <div className='question-main-content'>
@@ -52,13 +66,30 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 className='question-content'
                                 type="text"
                                 placeholder='שאלה ללא כותרת'
-                                onChange={(event) => onChangeQuestionTitle(event, questionId)}
+                                onClick={() => {
+                                    if (questionTitle === 'שאלה ללא כותרת') {
+                                        onChangeQuestionTitle('', questionId);
+                                    }
+                                }}
+                                onChange={(event) => onChangeQuestionTitle(event.target.value, questionId)}
                                 value={questionTitle}
                             />
                         </BootstrapTooltip>
-                        <BootstrapTooltip title="הוספת תמונה לשאלה">
-                            <img src="/svg/image.svg" alt=" upload image" className='image-photo-details pointer-img' />
-                        </BootstrapTooltip>
+                        {questions[index].image
+                            ?
+                            <UploadImage
+                                imageSrc={questions[index].image}
+                                deleteImg={deleteImg}
+                                questionId={questionId}
+                                className='question-margin'
+                            />
+                            : <BootstrapTooltip title="הוספת תמונה לשאלה">
+                                <label>
+                                    <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />
+                                    <img src="/svg/image.svg" alt="upload image" className='image-photo-details pointer-img' />
+                                </label>
+                            </BootstrapTooltip>
+                        }
                     </div>
                     : <>
                         {index !== 0 &&
@@ -76,38 +107,61 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 <img
                                     src="/svg/trash.svg"
                                     alt="delete question"
-                                    className='mobile-bin pointer-img'
+                                    className={questions.length === 1 ? 'mobile-bin pointer-img disabled' : 'mobile-bin pointer-img'}
                                     onClick={() => deleteQuestion(questionId)}
                                 />
                             </div>
                         </div>
                         <label htmlFor="mobile-question-content">כותרת</label>
                         <div className='mobile-title-div'>
-                            <input className='mobile-question-content' type="text"
-                                value={questionTitle}
-                                onChange={(event) => onChangeQuestionTitle(event, questionId)}
-                            />
-                            <img src="/svg/image.svg" alt="upload image" className='image-photo pointer-img' />
+                            <div className='mobile-title-content'>
+                                <input
+                                    className='mobile-question-content'
+                                    type="text"
+                                    value={questionTitle}
+                                    onClick={() => {
+                                        if (questionTitle === 'שאלה ללא כותרת') {
+                                            onChangeQuestionTitle('', questionId);
+                                        }
+                                    }}
+                                    onChange={(event) => onChangeQuestionTitle(event.target.value, questionId)}
+                                />
+                                <label className={questions[index].image ? 'disabled' : ''}>
+                                    <FileInput type="image" filesUploader={filesUploader} onChange={handleImageChange} className='upload-image-input' />
+                                    <img src="/svg/image.svg" alt=" upload image" className='image-photo-details pointer-img' />
+                                </label>
+                            </div>
+                            {questions[index].image
+                                ? <UploadImage
+                                    imageSrc={questions[index].image}
+                                    deleteImg={deleteImg}
+                                    questionId={questionId}
+                                />
+                                : null}
                         </div>
                     </>
                 }
 
                 {questions[index].answers.map((answer, answerIndex) => {
                     return <AnswerDetails
-                        key={answer.id}
+                        key={(answer.id || answer.tempId)!}
                         questionIndex={index}
                         answerNum={answerIndex + 1}
-                        answerId={answer.id}
+                        answerId={(answer.id || answer.tempId)!}
                         onCorrect={markedAsCorrect}
                         answerContent={answer.content}
                         onAnswer={changeAnswerContent}
                         onDeleteAnswer={deleteAnswer}
-                        isCorrect={answer.isCorrect} />
+                        isCorrect={answer.isCorrect}
+                        questionId={questionId}
+                        answerIndex={answerIndex} />;
                 })}
-                {questions[index].answers.length < 4 ? <div className='answer-option' onClick={() => addAnswer(index)}>
-                    <img src="/svg/plus.svg" alt="add answer" className='plus-photo' />
-                    <p className='add-answer'>הוספת תשובה</p>
-                </div> : null}
+                {questions[index].answers.length < 4
+                    ? <div className='answer-option' onClick={() => addAnswer(index)}>
+                        <img src="/svg/plus.svg" alt="add answer" className='plus-photo' />
+                        <p className='add-answer'>הוספת תשובה</p>
+                    </div>
+                    : null}
                 {isBigScreen
                     ? <>
                         <p className='line'></p>
@@ -124,7 +178,7 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
                                 <img
                                     src="/svg/trash.svg"
                                     alt="delete question"
-                                    className='delete pointer-img'
+                                    className={questions.length === 1 ? 'delete pointer-img disabled' : 'delete pointer-img'}
                                     onClick={() => deleteQuestion(questionId)} />
                             </BootstrapTooltip>
                         </div>
@@ -139,4 +193,4 @@ export const QuestionDetails: React.FC<QuestionProps> = ({ questionId, questionT
 
         </div>
     );
-}
+};

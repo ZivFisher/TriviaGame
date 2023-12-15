@@ -1,10 +1,9 @@
-import { Dispatch, SetStateAction } from "react"
-
 export interface Quiz {
-    id: string;
+    id?: string;
     title: string;
     description: string;
     image?: string;
+    imageId?: number;
     questions: Question[];
 }
 
@@ -12,6 +11,7 @@ export interface Question {
     id: number;
     title: string;
     image?: string;
+    imageId?: number;
     answers: Answer[];
 }
 
@@ -19,7 +19,8 @@ export interface Answer {
     id: number;
     isCorrect: boolean;
     content: string;
-    image?: string
+    image?: string;
+    imageId?: number;
 }
 
 

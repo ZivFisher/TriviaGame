@@ -1,30 +1,54 @@
 @import "../../Variables.scss";
 
+
+.MuiDialog-container {
+    .MuiPaper-root {
+        margin: 0;
+        border-radius: 8px;
+    }
+}
+
 .dialog-box {
-    padding: 3vh 2vw;
-    height: 27vh;
-    width: 35vw;
+  padding: 3vh 3.3vw;
+/*     height: 28vh; */
+/*     width: 35vw; */
+    overflow: hidden;
+
+
 
     .dialog-title {
         font-weight: bold;
+        padding: 3vh 0 1vh 0;
+    }
+
+    #alert-dialog-description {
+        text-align: right;
+        padding: 0.5vh 0 0 0;
+        font-size: 1rem;
+    }
+
+    .MuiDialogContent-root {
+        padding: 0 0 1.2vh 0;
     }
 
     .dialog-actions {
-        margin-top: 8vh;
+        margin-top: 0;
 
         .cancel-btn {
             text-decoration: underline;
             font-weight: bold;
             color: $main-color;
-
+            border-radius: 28px;
+font-size: 1.1rem;
         }
 
         .confirm-btn {
-            border-radius: 22px;
+            border-radius: 28px;
             width: 8vw;
             height: 5vh;
             font-weight: bold;
             background-color: $main-color;
+font-size: 1.1rem;
         }
     }
 }
@@ -36,36 +60,43 @@
     .dialog-box {
         padding: 6vh 3vw 3vh 3vw;
         width: 70vw;
-        height: 30vh;
+/*         height: 22vh; */
 
+        #alert-dialog-description {
+            text-align: center;
+            padding: 0;
+            font-size: 2rem;
+        }
+
+
+        .dialog-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            .cancel-btn {
+                width: 5vw;
+                    font-size: 1.8rem;
+            }
+
+            .confirm-btn {
+               padding: 2.8vh 14vw;
+                   font-size: 1.8rem;
+            }
+        }
     }
 
     .dialog-title.MuiDialogTitle-root {
         font-family: $Rubik-extra-bold-800;
-        font-size: 2.4rem;
+        font-size: 3.4rem;
         font-weight: bold;
         text-align: center;
         padding: 0;
-        margin-bottom: 4vh;
+        margin-bottom: 0vh;
 
     }
 
-    #alert-dialog-description {
-        text-align: center;
-        padding: 0;
-        font-size: 1.4rem;
-    }
 
-    .dialog-actions {
-        display: flex;
-        justify-content: center;
 
-        .cancel-btn {
-            width: 5vw;
-        }
 
-        .confirm-btn {
-            padding: 2vh 8vw;
-        }
-    }
 }

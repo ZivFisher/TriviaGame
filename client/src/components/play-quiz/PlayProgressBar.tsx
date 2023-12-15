@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 import LinearProgress from '@mui/material/LinearProgress';
 import { usePlayQuiz } from "../../contexts/PlayQuizContext";
 import '../../pages/play-quiz-page/PlayQuizPage.scss';
@@ -8,14 +8,19 @@ export const PlayProgressBar = () => {
     const { quiz, currentQuestion } = usePlayQuiz();
     const currentIndex = useRef<number>(0);
 
-    const numOfQuestions: number = quiz.questions.length;
+    const numOfQuestions = quiz?.questions.length || 1;
 
     useEffect(() => {
         currentIndex.current++;
         setProgress(currentIndex.current / (numOfQuestions) * 100);
-    }, [currentQuestion])
+        // eslint-disable-next-line
+    }, [currentQuestion]);
 
     return (
-        <LinearProgress className="play-progress-bar" variant="determinate" value={progress} />
+        <LinearProgress
+            className="play-progress-bar"
+            variant="determinate"
+            value={progress}
+        />
     );
-}
+};

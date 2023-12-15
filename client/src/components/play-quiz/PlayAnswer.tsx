@@ -1,7 +1,7 @@
-import { Answer } from "../../interfaces/PlayQuizInterfaces";
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { usePlayQuiz } from "../../contexts/PlayQuizContext";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Answer } from "../../interfaces/PlayQuizInterfaces";
+import { usePlayQuiz } from "../../contexts/PlayQuizContext";
 
 interface PlayAnswerProps {
     answer: Answer;
@@ -13,20 +13,21 @@ interface PlayAnswerProps {
 }
 
 export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, highlightCorrect, setHighlightCorrect, toggleClick, setToggleClick }) => {
-    const navigator = useNavigate();
-    const { quiz, setScore, setCorrectAnswers, currentQuestion, setCurrentQuestion } = usePlayQuiz();
 
+    const navigate = useNavigate();
+    const { quiz, sendScoreToServer, setScore, setCorrectAnswers, currentQuestion, setCurrentQuestion } = usePlayQuiz();
     const [isClicked, setIsClicked] = useState<boolean>(false);
-
-    const answers: Answer[] = currentQuestion.answers;
-    const correctAnswer = answers.find(answer => answer.isCorrect);
-    const questionIndex = quiz.questions.indexOf(currentQuestion);
+    const answers = currentQuestion?.answers;
+    const correctAnswer = answers?.find(answer => answer.isCorrect);
+    const questionIndex = currentQuestion && quiz ? quiz.questions.indexOf(currentQuestion) : -1;
     const answerStyle = answer.isCorrect ? 'correct-answer' : 'wrong-answer';
+
 
     useEffect(() => {
         setIsClicked(false);
         setHighlightCorrect(false);
         setToggleClick(false);
+        console.log(questionIndex);
     }, [currentQuestion]);
 
     const onClick = () => {
@@ -35,20 +36,26 @@ export const PlayAnswer: React.FC<PlayAnswerProps> = ({ haveImages, answer, high
         checkAnswer(answer.id);
     };
 
+
+
     const checkAnswer = (clickedAnswerId: number): void => {
         if (clickedAnswerId === correctAnswer?.id) {
-            setScore(prev => prev + (1 / quiz.questions.length * 100));
+            setScore(prev => prev + (1 / (quiz?.questions.length || 1) * 100));
             setCorrectAnswers(prev => prev + 1);
         }
         setHighlightCorrect(true);
         setTimeout(() => {
-            if (quiz.questions.length !== questionIndex + 1) {
-                setCurrentQuestion(quiz.questions[questionIndex + 1]);
+            if (quiz?.questions.length !== questionIndex + 1) {
+                setCurrentQuestion(quiz?.questions[questionIndex + 1]);
             } else {
                 setScore(prev => Math.round(prev));
-                navigator('/quiz-results');
+                sendScoreToServer((id?: number) => {
+
+                    if (id) navigate(`/quiz-results?scoreId=${id}`);
+                    else navigate(`/quiz-results`);
+                });
             }
-        }, 2000);
+        }, 1500);
     };
 
     return (

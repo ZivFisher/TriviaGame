@@ -1,10 +1,10 @@
-import { Checkbox } from '@mui/material';
-import { Question } from '../../interfaces/quizDetailInterface'
+import { Question } from '../../interfaces/quizDetailInterface';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import './SavedQuestion.scss'
 import { BootstrapTooltip } from '../tool-tip/Tooltip';
 import { useQuizDetails } from '../../contexts/quizDetailsContext';
+import './SavedQuestion.scss'
+import { Checkbox } from '@mui/material';
 
 
 interface SavedQuestionProps {
@@ -13,6 +13,7 @@ interface SavedQuestionProps {
 }
 
 export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, questionIndex }) => {
+
     const { setActiveQuestion, setQuestions } = useQuizDetails();
 
     const editQuestion = (questionIndex: number) => {
@@ -28,7 +29,7 @@ export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, question
             };
         }));
         setActiveQuestion(questionIndex);
-    }
+    };
     return (
         <div
             className='saved-question-container'
@@ -36,10 +37,14 @@ export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, question
             <BootstrapTooltip title="החלף סדר שאלות">
                 <img src="/images/drag-and-drop.png" alt="drag and drop" className='drag-and-drop' />
             </BootstrapTooltip>
-
-            <h1 className='saved-question-name'>{question.title}</h1>
+            <div className='saved-question-div'>
+                <h1 className='saved-question-name'>{question.title}</h1>
+                {question.image &&
+                    <img src={question.image} alt="" />
+                }
+            </div>
             {question.answers.map((answer) => {
-                return <div className='saved-question-answers'>
+                return <div className='saved-question-answers' key={answer.id || answer.tempId}>
                     <Checkbox
                         checked={answer.isCorrect}
                         icon={<RadioButtonUncheckedIcon />}
@@ -47,9 +52,13 @@ export const SavedQuestion: React.FC<SavedQuestionProps> = ({ question, question
                         />}
                     />
                     <p>{answer.content}</p>
-                </div>
+                    {
+                        answer.image &&
+                        <img src={answer.image} alt="" />
+                    }
+                </div >
             })}
 
-        </div>
-    )
-}
+        </div >
+    );
+};

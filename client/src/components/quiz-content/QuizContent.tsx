@@ -1,101 +1,116 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState } from "react";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";
-import { Answer } from "../answer-interface/AnswerType";
 import { QuizDetails } from "../create-quiz/QuizDetails";
-import './QuizContent.scss';
 import { QuizContentQuestions } from "./QuizContentQuestions";
 import { MobileHeader } from "../mobile-header/MobileHeader";
 import { AlertDialog } from "../alert-dialog/AlertDialog";
+import { Question } from "../../interfaces/quizDetailInterface";
+import IconButton from "@mui/material/IconButton";
+import Alert from "@mui/material/Alert";
+import './QuizContent.scss';
 
 export const QuizContent: React.FC = () => {
     const isBigScreen = useMediaQuery('(min-width:600px)');
     const {
-        setQuizDetails,
         questions,
         setQuestions,
-        setActiveQuestion
+        setActiveQuestion,
+        handleSave,
+        preView,
+        quizDetails,
+        setError,
+        error,
+        checkValidateQuiz
     } = useQuizDetails();
     const [isNextPage, setIsNextPage] = useState<boolean>(false);
-    const [questionId, setQuestionId] = useState<number>(2);
+    const [questionId, setQuestionId] = useState<number>(-2);
+
+
 
 
     const addQuestion = (): void => {
         if (questions.length === 10) return;
-        setQuestions((prev) => [
-            ...prev.map(question => ({
-                ...question,
-                title: question.title || 'שאלה ללא כותרת',
-                answers: question.answers.map(answer => ({
-                    ...answer,
-                    content: answer.content || 'תשובה ללא תוכן'
-                }))
-            })),
-            {
-                id: questionId,
-                title: '',
-                answers: [
-                    { id: 1, content: '', isCorrect: true },
-                    { id: 2, content: '', isCorrect: false }
-                ]
-            }]);
-        setQuestionId((prev) => prev + 1);
-        setActiveQuestion(prev => prev + 1);
-    }
+        setQuestions((prev) => {
+            return [
+                ...prev.map(question => ({
+                    ...question,
+                    title: question.title || 'שאלה ללא כותרת',
+                    answers: question.answers.map(answer => ({
+                        ...answer,
+                        content: answer.content || 'תשובה ללא תוכן'
+                    }))
+                })),
+                {
+                    tempId: questionId,
+                    title: '',
+                    answers: [
+                        { tempId: 1, content: '', isCorrect: true },
+                        { tempId: 2, content: '', isCorrect: false }
+                    ]
+                }];
+        });
+        setQuestionId((prev) => prev - 1);
+        setActiveQuestion(questions.length);
+    };
 
-    const copyQuestion = (copyQuestionIndex: number, answers: Answer[]): void => {
+    const copyQuestion = (copyQuestionIndex: number): void => {
         if (questions.length === 10) return;
         setQuestions(prev => {
-            if (prev[copyQuestionIndex].title === '') {
-                prev[copyQuestionIndex].title = 'שאלה ללא כותרת'
-            }
-            prev[copyQuestionIndex].answers.forEach(answer => {
-                if (answer.content === '') {
-                    answer.content = 'תשובה ללא תוכן'
-                }
-            })
             const question = prev[copyQuestionIndex];
-            const duplicatedItem = JSON.parse(JSON.stringify(question));
-            duplicatedItem.id = questionId;
-            prev.push(duplicatedItem);
-            return [...prev]
+            if (question.title === '') {
+                question.title = 'שאלה ללא כותרת';
+            }
+            question.answers.forEach(answer => {
+                if (answer.content === '') {
+                    answer.content = 'תשובה ללא תוכן';
+                }
+            });
+            const duplicatedItem: Question = JSON.parse(JSON.stringify(question));
+            duplicatedItem.tempId = questionId;
+
+            return [...prev, duplicatedItem];
         });
-        setQuestionId((prev) => prev + 1);
+        setQuestionId((prev) => prev - 1);
         setActiveQuestion((prev) => prev + 1);
-    }
+    };
 
     const onContinue = () => {
+        const quizCheck: boolean =
+            quizDetails.description === '' ||
+            quizDetails.title === '' ||
+            quizDetails.image === '';
+        if (quizCheck) {
+            setError('יש למלא את כל השדות ולבחור תמונה');
+            return;
+        }
         setIsNextPage(true);
-    }
+        setError('');
+    };
 
-    const handleSave = () => {
-
-    }
-
-    const handleShare = () => {
-
-    }
 
     return (
         <div className="create-quiz-div">
             {isBigScreen
                 ? <div className="quiz-option-div">
-                    <button className="show-quiz">צפייה בחידון</button>
+                    <button
+                        className="show-quiz"
+                        onClick={preView}
+                    ><img src="/svg/preview.svg" alt="" />צפייה בחידון</button>
                     <div className="share-and-save">
-                        <AlertDialog
-                            question="הקישור הועתק"
-                            description="מצויין! עכשיו אתה יכול לשתף את החדידון שלך עם חברים"
-                            onConfirm={handleShare}
-                            showCancelButton={false}
-                            triggerButton={(onClick: () => void) => <button className="share-quiz" onClick={onClick}><img src="/svg/share.svg" className="share-quiz-photo" alt="share quiz" /></button>}
-                        />
                         <AlertDialog
                             question="שים לב"
                             description="אם תשמור את השינויים לוח התוצאות שלך יתאפס"
                             onConfirm={handleSave}
                             showCancelButton={true}
-                            triggerButton={(onClick: () => void) => <button className="save-quiz" onClick={onClick}>שמירה<img src="" alt="" /></button>}
+                            triggerButton={(onClick: () => void) => <button
+                                className="save-quiz"
+                                onClick={() => {
+                                    const validateQuiz = checkValidateQuiz();
+                                    if (!validateQuiz) return;
+                                    onClick();
+                                }}><img src="/svg/save.svg" alt="" />שמירה
+                            </button>}
                         />
                     </div>
                 </div>
@@ -107,8 +122,12 @@ export const QuizContent: React.FC = () => {
                 <QuizDetails onContinue={onContinue} />
                 <div className="questions-container-div">
                     <QuizContentQuestions copyQuestion={copyQuestion} />
-                    {!isBigScreen &&
+                    {!isBigScreen ?
                         <div className="finish-edit-quiz">
+                            {error &&
+                                <Alert
+                                    severity="warning">{error}</Alert>
+                            }
                             <button
                                 className='add-question-phone'
                                 onClick={addQuestion}>
@@ -120,19 +139,31 @@ export const QuizContent: React.FC = () => {
                             <AlertDialog
                                 question="שים לב"
                                 description="אם תשמור את השינויים לוח התוצאות שלך יתאפס"
-                                onConfirm={handleShare}
-                                showCancelButton={false}
+                                onConfirm={handleSave}
+                                showCancelButton={true}
                                 triggerButton={(onClick: () => void) => <button
                                     className='finish-edit'
-                                    onClick={onClick}
+                                    onClick={() => {
+                                        const validateQuiz = checkValidateQuiz();
+                                        if (!validateQuiz) return;
+                                        onClick()
+                                    }}
                                 >סיום</button>}
                             />
-                        </div>}
+
+                        </div> :
+                        error && <Alert severity="warning" className="warning">{error}</Alert>
+                    }
+
                 </div>
-                <div>
-                    {isBigScreen && <img src="/svg/plus.svg" alt="add question" onClick={addQuestion} className='add-answer-photo' />}
-                </div>
+                <IconButton className='add-answer-photo'>
+                    {isBigScreen &&
+                        <img src="/svg/plus.svg"
+                            alt="add question"
+                            onClick={addQuestion}
+                        />}
+                </IconButton>
             </div>
         </div>
     );
-}
+};

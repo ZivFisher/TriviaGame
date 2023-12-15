@@ -9,6 +9,7 @@
         border-bottom: 1px solid $black;
         width: 32.23vw;
         height: 4.07vh;
+        font-size: 0.9rem;
 
         &:hover {
             background-color: $opacity-black;
@@ -18,6 +19,7 @@
     .answer-input-option {
         display: flex;
         align-items: center;
+        gap: 2vw;
     }
 
     img {
@@ -26,24 +28,22 @@
 
 
     .image-photo {
-        width: 22px;
-        margin-left: 1.3vw;
-        margin-right: 2vw;
-    }
-
-    .bin-answer-photo-opacity {
-        width: 20px;
-        opacity: 0.125;
+        width: 24px;
     }
 
     .bin-answer-photo {
-        width: 20px;
-        opacity: 0.8;
+        width: 22px;
+        height: 24px;
+
+        &:not(.disabled) {
+            opacity: 0.8;
+        }
     }
 
 
     .answer-option-div {
-        display: inline-block;
+        display: flex;
+        gap: 2vw;
         margin-bottom: -20px;
     }
 
@@ -55,17 +55,25 @@
     .mobile-answer-div {
         display: flex;
         border: 1px solid $opacity-black;
-        width: fit-content;
         border-radius: 5px;
-        height: 5vh;
         background-color: $input-background-color;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .mobile-answer-content {
+            display: flex;
+            height: 5vh;
+        }
     }
 
     .mobile-answer-input {
         border: none;
         outline: none;
-        width: 60vw;
+        width: 57vw;
         background-color: $input-background-color;
+        margin-right: 2vw;
+        font-size: 1.6rem;
     }
 
     .mobile-image-photo {
@@ -78,7 +86,7 @@
     .mobile-bin-answer-photo-opacity {
         width: 20px;
         margin-right: 5vw;
-        opacity: 0.2;
+        opacity: 0.3;
     }
 
     .mobile-bin-answer-photo {
@@ -86,4 +94,14 @@
         margin-right: 5vw;
         opacity: 0.9;
     }
+}
+
+@media only screen and (max-width: 600px) {
+    .MuiButtonBase-root {
+        .MuiSvgIcon-root {
+            font-size: 2.2rem;
+        }
+    }
+
+
 }

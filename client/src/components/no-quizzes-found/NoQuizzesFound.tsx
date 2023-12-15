@@ -16,7 +16,7 @@ export const NoQuizzesFound: React.FC = () => {
                 className="no-quizzes-question">
                 יכול להיות שעדיין לא יצרת אף חידון?</h1>
             <Link
-                to="'/create-quiz'"
+                to="/create-quiz"
                 className="no-quizzes-button">
                 אני רוצה ליצור עכשיו</Link>
         </div>

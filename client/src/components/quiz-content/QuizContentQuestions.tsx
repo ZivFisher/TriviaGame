@@ -1,5 +1,4 @@
-import { useMediaQuery } from "@mui/material";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useQuizDetails } from "../../contexts/quizDetailsContext";
 import { Answer } from "../../interfaces/quizDetailInterface";
@@ -21,11 +20,22 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
     } = useQuizDetails();
 
     const isBigScreen = useMediaQuery('(min-width:600px)');
-    // Function to update list on drop
+
     const handleDrop = (droppedItem: any) => {
         // Ignore drop outside droppable container
         if (!droppedItem.destination) return;
+
         setQuestions(prev => {
+            prev.forEach((question) => {
+                if (question.title === '') {
+                    question.title = 'שאלה ללא כותרת';
+                }
+                question.answers.forEach(answer => {
+                    if (answer.content === '') {
+                        answer.content = 'תשובה ללא תוכן';
+                    }
+                });
+            });
             let updatedList = [...prev];
             // Remove dragged item
             const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
@@ -47,8 +57,8 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
                     >
                         {questions.map((question, index) => {
                             return <Draggable
-                                key={question.id}
-                                draggableId={`${question.id}`}
+                                key={question.id || question.tempId}
+                                draggableId={`${question.id || question.tempId}`}
                                 index={index}
                             >
                                 {(provided) => (
@@ -62,11 +72,12 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
                                             ? <SavedQuestion
                                                 question={question}
                                                 questionIndex={index}
+                                                key={question.id || question.tempId}
                                             />
                                             : <QuestionDetails
                                                 index={index}
                                                 copyQuestion={copyQuestion}
-                                                questionId={question.id}
+                                                questionId={(question.id || question.tempId)!}
                                                 onChangeQuestionTitle={onChangeQuestionTitle}
                                                 deleteQuestion={deleteQuestion}
                                                 questionTitle={question.title}
@@ -75,7 +86,7 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
 
                                     </div>
                                 )}
-                            </Draggable>
+                            </Draggable>;
                         })}
                         {provided.placeholder}
                     </div>
@@ -83,4 +94,4 @@ export const QuizContentQuestions: React.FC<QuestionContentQuestionsProps> = ({ 
             </Droppable>
         </DragDropContext>
     );
-}
+};

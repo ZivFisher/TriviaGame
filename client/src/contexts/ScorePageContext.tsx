@@ -1,7 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Scores } from "../pages/score-page-interfaces/ScoresInterface";
 import axios from "axios";
+import { Scores } from "../pages/score-page-interfaces/ScoresInterface";
 
 
 interface ScoreBoardContextType {
@@ -26,14 +26,13 @@ export const useScoreBoardContext = () => {
 export const ScoreBoardProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
 
     const [scores, setScores] = useState<Scores[] | null>();
-    const [isLoadingScores, setIsLoadingScores] = useState<boolean>(false);
+    const [isLoadingScores, setIsLoadingScores] = useState<boolean>(true);
     const [searchParams] = useSearchParams();
     const quizId = searchParams.get('id');
     const title = searchParams.get('title');
     const [quizTitle, setQuizTitle] = useState<string | null>(title || null);
 
     const getScores = async () => {
-        setIsLoadingScores(true);
         try {
             const { data } = await axios
                 .get<Scores[] | null>(`http://localhost:8080/api/quiz/${quizId}/scores`);

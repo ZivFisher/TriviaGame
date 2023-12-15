@@ -1,10 +1,19 @@
 @import '../../Variables.scss';
 
+
+.quiz-results-big-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
 .quiz-results-container {
     position: relative;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+
 
     .confetti-animation {
         position: absolute;
@@ -14,78 +23,129 @@
         width: 110vw;
         height: 180vh;
     }
+
 }
 
-.quiz-results-dialog {
+.copy-link-popup,
+.delete-popup {
     .MuiDialog-paper {
-        position: relative;
-        padding: 5vh 10vw;
+        justify-content: center;
+
+        .dialog-box {
+            padding: unset !important;
+            height: unset !important;
+            border-radius: 0;
+        }
+    }
+
+    .dialog-title {
+        font-size: 4rem !important;
+    }
+}
+
+.copy-link-popup,
+.delete-popup,
+.quiz-results-dialog {
+    .dialog-title.MuiDialogTitle-root {
+        font-family: $Rubik-extra-bold-800;
+           margin-bottom: 3vh;
+        font-size: 4.25rem;
+    }
+
+    .MuiDialog-paper {
+        width: 86vw;
+        height: 30vh;
+        padding: 4vh 2vw 4vh 2vw;
         margin: 0;
         display: flex;
         align-items: center;
-        overflow: visible;
-
-
-        .dancing-monkey {
-            position: absolute;
-            z-index: 3;
-            width: 100px;
-            top: -10vh;
-        }
     }
+}
 
-    .MuiDialogTitle-root {
-        font-family: $Rubik-extra-bold-800;
-        font-size: 2.5rem;
-        padding-bottom: 1vh;
-    }
+.quiz-results-dialog {
 
-    .MuiDialogContent-root {
+    .dialog-content.MuiDialogContent-root {
         font-family: $Rubik-bold-700;
-        font-size: 2rem;
+        font-size: 3.2rem;
         text-align: center;
-        padding-bottom: 5vh;
+        padding: 0;
     }
 
-    .MuiDialogActions-root {
-        display: flex;
-        justify-content: center;
-        gap: 1vw;
+    .MuiDialog-paper {
+        position: relative;
+        overflow: visible;
+        border: 3px solid $light-gray;
+        border-radius: 10px;
+    }
 
-        .home-btn.MuiButton-root,
-        .share-btn.MuiButton-root {
-            background-color: $main-color;
-            margin-left: 0;
-            font-size: 1rem;
-            font-family: $Rubik-extra-bold-800;
-            width: fit-content;
-            padding: 0.8vh 1.4vw;
-            border-radius: 6px;
+    .dancing-monkey {
+        position: absolute;
+        z-index: 3;
+        width: 29vw;
+        top: -8vh;
+    }
 
-            .share-logo {
-                width: 1rem;
-                padding-left: 1vw;
-            }
-        }
 
-        .home-btn.MuiButton-root {
-            background-color: $browner-red;
+}
+
+
+
+.dialog-content.MuiDialogContent-root {
+    font-family: $Rubik-bold-700;
+    font-size: 3.2rem;
+    text-align: center;
+    padding-bottom: 5vh;
+}
+
+.MuiDialogActions-root {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+
+    .home-btn.MuiButton-root,
+    .share-btn.MuiButton-root,
+    .play-btn.MuiButton-root {
+        background-color: $main-color;
+        margin-left: 0;
+        font-size: 2.1rem;
+        font-family: $Rubik-extra-bold-800;
+        width: fit-content;
+        padding: 1vh 3.4vw;
+        border-radius: 10px;
+        color: $white;
+
+        .logo {
+            width: 1.6rem;
+            padding-left: 1vw;
         }
     }
+
+    .home-btn.MuiButton-root {
+        background-color: $browner-red;
+    }
+
+}
+
+.share-quiz-results-title {
+    font-family: $Rubik-bold-700;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
+
 }
 
 
 @media screen and (min-width: 601px) {
+
+
     .quiz-results-container {
         @include main-content;
         position: relative;
-        top: 8vh;
         height: 68vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         color: $dark-color;
-
 
         .MuiLinearProgress-root {
             position: absolute;
@@ -115,6 +175,15 @@
             align-items: center;
             background-color: $white;
 
+            .share-quiz-results-title {
+                margin-bottom: 9vh;
+                font-family: $Rubik-bold-700;
+                font-size: 2.5rem;
+                text-align: center;
+                padding-bottom: 5vh;
+
+            }
+
             .dancing-monkey-img {
                 width: 8vw;
                 margin-bottom: 3vh;
@@ -122,22 +191,26 @@
 
             h1 {
                 font-family: $Rubik-semi-bold-600;
-                font-size: 2rem;
+                font-size: 1.7rem;
             }
 
             .share-description-par {
-                font-family: Rubik-light-300;
+                font-family: $Rubik-light-300;
+                font-size: 1.5rem;
                 margin-bottom: 5vh;
             }
 
+            .play-btn.MuiButton-root,
             .share-btn.MuiButton-root {
                 font-weight: bold;
                 background-color: $main-color;
                 padding: 1vh 2vw;
+                color: $white;
 
-                .share-logo {
+                .logo {
                     width: 1rem;
-                    padding-left: 0.8vw;
+                    padding-right: 0.8vw;
+                    margin-left: 1vw;
                 }
             }
         }

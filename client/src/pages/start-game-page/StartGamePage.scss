@@ -1,22 +1,28 @@
 @import '../../Variables.scss';
 
+.align-loading {
+    margin: 6vh auto;
+}
 
 
 .start-game-container {
     @include main-content();
-    margin-top: 7vh;
+    margin-top: 6vh;
     text-align: center;
     position: relative;
     margin-right: 15vw;
+
+
 
     .header-logo {
         width: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-bottom: 10px;
-        margin-bottom: 8vh;
-        border-bottom: 3px solid rgb(249, 246, 246); //unique color
+        padding-bottom: 3vh;
+        margin-bottom: 3vh;
+        box-shadow: 0 6px 6px rgb(249 246 246);
+        gap: 1.5vw;
 
 
         img {
@@ -61,6 +67,7 @@
     }
 }
 
+
 @media only screen and (max-width: 600px) {
 
     .start-game-page-div {
@@ -70,9 +77,9 @@
 
         .banana-leaf-left {
             position: absolute;
-            width: 42vw;
-            bottom: -6vh;
-            left: -14vw;
+            width: 54vw;
+            bottom: -7vh;
+            left: -17vw;
             z-index: 100;
         }
     }
@@ -83,21 +90,42 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 2vh;
+        margin-top: 4vh;
         position: relative;
         width: 100vw;
+        margin-right: 0;
+
+        .header-logo .header-title {
+            font-family: $Rubik-bold ;
+            font-size: 2rem;
+        }
 
 
         .start-game-btn {
             position: static;
-            width: 80vw;
+            width: 85vw;
             margin-top: 6vh;
             z-index: 1;
-            height: 8vh;
+            height: 10vh;
+            font-size: 2.8rem;
+            gap: 5vw;
+        }
+
+        .big-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: $dark-color;
+        }
+
+        .quiz-description {
+            font-family: $Rubik-light-300;
+            font-size: 2rem;
+            font-weight: 100;
+            color: $dark-color;
         }
 
         .quiz-image {
-            width: 90vw;
+            width: 85vw;
             height: 20vh;
             margin-top: 6vh;
         }
