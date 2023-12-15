@@ -12,10 +12,10 @@ import config from './config';
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV}`,
       isGlobal: true,
-      load: [config]
+      load: [config],
     }),
     TypeOrmModule.forRoot({
-      type: "mysql",
+      type: 'mysql',
       database: process.env.DB_NAME,
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
@@ -26,22 +26,22 @@ import config from './config';
       synchronize: process.env.TYPEORM_SYNC === 'on',
 
       entities: [
-        "dist/**/*.entity{.ts,.js}",
+        'dist/**/*.entity{.ts,.js}',
         'node_modules/@hilma/auth-nest/dist/access-logger/*.entity{.ts,.js}',
         'node_modules/@hilma/auth-nest/dist/role/*.entity{.ts,.js}',
         'node_modules/@hilma/auth-nest/dist/user/*.entity{.ts,.js}',
-        'node_modules/@hilma/auth-nest/dist/user-password/*.entity{.ts,.js}'
-      ]
+        'node_modules/@hilma/auth-nest/dist/user-password/*.entity{.ts,.js}',
+      ],
     }),
     AuthModule,
     QuizModule,
     ScoreModule,
     FilesHandlerModule.register({
       autoAllow: true,
-      folder: '../../files'
-    })
+      folder: '../../files',
+    }),
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

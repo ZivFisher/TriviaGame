@@ -1,4 +1,4 @@
-USE auth_demo_full;
+USE quiz_game;
 
 INSERT INTO role (name, description, roleKey)
 VALUES
