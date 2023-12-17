@@ -4,7 +4,7 @@
 
 # Quiz Game
 
-This project was made as a practice project. It allows the user to create quizes. Play other user's quizes and have lots of fun together.
+This project was made as an exercise in order to prepare the contributors for the use of agile methodologies in the organization. The application allows the user to create quizes. Play other user's quizes and have lots of fun together.
 
 
 
